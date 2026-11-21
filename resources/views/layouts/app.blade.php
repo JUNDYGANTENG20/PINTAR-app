@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
-    <link rel="stylesheet" href="{{ asset('css/pintar.css') }}?v=1">
+    <link rel="stylesheet" href="{{ asset('css/pintar.css') }}?v=2">
 </head>
 <body>
 @php($navAktif = $navAktif ?? '')
