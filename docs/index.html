@@ -1,0 +1,1560 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>PINTAR Mahasiswa</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* Layout: sky-blue glass hero → overlapping stat bar → content bands alternating light surface / navy band; single 1200px column, cards on a 12-col-ish grid. */
+:root{
+  --bg:#F5EFEB; --surface:#FFFFFF; --surface-2:#EEF3F7; --ink:#2F4156; --ink-2:#4F6B7A; --line:#DCE5EC;
+  --primary:#2F4156; --primary-hover:#23313F; --on-primary:#FFFFFF; --primary-soft:#C8D9E6; --primary-ink:#2F4156;
+  --teal:#4E7183; --chart:#2F79A8; --sky:#C8D9E6; --beige:#F5EFEB;
+  --navy:#2F4156; --on-navy:#F5EFEB; --on-navy-2:#C8D9E6;
+  --hero-a:#2F4156; --hero-b:#567C8D; --hero-c:#8FB0C4;
+  --glass:rgba(255,255,255,.80); --glass-line:rgba(255,255,255,.95); --glass-ink:#2F4156;
+  --ok:#2F6B4A; --ok-bg:#DDEFE4; --warn:#9A4A12; --warn-bg:#F8E6D6; --info:#3F6578; --info-bg:#DCE8F0; --muted:#5E6B78; --muted-bg:#E9EDF1;
+  --danger:#B3261E; --danger-bg:#F9E0DD;
+  --shadow:0 1px 2px rgba(47,65,86,.06), 0 8px 24px rgba(47,65,86,.08);
+  --shadow-lg:0 20px 50px rgba(47,65,86,.18);
+  --font-display:"Plus Jakarta Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body:"Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --r-sm:10px; --r-md:16px; --r-lg:22px;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#1B2633; --surface:#243345; --surface-2:#2C3E52; --ink:#F5EFEB; --ink-2:#B9CBD8; --line:#3A5066;
+  --primary:#C8D9E6; --primary-hover:#DDE8F0; --on-primary:#2F4156; --primary-soft:#3A5468; --primary-ink:#C8D9E6;
+  --teal:#7FA3B5; --chart:#4A90C2; --sky:#C8D9E6; --beige:#F5EFEB;
+  --navy:#141D27; --on-navy:#F5EFEB; --on-navy-2:#B9CBD8;
+  --hero-a:#1E2B3A; --hero-b:#2F4156; --hero-c:#567C8D;
+  --glass:rgba(36,51,69,.80); --glass-line:rgba(200,217,230,.22); --glass-ink:#F5EFEB;
+  --ok:#8FD3A8; --ok-bg:#1E3A2B; --warn:#F2B98A; --warn-bg:#43301F; --info:#C8D9E6; --info-bg:#2C4457; --muted:#A9B6C2; --muted-bg:#2E3D4E;
+  --danger:#FF9C93; --danger-bg:#4A2220;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --shadow-lg:0 20px 50px rgba(0,0,0,.45);
+  color-scheme:dark }}
+:root[data-theme="dark"]{
+  --bg:#1B2633; --surface:#243345; --surface-2:#2C3E52; --ink:#F5EFEB; --ink-2:#B9CBD8; --line:#3A5066;
+  --primary:#C8D9E6; --primary-hover:#DDE8F0; --on-primary:#2F4156; --primary-soft:#3A5468; --primary-ink:#C8D9E6;
+  --teal:#7FA3B5; --chart:#4A90C2; --sky:#C8D9E6; --beige:#F5EFEB;
+  --navy:#141D27; --on-navy:#F5EFEB; --on-navy-2:#B9CBD8;
+  --hero-a:#1E2B3A; --hero-b:#2F4156; --hero-c:#567C8D;
+  --glass:rgba(36,51,69,.80); --glass-line:rgba(200,217,230,.22); --glass-ink:#F5EFEB;
+  --ok:#8FD3A8; --ok-bg:#1E3A2B; --warn:#F2B98A; --warn-bg:#43301F; --info:#C8D9E6; --info-bg:#2C4457; --muted:#A9B6C2; --muted-bg:#2E3D4E;
+  --danger:#FF9C93; --danger-bg:#4A2220;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.25); --shadow-lg:0 20px 50px rgba(0,0,0,.45);
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+h1,h2,h3,h4{font-family:var(--font-display);line-height:1.15;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--primary-ink)}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1200px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.ico{width:1em;height:1em;flex:none;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.125em}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- Header ---------- */
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--surface) 86%,transparent);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.head-row{display:flex;align-items:center;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);margin-right:auto}
+.brand-mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#2F4156,#567C8D);color:#F5EFEB;font:800 20px/1 var(--font-display);box-shadow:0 6px 16px rgba(47,65,86,.35)}
+.brand-text b{display:block;font:800 19px/1 var(--font-display);letter-spacing:.06em}
+.brand-text small{display:block;font-size:11px;color:var(--ink-2);letter-spacing:.02em;margin-top:3px}
+.nav{display:flex;gap:4px}
+.nav a{padding:10px 14px;border-radius:999px;text-decoration:none;color:var(--ink-2);font:600 15px/1 var(--font-display);transition:background .2s,color .2s}
+.nav a:hover{background:var(--surface-2);color:var(--ink)}
+.nav a[aria-current="page"]{background:var(--primary-soft);color:var(--primary-ink)}
+.head-actions{display:flex;align-items:center;gap:8px}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;font-size:18px;transition:background .2s,border-color .2s,color .2s}
+.icon-btn:hover{background:var(--surface-2)}
+.icon-btn .badge{position:absolute;top:-3px;right:-3px;min-width:20px;height:20px;padding:0 5px;border-radius:999px;background:var(--danger);color:#fff;font:700 11px/20px var(--font-display);text-align:center}
+.menu-btn{display:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 20px;border-radius:999px;border:1px solid transparent;font:700 15px/1 var(--font-display);text-decoration:none;cursor:pointer;transition:background .2s,transform .2s,border-color .2s,color .2s;white-space:nowrap}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:var(--on-primary);box-shadow:0 8px 20px color-mix(in srgb,var(--primary) 35%,transparent)}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{background:var(--surface-2)}
+.btn-white{background:#fff;color:#2F4156}
+.btn-white:hover{background:#F5EFEB}
+.btn-glass{background:rgba(255,255,255,.14);color:#fff;border-color:rgba(255,255,255,.45);backdrop-filter:blur(8px)}
+.btn-glass:hover{background:rgba(255,255,255,.24)}
+.btn-danger{background:var(--danger);color:#fff}
+.btn-sm{min-height:36px;padding:0 14px;font-size:13px}
+@media (max-width:900px){
+  .menu-btn{display:grid}
+  .nav{position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-right,0px)) 16px max(16px,env(safe-area-inset-left,0px));box-shadow:var(--shadow)}
+  .nav:not(.open){display:none}
+  .nav a{padding:14px}
+  .login-label{display:none}
+}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;color:#fff;
+  background:
+    radial-gradient(55% 45% at 80% 12%,rgba(255,255,255,.45),transparent 62%),
+    radial-gradient(70% 55% at 0% 105%,rgba(200,217,230,.45),transparent 60%),
+    linear-gradient(180deg,var(--hero-a) 0%,var(--hero-b) 55%,var(--hero-c) 100%)}
+.hero .wrap{position:relative;z-index:2;padding-block:64px 128px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.75fr);gap:40px;align-items:center}
+.eyebrow-chip{display:inline-flex;align-items:center;gap:8px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.35);font:600 13px/1.2 var(--font-display);letter-spacing:.02em;backdrop-filter:blur(6px)}
+.hero h1{font-size:clamp(2.3rem,5.4vw,4rem);font-weight:800;margin:20px 0 18px;text-shadow:0 2px 24px rgba(20,29,39,.45)}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,#FFFFFF,#C8D9E6);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-lead{font-size:clamp(1rem,1.6vw,1.15rem);max-width:56ch;color:#F5EFEB}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-proof{display:flex;align-items:center;gap:12px;margin-top:28px;font-size:14px;color:#EDF2F6}
+.src-stack{display:flex}
+.src-stack span{width:32px;height:32px;border-radius:999px;display:grid;place-items:center;border:2px solid rgba(255,255,255,.9);margin-left:-8px;font-size:15px;color:#fff}
+.src-stack span:first-child{margin-left:0}
+.cloud{position:absolute;z-index:1;background:#fff;border-radius:999px;filter:blur(10px);opacity:.55;pointer-events:none;animation:drift 38s linear infinite alternate}
+.cloud::before,.cloud::after{content:"";position:absolute;background:#fff;border-radius:999px}
+.cloud.c1{width:300px;height:80px;top:70px;left:44%}
+.cloud.c1::before{width:140px;height:120px;left:40px;top:-60px}.cloud.c1::after{width:110px;height:90px;left:150px;top:-40px}
+.cloud.c2{width:220px;height:60px;top:300px;left:-60px;opacity:.35;animation-duration:50s}
+.cloud.c2::before{width:100px;height:90px;left:40px;top:-46px}
+.cloud.c3{width:360px;height:90px;bottom:40px;right:-80px;opacity:.4;animation-duration:44s}
+.cloud.c3::before{width:160px;height:130px;left:70px;top:-70px}.cloud.c3::after{width:120px;height:90px;left:190px;top:-40px}
+.has-img{background:var(--navy)}
+.has-img::before{content:"";position:absolute;inset:-24px;z-index:0;background:var(--hero-img) center 40%/cover no-repeat;filter:blur(7px) saturate(.9)}
+.has-img::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(47,65,86,.72) 0%,rgba(47,65,86,.48) 45%,rgba(47,65,86,.78) 100%)}
+.page-hero.has-img::after{background:linear-gradient(160deg,rgba(47,65,86,.86),rgba(86,124,141,.72))}
+.has-img .cloud{display:none}
+.page-hero{position:relative;overflow:hidden}
+.page-hero .wrap{position:relative;z-index:2}
+.hero.drag{outline:3px dashed rgba(255,255,255,.8);outline-offset:-12px}
+.hero-bg-ctl{position:absolute;z-index:3;top:16px;right:max(16px,env(safe-area-inset-right,0px));display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.hero-bg-ctl .btn{min-height:38px;padding:0 14px;font-size:13px}
+@media (max-width:560px){.hero .wrap{padding-top:72px}}
+@keyframes drift{from{transform:translateX(-30px)}to{transform:translateX(40px)}}
+
+.glass{background:var(--glass);border:1px solid var(--glass-line);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);color:var(--glass-ink);box-shadow:var(--shadow-lg)}
+.hero-card{border-radius:var(--r-lg);padding:22px;display:grid;gap:14px}
+.hc-label{display:flex;align-items:center;justify-content:space-between;font:700 12px/1 var(--font-display);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2)}
+.hc-title{font:800 22px/1.2 var(--font-display)}
+.hc-count{display:flex;align-items:baseline;gap:8px}
+.hc-count b{font:800 44px/1 var(--font-display);color:var(--danger)}
+.hc-count span{font-weight:600;color:var(--ink-2)}
+.hc-next{display:grid;gap:8px;border-top:1px solid var(--line);padding-top:12px}
+.hc-next a{display:flex;justify-content:space-between;gap:12px;text-decoration:none;color:var(--glass-ink);font-size:14px}
+.hc-next a span:first-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hc-next a b{color:var(--warn);white-space:nowrap;font-weight:700}
+.hc-actions{display:flex;gap:8px;flex-wrap:wrap}
+.hc-actions .btn{flex:1}
+
+.stats{position:relative;z-index:5;margin-top:-72px}
+.stats-bar{border-radius:var(--r-lg);display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:8px}
+.stat{display:flex;align-items:center;gap:14px;padding:16px 18px}
+.stat + .stat{border-left:1px solid var(--line)}
+.stat-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary-ink);font-size:22px;flex:none}
+.stat b{display:block;font:800 26px/1 var(--font-display)}
+.stat small{display:block;color:var(--ink-2);font-size:13px;margin-top:4px}
+.stats-note{text-align:right;font-size:12px;color:var(--ink-2);margin-top:8px}
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr}
+  .stats-bar{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .stat:nth-child(3){border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:440px){ .stat{padding:12px 10px;gap:10px} .stat-ico{width:38px;height:38px;font-size:18px} .stat b{font-size:22px} }
+
+/* ---------- Sections ---------- */
+.section{padding-block:72px}
+.section-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px}
+.section-head.center{flex-direction:column;align-items:center;text-align:center}
+.eyebrow{font:700 12px/1 var(--font-display);text-transform:uppercase;letter-spacing:.14em;color:var(--teal);margin-bottom:10px}
+.section-head h2{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800}
+.section-head p{color:var(--ink-2);max-width:60ch;margin-top:8px}
+.link-arrow{display:inline-flex;align-items:center;gap:6px;font:700 15px/1 var(--font-display);text-decoration:none;color:var(--primary-ink);padding:10px 0}
+.link-arrow:hover{text-decoration:underline}
+
+/* Category tiles */
+.cat-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.cat-tile{position:relative;overflow:hidden;border:0;text-align:left;cursor:pointer;border-radius:var(--r-lg);min-height:168px;padding:22px;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.cat-tile:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+.cat-tile::after{content:"";position:absolute;width:220px;height:220px;right:-60px;bottom:-90px;border-radius:999px;background:rgba(255,255,255,.16)}
+.cat-tile .big{position:absolute;right:18px;top:16px;font-size:64px;opacity:.28}
+.cat-tile .glass-ico{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.4);font-size:22px}
+.cat-tile .cat-name{font-family:var(--font-display);font-size:22px;font-weight:800;text-shadow:0 1px 10px rgba(0,0,0,.18)}
+.cat-tile .cat-meta{display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1;font-size:14px;font-weight:600}
+.cat-tile .pill-white{background:rgba(255,255,255,.92);color:#2F4156;border-radius:999px;padding:5px 12px;font:700 13px/1.2 var(--font-display)}
+@media (max-width:900px){.cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:440px){.cat-grid{gap:12px}.cat-tile{min-height:140px;padding:16px}.cat-tile .cat-name{font-size:18px}.cat-tile .big{font-size:48px}}
+
+/* Navy band */
+.band{background:
+  radial-gradient(50% 70% at 85% 0%,rgba(200,217,230,.14),transparent 60%),
+  radial-gradient(40% 60% at 0% 100%,rgba(86,124,141,.45),transparent 60%),var(--navy);color:var(--on-navy);padding-block:72px 0}
+.band .section-head p{color:var(--on-navy-2)}
+.band .eyebrow{color:#C8D9E6}
+.why-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.why{border-radius:var(--r-md);padding:20px;background:rgba(245,239,235,.07);border:1px solid rgba(200,217,230,.2);display:grid;gap:10px;align-content:start}
+.why .w-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(200,217,230,.16);color:#C8D9E6;font-size:22px}
+.why h3{font-size:17px}
+.why p{font-size:14px;color:var(--on-navy-2)}
+.fr-tag{justify-self:start;font:600 11px/1 var(--font-display);letter-spacing:.06em;color:#C8D9E6;border:1px solid rgba(200,217,230,.35);padding:4px 8px;border-radius:999px}
+@media (max-width:900px){.why-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.why-grid{grid-template-columns:1fr}}
+
+.planner-wrap{position:relative;z-index:3;margin-top:40px;transform:translateY(56px)}
+.planner{border-radius:var(--r-lg);padding:26px}
+.planner h3{font-size:clamp(1.3rem,2.4vw,1.75rem);text-align:center;margin-bottom:4px}
+.planner .sub{text-align:center;color:var(--ink-2);font-size:14px;margin-bottom:18px}
+.planner-row{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr) auto;gap:12px;align-items:end}
+.field{display:grid;gap:6px;min-width:0}
+.field > span,.field-label{font:700 13px/1.2 var(--font-display);color:var(--ink-2)}
+.input,.select,textarea.input{width:100%;min-height:48px;border-radius:14px;border:1px solid var(--line);background:var(--surface);padding:0 14px;color:var(--ink);transition:border-color .2s,box-shadow .2s}
+textarea.input{padding:12px 14px;min-height:96px;resize:vertical}
+.input:focus,.select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 20%,transparent)}
+.input-ico{position:relative}
+.input-ico .ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--ink-2)}
+.input-ico .input{padding-left:42px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip-toggle{min-height:38px;padding:0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:600 14px/1 var(--font-display);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background .2s,color .2s,border-color .2s}
+.chip-toggle:hover{border-color:var(--primary)}
+.chip-toggle[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.planner .chips-row{margin-top:14px;display:grid;gap:8px}
+@media (max-width:760px){.planner-row{grid-template-columns:1fr}.planner{padding:20px}}
+
+.after-band{padding-top:128px}
+
+/* Activity cards */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow);transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.card-link{position:absolute;inset:0;z-index:1;border-radius:inherit}
+.thumb.has-pic{background:linear-gradient(180deg,rgba(20,29,39,.5),rgba(20,29,39,0) 45%,rgba(20,29,39,.45)),var(--pic) center top/cover no-repeat}
+.thumb.has-pic::before,.thumb.has-pic::after{display:none}
+.poster{padding:12px}
+.poster img{display:block;width:100%;max-height:560px;object-fit:contain;border-radius:12px;background:var(--surface-2)}
+.pic-picker{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:center}
+.pic-prev{width:140px;height:110px;border-radius:12px;border:1.5px dashed var(--line);background:var(--surface-2);display:grid;place-items:center;overflow:hidden;color:var(--ink-2);font-size:12px;text-align:center;padding:6px}
+.pic-prev img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.pic-picker small{color:var(--ink-2);font-size:12px}
+.t-thumb{width:44px;height:44px;border-radius:8px;object-fit:cover;flex:none;background:var(--surface-2)}
+.t-cell{display:flex;gap:10px;align-items:center}
+.thumb{position:relative;height:140px;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;overflow:hidden}
+.thumb::before{content:"";position:absolute;width:180px;height:180px;border-radius:999px;right:-50px;top:-70px;background:rgba(255,255,255,.18)}
+.thumb::after{content:"";position:absolute;width:120px;height:120px;border-radius:999px;left:-40px;bottom:-70px;background:rgba(255,255,255,.12)}
+.thumb .t-ico{position:absolute;right:16px;bottom:12px;font-size:58px;opacity:.9;filter:drop-shadow(0 6px 14px rgba(0,0,0,.18))}
+.thumb .t-tags{position:absolute;left:14px;top:14px;right:14px;display:flex;flex-wrap:wrap;gap:6px;z-index:1}
+.tag-w{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.94);color:#2F4156;border-radius:999px;padding:5px 10px;font:700 12px/1.1 var(--font-display)}
+.tag-w.ver{color:#2F6B4A}
+[hidden]{display:none!important}
+.t-badges{position:absolute;left:14px;bottom:14px;z-index:1;display:flex;gap:6px;flex-wrap:wrap}
+.deadline-badge{background:#B3261E;color:#fff;border-radius:8px;padding:5px 9px;font:800 12px/1 var(--font-display);box-shadow:0 4px 12px rgba(179,38,30,.3)}
+.card-body{padding:16px 18px 8px;display:grid;gap:8px;flex:1;align-content:start}
+.card-body h3{font-size:17px;font-weight:700;line-height:1.3}
+.org{display:flex;align-items:center;gap:6px;font-size:14px;color:var(--ink-2);min-width:0}
+.org span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.meta{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:13.5px;color:var(--ink-2)}
+.meta > span{display:inline-flex;align-items:center;gap:6px}
+.f-group.promo-fs{border:1px solid var(--line);border-radius:var(--r-md);padding:14px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 12px 12px 18px;border-top:1px solid var(--line);margin-top:8px}
+.card-foot .remain{font:700 14px/1.2 var(--font-display)}
+.card-foot .icon-btn{position:relative;z-index:2;width:40px;height:40px;font-size:16px}
+.icon-btn[aria-pressed="true"]{background:var(--primary);border-color:var(--primary);color:var(--on-primary)}
+.remain.ending{color:var(--danger)} .remain.open{color:var(--ok)} .remain.soon{color:var(--info)} .remain.closed{color:var(--muted)}
+
+.pill{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font:700 12px/1.2 var(--font-display);white-space:nowrap}
+.pill::before{content:"";width:7px;height:7px;border-radius:999px;background:currentColor}
+.pill.open{background:var(--ok-bg);color:var(--ok)}
+.pill.ending{background:var(--warn-bg);color:var(--warn)}
+.pill.soon{background:var(--info-bg);color:var(--info)}
+.pill.closed{background:var(--muted-bg);color:var(--muted)}
+.vbadge{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 10px;font:700 12px/1.2 var(--font-display);background:var(--ok-bg);color:var(--ok)}
+.vbadge.no{background:var(--muted-bg);color:var(--muted)}
+
+/* Scholarship section */
+.sch-layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;align-items:start}
+.sch-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.sch{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:20px;display:flex;flex-direction:column;gap:12px;box-shadow:var(--shadow)}
+.sch.featured{border:2px solid var(--primary);background:linear-gradient(180deg,var(--primary-soft),var(--surface) 55%)}
+.sch .flag{align-self:flex-start;background:var(--surface);color:var(--primary-ink);border:1px solid var(--line);border-radius:999px;padding:4px 9px;font:800 10.5px/1 var(--font-display);letter-spacing:.06em;text-transform:uppercase}
+.sch-head{display:flex;align-items:center;gap:10px}
+.sch-head .s-ico{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary-ink);font-size:18px;flex:none}
+.sch h3{font-size:16px;line-height:1.3}
+.sch .benefit{font:800 15px/1.35 var(--font-display);color:var(--primary-ink)}
+.ticks{list-style:none;margin:0;padding:0;display:grid;gap:7px;font-size:14px;color:var(--ink-2)}
+.ticks li{display:flex;gap:8px;align-items:flex-start}
+.ticks li .ico{color:var(--ok);margin-top:3px}
+.sch .period{font-size:13px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.sch .actions{margin-top:auto;display:grid;gap:8px}
+.faq{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:8px 18px;box-shadow:var(--shadow)}
+.faq h3{font:800 12px/1 var(--font-display);text-transform:uppercase;letter-spacing:.12em;color:var(--primary-ink);padding:14px 0 6px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:first-of-type{border-top:0}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 0;font:700 15px/1.35 var(--font-display)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .ico{transition:transform .2s;color:var(--primary-ink)}
+.faq details[open] summary .ico{transform:rotate(180deg)}
+.faq details p{padding-bottom:14px;font-size:14px;color:var(--ink-2)}
+@media (max-width:1040px){.sch-layout{grid-template-columns:1fr}}
+
+
+/* CTA banner */
+.cta-banner{position:relative;overflow:hidden;border-radius:28px;padding:44px clamp(20px,5vw,56px);color:#fff;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;
+  background:radial-gradient(60% 120% at 100% 0%,rgba(245,239,235,.35),transparent 55%),radial-gradient(50% 90% at 0% 100%,rgba(200,217,230,.35),transparent 60%),linear-gradient(120deg,#2F4156,#567C8D)}
+.cta-banner h2{font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;max-width:22ch}
+.cta-banner p{color:#EDF2F6;margin-top:8px;max-width:48ch}
+.cta-banner .hero-cta{margin-top:0}
+
+/* Footer */
+.site-foot{background:var(--navy);color:var(--on-navy-2);padding-block:48px 32px;margin-top:72px}
+.foot-grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(2,minmax(0,1fr));gap:32px}
+.site-foot .brand{color:var(--on-navy);display:inline-flex;align-items:center;gap:12px;padding:0;margin:0}
+.site-foot .brand-text small{white-space:normal}
+.site-foot .brand-text small{color:var(--on-navy-2)}
+.site-foot h4{color:var(--on-navy);font-size:14px;margin-bottom:12px;letter-spacing:.04em}
+.site-foot ul{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.site-foot a{color:var(--on-navy-2);text-decoration:none;display:inline-block;padding:6px 0}
+.site-foot a:hover{color:var(--on-navy)}
+.foot-note{border-top:1px solid rgba(255,255,255,.12);margin-top:32px;padding-top:20px;font-size:13px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}.foot-grid > :first-child{grid-column:1/-1}}
+
+/* Page header (inner pages) */
+.page-hero{color:#fff;background:radial-gradient(50% 80% at 85% 0%,rgba(255,255,255,.3),transparent 60%),linear-gradient(160deg,var(--hero-a),var(--hero-b) 60%,var(--hero-c))}
+.page-hero .wrap{padding-block:44px 48px}
+.page-hero h1{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-top:10px}
+.page-hero p{color:#EDF2F6;margin-top:10px;max-width:62ch}
+.back-btn{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:0 14px 0 10px;margin-bottom:14px;border-radius:999px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.14);color:#fff;font:700 13px/1 var(--font-display);cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:background .2s}
+.back-btn:hover{background:rgba(255,255,255,.26)}
+.ur-block{border:1px solid var(--line);border-radius:var(--r-md);padding:16px;display:grid;gap:10px}
+.ur-block + .ur-block{margin-top:14px}
+.ur-block h3{font-size:15px}
+.ur-block blockquote{margin:0;padding:10px 14px;border-left:3px solid var(--teal);background:var(--surface-2);border-radius:0 10px 10px 0;font-size:14px;color:var(--ink-2)}
+.ur-block blockquote b{color:var(--ink)}
+.crumbs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:14px;color:#DCE6EE}
+.crumbs a{color:#fff;text-decoration:none;font-weight:600}
+.crumbs a:hover{text-decoration:underline}
+.page-search{margin-top:22px;max-width:640px}
+.page-search .input{min-height:54px;border-color:transparent;box-shadow:var(--shadow-lg)}
+
+/* Explore layout */
+.explore{display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start;padding-block:32px}
+.filters{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:18px;display:grid;gap:18px;box-shadow:var(--shadow)}
+.filters h2{font-size:17px;display:flex;justify-content:space-between;align-items:center}
+.f-group{display:grid;gap:8px;border:0;margin:0;padding:0;min-width:0}
+.f-group legend{font:700 13px/1.2 var(--font-display);color:var(--ink-2);margin-bottom:8px;padding:0}
+.check{display:flex;align-items:center;gap:10px;min-height:36px;cursor:pointer;font-size:15px}
+.check input{width:18px;height:18px;accent-color:var(--primary);flex:none}
+.check .cnt{margin-left:auto;font-size:12px;color:var(--ink-2)}
+.toolbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.toolbar .count{font:700 15px/1.3 var(--font-display)}
+.toolbar .count span{color:var(--ink-2);font-weight:500}
+.toolbar .select{width:auto;min-height:42px}
+.active-filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.active-filters button{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--primary-soft);color:var(--primary-ink);font:600 13px/1 var(--font-display);cursor:pointer}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r-lg);padding:40px 24px;text-align:center;display:grid;gap:10px;justify-items:center}
+.empty .ico{font-size:36px;color:var(--primary-ink)}
+.filters-toggle{display:none}
+@media (max-width:900px){
+  .explore{grid-template-columns:1fr}
+  .filters{position:static}
+  .filters:not(.open) .f-body{display:none}
+  .filters-toggle{display:inline-flex}
+}
+.f-body{display:grid;gap:18px}
+
+/* Detail */
+.detail-hero{color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));position:relative;overflow:hidden}
+.detail-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,29,39,.45),rgba(20,29,39,.05))}
+.detail-hero .wrap{position:relative;z-index:1;padding-block:36px 44px}
+.detail-hero .big{position:absolute;right:6%;bottom:-20px;font-size:200px;opacity:.18;z-index:0}
+.detail-hero h1{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;margin:14px 0 14px;max-width:24ch}
+.detail-tags{display:flex;flex-wrap:wrap;gap:8px}
+.detail-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:24px;padding-block:32px;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow)}
+.panel + .panel{margin-top:18px}
+.side .panel + .panel{margin-top:0}
+.panel h2{font-size:19px;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.panel h2 .ico{color:var(--primary-ink)}
+.panel p{color:var(--ink-2);max-width:68ch}
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:12px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start;color:var(--ink-2)}
+.steps li::before{counter-increment:s;content:counter(s);width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:var(--primary-soft);color:var(--primary-ink);font:800 14px/1 var(--font-display)}
+.steps li b{color:var(--ink);display:block}
+.side{position:sticky;top:calc(84px + env(safe-area-inset-top,0px));display:grid;gap:18px}
+.kv{display:grid;gap:14px}
+.kv > div{display:grid;grid-template-columns:36px 1fr;gap:10px;align-items:start}
+.kv .k-ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--surface-2);color:var(--primary-ink)}
+.kv small{display:block;font:700 12px/1.2 var(--font-display);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
+.kv b{display:block;font-weight:600;margin-top:3px;overflow-wrap:anywhere}
+.countdown{border-radius:var(--r-md);padding:16px;background:var(--surface-2);display:grid;gap:10px}
+.countdown .row{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.countdown .big-num{font:800 34px/1 var(--font-display)}
+.progress{height:8px;border-radius:999px;background:var(--line);overflow:hidden}
+.progress span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,#567C8D,#2F4156)}
+.progress.ending span{background:linear-gradient(90deg,#D08A4E,#B3261E)}
+.verify-box{border-radius:var(--r-md);padding:14px;display:grid;grid-template-columns:28px 1fr;gap:10px;font-size:14px}
+.verify-box.yes{background:var(--ok-bg);color:var(--ok)}
+.verify-box.no{background:var(--warn-bg);color:var(--warn)}
+.verify-box .ico{font-size:22px}
+.verify-box b{display:block;font-family:var(--font-display)}
+.verify-box span{color:var(--ink-2)}
+.copy-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.copy-row code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13.5px;background:var(--surface-2);padding:4px 8px;border-radius:8px;overflow-wrap:anywhere;user-select:all}
+.mini-btn{min-height:32px;padding:0 10px;border-radius:999px;border:1px solid var(--line);background:var(--surface);color:var(--ink-2);font:600 12px/1 var(--font-display);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.mini-btn:hover{color:var(--ink);background:var(--surface-2)}
+.stack{display:grid;gap:10px}
+@media (max-width:960px){.detail-grid{grid-template-columns:1fr}.side{position:static}}
+
+/* Scholarship page list */
+.sch-list{display:grid;gap:16px;padding-block:32px}
+.sch-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1.3fr) minmax(0,1fr);gap:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow)}
+.sch-row h3{font-size:19px;margin:8px 0 6px}
+.sch-row .lbl{font:700 12px/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.08em;color:var(--ink-2);margin-bottom:8px}
+@media (max-width:900px){.sch-row{grid-template-columns:1fr}}
+
+/* About */
+.about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.prose p{color:var(--ink-2);max-width:68ch}
+.prose p + p{margin-top:12px}
+.list{margin:0;padding-left:20px;color:var(--ink-2);display:grid;gap:6px}
+.table-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font:700 12px/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);background:var(--surface-2);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.id{font:800 13px/1.3 var(--font-display);color:var(--primary-ink);white-space:nowrap}
+@media (max-width:760px){.about-grid{grid-template-columns:1fr}}
+
+/* Admin */
+.admin-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-block:28px 20px}
+.astat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px}
+.astat b{display:block;font:800 28px/1 var(--font-display)}
+.astat small{color:var(--ink-2)}
+@media (max-width:760px){.admin-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.admin-table td .t-name{font-weight:600;color:var(--ink);display:block;min-width:200px}
+.admin-table td small{color:var(--ink-2)}
+.row-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.row-actions .icon-btn{width:38px;height:38px;font-size:15px}
+.icon-btn.danger:hover{background:var(--danger-bg);color:var(--danger);border-color:var(--danger)}
+.notice{display:flex;gap:12px;align-items:flex-start;padding:14px 16px;border-radius:var(--r-md);background:var(--info-bg);color:var(--info);font-size:14px}
+.notice .ico{font-size:20px;margin-top:1px}
+.notice span{color:var(--ink)}
+
+/* Dialogs */
+dialog{border:0;padding:0;border-radius:var(--r-lg);background:var(--surface);color:var(--ink);box-shadow:var(--shadow-lg);width:min(640px,calc(100vw - 32px));max-height:calc(100dvh - 32px)}
+dialog::backdrop{background:rgba(20,29,39,.55);backdrop-filter:blur(3px)}
+.dlg-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:1}
+.dlg-head h2{font-size:19px}
+.dlg-body{padding:20px;display:grid;gap:16px}
+.dlg-foot{display:flex;justify-content:flex-end;gap:10px;padding:16px 20px;border-top:1px solid var(--line);position:sticky;bottom:0;background:var(--surface)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid .full{grid-column:1/-1}
+.err{color:var(--danger);font-size:13px;font-weight:600}
+.field.invalid .input,.field.invalid .select{border-color:var(--danger)}
+@media (max-width:560px){.form-grid{grid-template-columns:1fr}}
+dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,100vw);border-radius:var(--r-lg) 0 0 var(--r-lg)}
+.rem-item{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:var(--r-md)}
+.rem-item .r-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,var(--g1),var(--g2));font-size:20px}
+.rem-item a{font:700 15px/1.3 var(--font-display);color:var(--ink);text-decoration:none}
+.rem-item a:hover{text-decoration:underline}
+.rem-item small{display:block;margin-top:3px}
+
+/* Dashboard */
+.dash-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-block:28px 18px}
+.dash-filters .field{min-width:180px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;min-width:0}
+.kpi small{display:block;font:700 12px/1.3 var(--font-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.kpi b{display:block;font:800 26px/1.15 var(--font-display);margin-top:8px;overflow-wrap:anywhere}
+.kpi span{display:block;font-size:13px;color:var(--ink-2);margin-top:4px}
+.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:18px;align-items:start}
+.chart{min-width:0}
+.chart h2{font-size:17px;margin:0}
+.chart .sub{font-size:13px;color:var(--ink-2);margin:4px 0 14px}
+.hbar{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.hbar li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:12px;align-items:center;border-radius:8px;padding:5px 6px;outline-offset:0}
+.hbar li:hover,.hbar li:focus-visible{background:var(--surface-2)}
+.hbar .lbl{font-size:13px;line-height:1.3;color:var(--ink)}
+.hbar .track{display:flex;align-items:center;gap:8px;min-width:0;border-left:1px solid var(--line);min-height:26px}
+.hbar .bar{height:18px;background:var(--chart);border-radius:0 4px 4px 0;flex:none}
+.hbar .val{font:700 12.5px/1 var(--font-display);color:var(--ink);white-space:nowrap}
+.hbar .val.zero{color:var(--ink-2);font-weight:500}
+.dash-tip{position:fixed;z-index:90;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:10px 12px;font-size:13px;min-width:200px;max-width:280px}
+.dash-tip b{display:block;font-family:var(--font-display);margin-bottom:6px}
+.dash-tip div{display:flex;justify-content:space-between;gap:12px;color:var(--ink-2)}
+.dash-tip div span:last-child{color:var(--ink);font-weight:600}
+.dash-table td.n,.dash-table th.n{text-align:right;white-space:nowrap}
+.dash-table tfoot td{font-weight:800;background:var(--surface-2);font-family:var(--font-display)}
+@media (max-width:960px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:1fr}}
+@media (max-width:440px){.hbar li{grid-template-columns:minmax(0,110px) minmax(0,1fr)}.kpi b{font-size:22px}}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font:600 14px/1.3 var(--font-display);box-shadow:var(--shadow-lg);transition:opacity .2s,transform .2s;z-index:100;max-width:calc(100vw - 32px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="brand" href="#beranda" aria-label="PINTAR, ke beranda">
+      <span class="brand-mark" aria-hidden="true">P</span>
+      <span class="brand-text"><b>PINTAR</b><small>Pusat Informasi &amp; Aktivitas Mahasiswa</small></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Navigasi utama">
+      <a href="#beranda" data-nav="beranda">Beranda</a>
+      <a href="#jelajahi" data-nav="jelajahi">Jelajahi Kegiatan</a>
+      <a href="#beasiswa" data-nav="beasiswa">Beasiswa</a>
+      <a href="#tentang" data-nav="tentang">Tentang</a>
+      <a href="#kelola" data-nav="kelola" id="nav-kelola" hidden>Kelola</a>
+      <a href="#dashboard" data-nav="dashboard" id="nav-dash" hidden>Dashboard</a>
+    </nav>
+    <div class="head-actions">
+      <button class="icon-btn" id="bell-btn" type="button" aria-label="Pengingat deadline"><svg class="ico" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="badge num" id="bell-count" hidden>0</span></button>
+      <button class="btn btn-primary" id="login-btn" type="button"><svg class="ico" viewBox="0 0 24 24"><use href="#i-user"/></svg><span class="login-label" id="login-label">Masuk</span></button>
+      <button class="icon-btn menu-btn" id="menu-btn" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="nav"><svg class="ico" viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="app" tabindex="-1"></main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="stack">
+        <a class="brand" href="#beranda"><span class="brand-mark" aria-hidden="true">P</span><span class="brand-text"><b>PINTAR</b><small>Pusat Informasi dan Aktivitas Relevan Mahasiswa</small></span></a>
+        <p style="max-width:44ch">Satu tempat untuk info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer. Setiap informasi menautkan ke sumber resminya.</p>
+      </div>
+      <div><h4>Jelajahi</h4><ul><li><a href="#jelajahi">Semua kegiatan</a></li><li><a href="#beasiswa">Beasiswa</a></li><li><a href="#jelajahi" data-go-cat="Lomba">Lomba</a></li><li><a href="#jelajahi" data-go-cat="Kepanitiaan">Kepanitiaan</a></li></ul></div>
+      <div><h4>Informasi</h4><ul><li><a href="#tentang">Tentang PINTAR</a></li><li><a href="#tentang-fr" data-scroll="fr">Kebutuhan fungsional</a></li><li><a href="#kelola">Halaman pengelola</a></li></ul></div>
+    </div>
+    <div class="foot-note"><span>Sistem Informasi PINTAR · Kelompok 5 · APSI 3B-SI</span><span>Mockup: nama kegiatan, tanggal, dan angka adalah data ilustrasi.</span></div>
+  </div>
+</footer>
+
+<dialog id="login-dlg" aria-labelledby="login-title"></dialog>
+<dialog id="form-dlg" aria-labelledby="form-title"></dialog>
+<dialog id="rem-dlg" class="drawer" aria-labelledby="rem-title"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-cap" viewBox="0 0 24 24"><path d="M21.42 10.92a1 1 0 0 0-.02-1.84L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.83l8.57 3.91a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></symbol>
+    <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><path d="M12 19v3"/></symbol>
+    <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-badge" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M12 6h.01M12 10h.01M12 14h.01M16 10h.01M16 14h.01M8 10h.01M8 14h.01"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 4.99-5.54 10.19-7.4 11.8a1 1 0 0 1-1.2 0C9.54 20.19 4 14.99 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+    <symbol id="i-pencil" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></symbol>
+    <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-msg" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-filter" viewBox="0 0 24 24"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></symbol>
+    <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></symbol>
+    <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></symbol>
+    <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+    <symbol id="i-reset"viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
+  </defs>
+</svg>
+
+<script>
+(function(){
+"use strict";
+/* ================= Data ================= */
+const DAY = 864e5;
+const T0 = new Date(); T0.setHours(0,0,0,0);
+const iso = x => `${x.getFullYear()}-${String(x.getMonth()+1).padStart(2,"0")}-${String(x.getDate()).padStart(2,"0")}`;
+const off = n => iso(new Date(T0.getFullYear(), T0.getMonth(), T0.getDate()+n));
+const parse = s => { const [y,m,d] = String(s).split("-").map(Number); return new Date(y,(m||1)-1,d||1); };
+
+const CAT = {
+  Beasiswa:{icon:"cap", g1:"#567C8D", g2:"#7FA3B5"},
+  Lomba:{icon:"trophy", g1:"#4E7485", g2:"#6E93A6"},
+  Seminar:{icon:"mic", g1:"#456879", g2:"#628A9C"},
+  Workshop:{icon:"wrench", g1:"#3C5A6E", g2:"#567C8D"},
+  Kepanitiaan:{icon:"users", g1:"#344C63", g2:"#4C6B7F"},
+  Volunteer:{icon:"heart", g1:"#2A394B", g2:"#41596E"}
+};
+const CATS = Object.keys(CAT);
+const BIDANG = ["Teknologi","Desain","Bisnis","Sains","Sosial","Bahasa","Umum"];
+const JENIS = ["Akademik","Non-akademik"];
+
+const SEED = [
+ {id:"b1",nama:"Beasiswa Prestasi Akademik Semester Genap",kategori:"Beasiswa",jenis:"Akademik",bidang:["Umum"],penyelenggara:"Biro Kemahasiswaan Kampus",buka:-12,tutup:4,lokasi:"Portal beasiswa kampus",verified:true,cek:-3,
+  manfaat:"Pembebasan UKT 1 semester + uang saku Rp750.000/bulan",
+  deskripsi:"Beasiswa untuk mahasiswa aktif dengan capaian akademik baik. Seleksi berkas dan wawancara dilakukan oleh tim beasiswa fakultas.",
+  syarat:["Mahasiswa aktif semester 3–6","IPK minimal 3,25","Tidak sedang menerima beasiswa lain","Surat rekomendasi dari koordinator prodi","Transkrip nilai terbaru"],
+  kontak:{nama:"Bagian Beasiswa Biro Kemahasiswaan",info:"beasiswa@kampus.example"},sumber:{nama:"Pengumuman resmi Biro Kemahasiswaan",url:"https://example.com/beasiswa-prestasi"}},
+ {id:"b2",nama:"Beasiswa Cendekia Nusantara",kategori:"Beasiswa",jenis:"Akademik",bidang:["Umum","Sosial"],penyelenggara:"Yayasan Cendekia Nusantara",buka:-25,tutup:2,lokasi:"Formulir daring yayasan",verified:true,cek:-6,
+  manfaat:"Biaya pendidikan penuh 2 semester + program mentoring",
+  deskripsi:"Beasiswa dari yayasan swasta untuk mahasiswa berprestasi dengan keterbatasan ekonomi. Penerima mengikuti program mentoring kepemimpinan selama satu tahun.",
+  syarat:["Mahasiswa S1 semester 2–5","IPK minimal 3,00","Penghasilan orang tua maksimal Rp4.000.000/bulan","Esai motivasi 500 kata","Aktif di minimal satu organisasi"],
+  kontak:{nama:"Sekretariat Yayasan",info:"0812-0000-1122 (WhatsApp)"},sumber:{nama:"Situs resmi Yayasan Cendekia Nusantara",url:"https://example.com/cendekia-nusantara"}},
+ {id:"b3",nama:"Beasiswa Riset Mahasiswa Data & AI",kategori:"Beasiswa",jenis:"Akademik",bidang:["Teknologi","Sains"],penyelenggara:"Konsorsium Industri Digital",buka:-2,tutup:26,lokasi:"Portal konsorsium",verified:false,
+  manfaat:"Dana riset Rp5.000.000 + akses magang 3 bulan",
+  deskripsi:"Pendanaan riset singkat untuk mahasiswa yang mengerjakan proyek analisis data atau kecerdasan buatan. Informasi ini sedang dicocokkan pengelola dengan sumber resminya.",
+  syarat:["Mahasiswa Sistem Informasi, Informatika, atau Statistika","Proposal riset maksimal 5 halaman","Dosen pembimbing yang bersedia","IPK minimal 3,00"],
+  kontak:{nama:"Tim Program Riset",info:"riset@konsorsium.example"},sumber:{nama:"Unggahan Instagram konsorsium",url:"https://example.com/riset-data-ai"}},
+ {id:"b4",nama:"Beasiswa Bantuan Biaya Pendidikan",kategori:"Beasiswa",jenis:"Akademik",bidang:["Umum"],penyelenggara:"Pemerintah Daerah",buka:6,tutup:36,lokasi:"Portal beasiswa daerah",verified:true,cek:-1,
+  manfaat:"Bantuan biaya kuliah Rp3.000.000 per semester",
+  deskripsi:"Bantuan biaya pendidikan untuk mahasiswa yang berdomisili di daerah penyelenggara. Pendaftaran belum dibuka; pantau tanggal pembukaan.",
+  syarat:["KTP domisili daerah penyelenggara","Mahasiswa aktif semua semester","Surat keterangan tidak mampu","IPK minimal 2,75"],
+  kontak:{nama:"Dinas Pendidikan",info:"(0267) 000-111"},sumber:{nama:"Situs resmi pemerintah daerah",url:"https://example.com/bantuan-pendidikan"}},
+ {id:"l1",nama:"Lomba UI/UX Design “Campus Solutions”",kategori:"Lomba",jenis:"Non-akademik",bidang:["Desain","Teknologi"],penyelenggara:"Himpunan Mahasiswa Sistem Informasi",buka:-14,tutup:3,lokasi:"Aula Fakultas Ilmu Komputer (babak final); penyisihan lewat formulir daring",verified:true,cek:-4,
+  manfaat:"Total hadiah Rp6.000.000 + sertifikat + poin SKP",
+  deskripsi:"Kompetisi merancang solusi digital untuk masalah di lingkungan kampus. Peserta tim 2–3 orang mengirim prototipe Figma dan dokumen studi kasus.",
+  syarat:["Tim 2–3 mahasiswa aktif","Satu tim boleh lintas prodi","Karya orisinal, belum pernah dilombakan","Mengirim prototipe Figma + PDF studi kasus"],
+  kontak:{nama:"Narahubung HIMSI (Divisi Acara)",info:"0813-0000-3344 (WhatsApp)"},sumber:{nama:"Instagram resmi HIMSI",url:"https://example.com/lomba-uiux"}},
+ {id:"l2",nama:"Business Plan Competition Tingkat Nasional",kategori:"Lomba",jenis:"Non-akademik",bidang:["Bisnis"],penyelenggara:"UKM Kewirausahaan",buka:-20,tutup:9,lokasi:"Pengumpulan proposal & penjurian lewat Zoom",verified:true,cek:-8,
+  manfaat:"Hadiah Rp10.000.000 + inkubasi bisnis",
+  deskripsi:"Kompetisi rencana bisnis untuk mahasiswa se-Indonesia. Finalis mempresentasikan model bisnis di depan juri praktisi.",
+  syarat:["Tim 3 orang dari perguruan tinggi yang sama","Proposal bisnis maksimal 15 halaman","Video pitching 3 menit"],
+  kontak:{nama:"Panitia BPC",info:"bpc@ukmwirausaha.example"},sumber:{nama:"Situs resmi UKM Kewirausahaan",url:"https://example.com/bpc-nasional"}},
+ {id:"l3",nama:"Lomba Karya Tulis Ilmiah Lingkungan",kategori:"Lomba",jenis:"Akademik",bidang:["Sains","Sosial"],penyelenggara:"BEM Fakultas Teknik",buka:-30,tutup:-2,lokasi:"Ruang Seminar, Gedung Fakultas Teknik",verified:true,cek:-20,
+  manfaat:"Hadiah Rp4.500.000 + publikasi prosiding",
+  deskripsi:"Lomba karya tulis tentang solusi permasalahan lingkungan di daerah. Pendaftaran sudah ditutup; informasi tetap ditampilkan sebagai arsip.",
+  syarat:["Individu atau tim maksimal 3 orang","Naskah 10–15 halaman","Format sesuai pedoman panitia"],
+  kontak:{nama:"Sekretariat BEM FT",info:"bemft@kampus.example"},sumber:{nama:"Pengumuman BEM FT",url:"https://example.com/lkti-lingkungan"}},
+ {id:"s1",nama:"Seminar Nasional “Karier di Era AI”",kategori:"Seminar",jenis:"Akademik",bidang:["Teknologi","Umum"],penyelenggara:"Program Studi Sistem Informasi",buka:-7,tutup:6,acara:10,lokasi:"Auditorium Utama Kampus + Zoom Meeting",verified:true,cek:-2,
+  manfaat:"E-sertifikat + poin SKP + materi pembicara",
+  deskripsi:"Seminar tentang peluang dan tantangan karier di bidang teknologi ketika kecerdasan buatan makin banyak dipakai di industri. Kuota luring terbatas 300 peserta.",
+  syarat:["Terbuka untuk mahasiswa semua prodi","Mengisi formulir pendaftaran","Membawa KTM saat hadir luring"],
+  kontak:{nama:"Panitia Seminar SI",info:"0857-0000-5566 (WhatsApp)"},sumber:{nama:"Akun resmi Prodi SI",url:"https://example.com/seminar-ai"}},
+ {id:"s2",nama:"Seminar Literasi Keuangan Mahasiswa",kategori:"Seminar",jenis:"Akademik",bidang:["Bisnis"],penyelenggara:"Kelompok Studi Pasar Modal",buka:-3,tutup:14,acara:16,lokasi:"Zoom Meeting",verified:false,
+  manfaat:"E-sertifikat",
+  deskripsi:"Seminar daring tentang pengelolaan uang saku, menabung, dan dasar investasi untuk mahasiswa.",
+  syarat:["Terbuka untuk umum","Registrasi melalui formulir panitia"],
+  kontak:{nama:"Humas KSPM",info:"kspm@kampus.example"},sumber:{nama:"Poster yang dibagikan di grup angkatan",url:"https://example.com/literasi-keuangan"}},
+ {id:"w1",nama:"Workshop Figma untuk Pemula",kategori:"Workshop",jenis:"Akademik",bidang:["Desain","Teknologi"],penyelenggara:"Komunitas Desain Kampus",buka:-9,tutup:1,acara:5,lokasi:"Lab Komputer 2, Gedung Fakultas Ilmu Komputer",verified:true,cek:-1,
+  manfaat:"Sertifikat + file latihan + poin SKP",
+  deskripsi:"Workshop praktik dasar Figma: frame, komponen, auto layout, dan prototyping sederhana. Peserta membawa laptop sendiri.",
+  syarat:["Kuota 40 peserta","Membawa laptop","Sudah membuat akun Figma"],
+  kontak:{nama:"Koordinator Workshop",info:"0821-0000-7788 (WhatsApp)"},sumber:{nama:"Instagram Komunitas Desain",url:"https://example.com/workshop-figma"}},
+ {id:"w2",nama:"Workshop Analisis Data dengan Python",kategori:"Workshop",jenis:"Akademik",bidang:["Teknologi","Sains"],penyelenggara:"Laboratorium Sistem Informasi",buka:-1,tutup:18,acara:22,lokasi:"Lab Data Lt. 3, Gedung Fakultas Ilmu Komputer",verified:true,cek:0,
+  manfaat:"Sertifikat + akses modul",
+  deskripsi:"Pengenalan pandas, visualisasi data, dan studi kasus data akademik mahasiswa. Dua sesi, masing-masing tiga jam.",
+  syarat:["Mahasiswa semester 2 ke atas","Memahami dasar pemrograman","Membawa laptop dengan Python terpasang"],
+  kontak:{nama:"Asisten Lab SI",info:"labsi@kampus.example"},sumber:{nama:"Pengumuman Lab SI",url:"https://example.com/workshop-python"}},
+ {id:"k1",nama:"Open Recruitment Panitia Dies Natalis",kategori:"Kepanitiaan",jenis:"Non-akademik",bidang:["Sosial","Umum"],penyelenggara:"BEM Universitas",buka:-5,tutup:4,lokasi:"Sekretariat BEM, Gedung Student Center",verified:true,cek:-2,
+  manfaat:"Pengalaman organisasi + poin SKP",
+  deskripsi:"Rekrutmen panitia untuk rangkaian acara Dies Natalis kampus. Tersedia divisi acara, humas, perlengkapan, dokumentasi, dan konsumsi.",
+  syarat:["Mahasiswa aktif semester 1–5","Mengisi formulir dan memilih divisi","Bersedia mengikuti rapat rutin"],
+  kontak:{nama:"Sekretaris Panitia",info:"0896-0000-9900 (WhatsApp)"},sumber:{nama:"Instagram resmi BEM",url:"https://example.com/oprec-dies"}},
+ {id:"k2",nama:"Panitia Pengenalan Kampus Fakultas",kategori:"Kepanitiaan",jenis:"Non-akademik",bidang:["Sosial"],penyelenggara:"Fakultas Ilmu Komputer",buka:-2,tutup:21,lokasi:"Ruang Rapat Lt. 2, Fakultas Ilmu Komputer",verified:false,
+  manfaat:"Sertifikat kepanitiaan",
+  deskripsi:"Rekrutmen panitia pengenalan kampus untuk mahasiswa baru tingkat fakultas.",
+  syarat:["Mahasiswa semester 3 atau 5","Lolos wawancara","Komitmen hingga acara selesai"],
+  kontak:{nama:"Koordinator Kemahasiswaan Fakultas",info:"kemahasiswaan.fik@kampus.example"},sumber:{nama:"Pesan berantai grup kelas",url:"https://example.com/panitia-pengenalan"}},
+ {id:"v1",nama:"Volunteer Mengajar Desa Binaan",kategori:"Volunteer",jenis:"Non-akademik",bidang:["Sosial","Bahasa"],penyelenggara:"Komunitas Kampus Mengajar",buka:-10,tutup:8,lokasi:"Desa binaan (titik kumpul: Gerbang Utama Kampus)",verified:true,cek:-5,
+  manfaat:"Sertifikat relawan + poin SKP",
+  deskripsi:"Kegiatan mengajar anak SD setiap akhir pekan selama satu bulan. Transportasi disediakan dari kampus.",
+  syarat:["Mahasiswa aktif semua prodi","Bersedia hadir 4 kali akhir pekan","Mengikuti pembekalan relawan"],
+  kontak:{nama:"Koordinator Relawan",info:"0819-0000-2233 (WhatsApp)"},sumber:{nama:"Situs Komunitas Kampus Mengajar",url:"https://example.com/volunteer-mengajar"}},
+ {id:"v2",nama:"Relawan Festival Literasi Kota",kategori:"Volunteer",jenis:"Non-akademik",bidang:["Bahasa","Sosial"],penyelenggara:"Perpustakaan Daerah",buka:-1,tutup:30,acara:40,lokasi:"Gedung Perpustakaan Daerah, Jl. Merdeka",verified:true,cek:-1,
+  manfaat:"Sertifikat + merchandise festival",
+  deskripsi:"Relawan untuk membantu sesi dongeng, lapak baca, dan registrasi pengunjung festival literasi.",
+  syarat:["Usia minimal 18 tahun","Bersedia bertugas 2 hari","Komunikatif"],
+  kontak:{nama:"Panitia Festival",info:"festival@perpusda.example"},sumber:{nama:"Situs Perpustakaan Daerah",url:"https://example.com/festival-literasi"}}
+];
+/* Biaya pendaftaran per kegiatan (data ilustrasi), dipakai untuk dashboard pendapatan */
+const BIAYA = {
+  l1:{biaya:100000, satuan:"tim"}, l2:{biaya:150000, satuan:"tim"}, l3:{biaya:50000, satuan:"orang"},
+  s1:{biaya:25000, satuan:"orang"}, w1:{biaya:50000, satuan:"orang"}, w2:{biaya:75000, satuan:"orang"}
+};
+function normalize(it){
+  if(it.platform && !(it.lokasi||"").includes(it.platform)) it.lokasi = it.lokasi ? `${it.lokasi} + ${it.platform}` : it.platform;
+  it.lokasi = it.lokasi || ""; delete it.mode; delete it.platform; delete it.promo; delete it.pendaftarPromo;
+  it.biaya = Math.max(0, Number(it.biaya)||0); it.satuan = it.satuan || "orang";
+  it.gambar = it.gambar || "";
+  it.pendaftar = Math.max(0, Math.round(Number(it.pendaftar)||0));
+  return it;
+}
+/* Jumlah pendaftar yang dilaporkan penyelenggara (data ilustrasi) */
+const PENDAFTAR = {b1:120, b2:340, b3:28, b4:0, l1:38, l2:24, l3:41, s1:214, s2:156, w1:36, w2:18, k1:87, k2:45, v1:32, v2:60};
+const POSTER = {l1:"posters/l1.jpg", w1:"posters/w1.jpg", s1:"posters/s1.jpg", v1:"posters/v1.jpg"};
+function seedItems(){
+  return SEED.map(s => {
+    const b = BIAYA[s.id] || {};
+    return normalize(Object.assign({}, s, {buka:off(s.buka), tutup:off(s.tutup), acara: s.acara!=null?off(s.acara):"", cekTgl: s.verified?off(s.cek||0):"", gambar: POSTER[s.id]||"", pendaftar:PENDAFTAR[s.id]||0,
+      biaya:b.biaya||0, satuan:b.satuan||"orang"}));
+  });
+}
+
+/* ================= Storage ================= */
+const store = {
+  get(k, fb){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : fb; }catch(e){ return fb; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true; }catch(e){ return false; } },
+  del(k){ try{ localStorage.removeItem(k); }catch(e){} }
+};
+let items = (store.get("pintar.items.v5", null) || seedItems()).map(normalize);
+let reminders = store.get("pintar.reminders", ["l1","s1"]);
+let role = store.get("pintar.role", "tamu");
+/* Latar hero: isi HERO_IMG_DEFAULT dengan nama file (mis. "hero.jpg" di folder yang sama)
+   untuk latar bawaan. Gambar yang dipilih lewat tombol "Ganti latar" disimpan di browser ini. */
+const HERO_IMG_DEFAULT = "hero.jpg";
+let heroImg = store.get("pintar.heroImg", "") || HERO_IMG_DEFAULT;
+function applyHeroImg(){
+  document.querySelectorAll(".hero, .page-hero").forEach(hero => {
+    hero.classList.toggle("has-img", !!heroImg);
+    if(heroImg) hero.style.setProperty("--hero-img", `url("${heroImg}")`); else hero.style.removeProperty("--hero-img");
+  });
+}
+function loadHeroImg(file){
+  if(!file || !file.type.startsWith("image/")){ toast("Pilih file gambar (JPG, PNG, atau WebP)"); return; }
+  const url = URL.createObjectURL(file), img = new Image();
+  img.onload = () => {
+    const sc = Math.min(1, 1920/img.naturalWidth), c = document.createElement("canvas");
+    c.width = Math.round(img.naturalWidth*sc); c.height = Math.round(img.naturalHeight*sc);
+    c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+    URL.revokeObjectURL(url);
+    heroImg = c.toDataURL("image/jpeg", .82);
+    store.set("pintar.heroImg", heroImg);
+    refresh(); toast("Latar hero diganti");
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast("Gambar tidak bisa dibaca, coba file lain"); };
+  img.src = url;
+}
+const saveItems = () => store.set("pintar.items.v5", items);
+const saveRem = () => store.set("pintar.reminders", reminders);
+
+/* ================= Helpers ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const ic = (n, cls="") => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+const fmt = s => s ? parse(s).toLocaleDateString("id-ID",{day:"numeric",month:"short",year:"numeric"}) : "–";
+const fmtLong = s => s ? parse(s).toLocaleDateString("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}) : "–";
+const daysLeft = it => Math.round((parse(it.tutup) - T0)/DAY);
+const daysToOpen = it => Math.round((parse(it.buka) - T0)/DAY);
+function status(it){ if(daysToOpen(it) > 0) return "soon"; const l = daysLeft(it); if(l < 0) return "closed"; if(l <= 7) return "ending"; return "open"; }
+const ST_LABEL = {open:"Dibuka", ending:"Segera berakhir", soon:"Segera dibuka", closed:"Ditutup"};
+const pill = it => { const s = status(it); return `<span class="pill ${s}">${ST_LABEL[s]}</span>`; };
+function remainText(it){
+  const s = status(it);
+  if(s==="soon") return `Dibuka dalam ${daysToOpen(it)} hari`;
+  if(s==="closed") return "Pendaftaran ditutup";
+  const l = daysLeft(it); return l===0 ? "Berakhir hari ini" : `Sisa ${l} hari`;
+}
+const catStyle = k => { const c = CAT[k] || CAT.Lomba; return `--g1:${c.g1};--g2:${c.g2}`; };
+const catIcon = k => (CAT[k]||CAT.Lomba).icon;
+const byId = id => items.find(i => i.id === id);
+const isActive = it => status(it)!=="closed";
+const byDeadline = (a,b) => parse(a.tutup) - parse(b.tutup);
+
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(()=>t.classList.remove("show"), 2600); }
+function updateBell(){
+  reminders = reminders.filter(id => byId(id));
+  const n = reminders.filter(id => isActive(byId(id))).length;
+  const b = $("#bell-count"); b.textContent = n; b.hidden = n===0;
+  $("#bell-btn").setAttribute("aria-label", `Pengingat deadline (${n})`);
+}
+function remBtn(it){
+  const on = reminders.includes(it.id);
+  return `<button class="icon-btn" type="button" data-remind="${esc(it.id)}" aria-pressed="${on}" aria-label="${on?"Hapus pengingat":"Ingatkan saya"}: ${esc(it.nama)}">${ic("bell")}</button>`;
+}
+
+const rupiah = n => "Rp" + Number(n).toLocaleString("id-ID");
+
+function shrinkImage(file, max, done){
+  if(!file || !/^image\/(png|jpeg|webp|gif)$/.test(file.type)){ toast("Pilih file gambar PNG, JPG, atau WebP"); return; }
+  const url = URL.createObjectURL(file), img = new Image();
+  img.onload = () => {
+    const sc = Math.min(1, max/Math.max(img.naturalWidth, img.naturalHeight)), c = document.createElement("canvas");
+    c.width = Math.round(img.naturalWidth*sc); c.height = Math.round(img.naturalHeight*sc);
+    const g = c.getContext("2d"); g.fillStyle = "#FFFFFF"; g.fillRect(0,0,c.width,c.height); g.drawImage(img,0,0,c.width,c.height);
+    URL.revokeObjectURL(url); done(c.toDataURL("image/jpeg", .8));
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast("Gambar tidak bisa dibaca, coba file lain"); };
+  img.src = url;
+}
+const picStyle = it => it.gambar ? `;--pic:url('${esc(it.gambar)}')` : "";
+
+const backBtn = () => `<button class="back-btn" type="button" data-back aria-label="Kembali ke halaman sebelumnya">${ic("back")} Kembali</button>`;
+
+/* ================= Components ================= */
+function card(it, opts={}){
+  const s = status(it);
+  return `<article class="card">
+    <a class="card-link" href="#kegiatan-${esc(it.id)}" aria-label="Lihat detail ${esc(it.nama)}"></a>
+    <div class="thumb${it.gambar?" has-pic":""}" style="${catStyle(it.kategori)}${picStyle(it)}">
+      <div class="t-tags"><span class="tag-w">${ic(catIcon(it.kategori))} ${esc(it.kategori)}</span>${it.verified?`<span class="tag-w ver">${ic("badge")} Terverifikasi</span>`:""}</div>
+      <div class="t-badges">${opts.badge && (s==="ending") ? `<span class="deadline-badge num">${daysLeft(it)===0?"Hari ini":`H-${daysLeft(it)}`}</span>`:""}</div>
+      ${it.gambar?"":`<span class="t-ico">${ic(catIcon(it.kategori))}</span>`}
+    </div>
+    <div class="card-body">
+      <h3>${esc(it.nama)}</h3>
+      <p class="org">${ic("building")}<span>${esc(it.penyelenggara)}</span></p>
+      <div class="meta"><span>${ic("calendar")} Tutup ${fmt(it.tutup)}</span>${pill(it)}</div>
+    </div>
+    <div class="card-foot"><span class="remain ${s} num">${remainText(it)}</span>${remBtn(it)}</div>
+  </article>`;
+}
+function schCard(it, featured){
+  return `<article class="sch${featured?" featured":""}">
+    ${featured?`<span class="flag">Segera berakhir</span>`:""}
+    <div class="sch-head"><span class="s-ico">${ic("cap")}</span><div><h3>${esc(it.nama)}</h3><p class="org"><span>${esc(it.penyelenggara)}</span></p></div></div>
+    <p class="benefit">${esc(it.manfaat)}</p>
+    <ul class="ticks">${it.syarat.slice(0,3).map(x=>`<li>${ic("check")}<span>${esc(x)}</span></li>`).join("")}</ul>
+    <p class="period num">${ic("calendar")} ${fmt(it.buka)} – ${fmt(it.tutup)}</p>
+    <div>${pill(it)} ${it.verified?`<span class="vbadge">${ic("badge")} Terverifikasi</span>`:`<span class="vbadge no">Belum diverifikasi</span>`}</div>
+    <div class="actions">
+      <a class="btn ${featured?"btn-primary":"btn-ghost"} btn-sm" href="#kegiatan-${esc(it.id)}">Lihat persyaratan lengkap</a>
+      <a class="link-arrow" style="justify-content:center;font-size:13px" href="${esc(it.sumber.url)}" target="_blank" rel="noopener noreferrer">${ic("ext")} Sumber resmi</a>
+    </div>
+  </article>`;
+}
+
+/* ================= Views ================= */
+const explore = {q:"", jenis:"", kategori:[], bidang:[], status:"", verified:false, sort:"deadline"};
+const resetExplore = () => Object.assign(explore, {q:"", jenis:"", kategori:[], bidang:[], status:"", verified:false, sort:"deadline"});
+
+function viewHome(){
+  const active = items.filter(isActive);
+  const ending = items.filter(i => status(i)==="ending").sort(byDeadline);
+  const openNow = items.filter(i => ["open","ending"].includes(status(i))).sort(byDeadline);
+  const top = openNow[0];
+  const verifiedPct = items.length ? Math.round(items.filter(i=>i.verified).length / items.length * 100) : 0;
+  const featured = items.filter(i => i.kategori!=="Beasiswa" && isActive(i) && status(i)!=="ending").sort(byDeadline).slice(0,6);
+  const sch = items.filter(i => i.kategori==="Beasiswa" && isActive(i)).sort(byDeadline).slice(0,3);
+  const schFeatured = sch.find(i => status(i)==="ending");
+  return `
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div>
+    <div class="hero-bg-ctl">
+      <button class="btn btn-glass" type="button" data-hero-pick title="Pilih gambar, atau seret gambar ke area ini">${ic("image")} Ganti latar</button>
+      ${heroImg && heroImg!==HERO_IMG_DEFAULT ? `<button class="btn btn-glass" type="button" data-hero-reset>${ic("reset")} Latar bawaan</button>` : ""}
+      <input type="file" id="hero-file" accept="image/*" hidden>
+    </div>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <span class="eyebrow-chip">${ic("layers")} Pusat Informasi dan Aktivitas Relevan Mahasiswa</span>
+          <h1 id="hero-title">Temukan Peluang, <em>Kembangkan Potensimu.</em></h1>
+          <p class="hero-lead">PINTAR mengumpulkan info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer dalam satu platform. Cari sesuai minatmu, cek periode pendaftaran, lalu daftar langsung lewat sumber resminya.</p>
+          <div class="hero-cta">
+            <a class="btn btn-white" href="#jelajahi">Jelajahi Kegiatan ${ic("arrow")}</a>
+            <a class="btn btn-glass" href="#beasiswa">Lihat Beasiswa ${ic("cap")}</a>
+          </div>
+          <div class="hero-proof">
+            <div class="src-stack" aria-hidden="true"><span style="background:#567C8D">${ic("msg")}</span><span style="background:#7FA3B5">${ic("mic")}</span><span style="background:#2F4156">${ic("building")}</span><span style="background:#4E7485">${ic("trophy")}</span></div>
+            <span>Info yang biasanya tersebar di grup WhatsApp, Instagram, dan pengumuman kampus, kini terkumpul di satu tempat.</span>
+          </div>
+        </div>
+        ${top ? `<aside class="hero-card glass" aria-label="Deadline terdekat">
+          <div class="hc-label"><span>${ic("clock")} Deadline terdekat</span>${pill(top)}</div>
+          <div><p class="org" style="margin-bottom:6px">${ic(catIcon(top.kategori))}<span>${esc(top.kategori)} · ${esc(top.penyelenggara)}</span></p><p class="hc-title">${esc(top.nama)}</p></div>
+          <div class="hc-count num"><b>${daysLeft(top)===0?"Hari ini":daysLeft(top)}</b><span>${daysLeft(top)===0?"terakhir mendaftar":"hari lagi · tutup "+fmt(top.tutup)}</span></div>
+          <div class="hc-next">${openNow.slice(1,3).map(i=>`<a href="#kegiatan-${esc(i.id)}"><span>${esc(i.nama)}</span><b class="num">${remainText(i)}</b></a>`).join("")}</div>
+          <div class="hc-actions"><a class="btn btn-primary btn-sm" href="#kegiatan-${esc(top.id)}">Lihat detail</a>${reminders.includes(top.id)?`<button class="btn btn-ghost btn-sm" type="button" data-remind="${esc(top.id)}" aria-pressed="true">${ic("bell")} Diingatkan</button>`:`<button class="btn btn-ghost btn-sm" type="button" data-remind="${esc(top.id)}" aria-pressed="false">${ic("bell")} Ingatkan saya</button>`}</div>
+        </aside>` : ""}
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap stats">
+    <div class="stats-bar glass">
+      <div class="stat"><span class="stat-ico">${ic("inbox")}</span><div><b class="num">${active.length}</b><small>Kegiatan aktif</small></div></div>
+      <div class="stat"><span class="stat-ico">${ic("layers")}</span><div><b class="num">${CATS.length}</b><small>Kategori kegiatan</small></div></div>
+      <div class="stat"><span class="stat-ico">${ic("shield")}</span><div><b class="num">${verifiedPct}%</b><small>Info terverifikasi</small></div></div>
+      <div class="stat"><span class="stat-ico" style="background:var(--danger-bg);color:var(--danger)">${ic("clock")}</span><div><b class="num">${ending.length}</b><small>Tutup ≤ 7 hari</small></div></div>
+    </div>
+    <p class="stats-note">Angka dihitung dari data contoh pada mockup ini.</p>
+  </div>
+
+  <section class="section" aria-labelledby="cat-title" style="padding-top:48px">
+    <div class="wrap">
+      <div class="section-head center"><p class="eyebrow">Kategori kegiatan</p><h2 id="cat-title">Mau cari kesempatan apa hari ini?</h2><p>Pilih kategori untuk langsung melihat kegiatan yang masih membuka pendaftaran.</p></div>
+      <div class="cat-grid">
+        ${CATS.map(k=>{ const n = items.filter(i=>i.kategori===k && isActive(i)).length; return `<button class="cat-tile" type="button" data-go-cat="${k}" style="${catStyle(k)}">
+          <span class="big" aria-hidden="true">${ic(CAT[k].icon)}</span>
+          <span class="glass-ico" aria-hidden="true">${ic(CAT[k].icon)}</span>
+          <span class="cat-meta"><span class="cat-name">${k}</span><span class="pill-white num">${n} aktif</span></span>
+        </button>`;}).join("")}
+      </div>
+    </div>
+  </section>
+
+  <section class="band" aria-labelledby="why-title">
+    <div class="wrap">
+      <div class="section-head center"><p class="eyebrow">Kenapa PINTAR</p><h2 id="why-title">Info kegiatan yang rapi, bukan tertumpuk di chat</h2><p>Dirancang dari hasil wawancara mahasiswa: informasi tersebar, sulit dipastikan masih buka, dan mudah terlewat.</p></div>
+      <div class="why-grid">
+        <div class="why"><span class="w-ico">${ic("inbox")}</span><h3>Satu platform</h3><p>Kegiatan akademik dan non-akademik terkumpul dan tersusun per kategori.</p><span class="fr-tag">FR-07 · FR-10 · FR-12</span></div>
+        <div class="why"><span class="w-ico">${ic("search")}</span><h3>Cari sesuai minat</h3><p>Cari dengan kata kunci, jenis kegiatan, dan beberapa bidang minat sekaligus.</p><span class="fr-tag">FR-08 · FR-09 · FR-13 · FR-14</span></div>
+        <div class="why"><span class="w-ico">${ic("bell")}</span><h3>Deadline terlihat</h3><p>Status dan sisa hari pendaftaran tampil di setiap kartu, plus pengingat sebelum tutup.</p><span class="fr-tag">FR-04 · FR-05</span></div>
+        <div class="why"><span class="w-ico">${ic("shield")}</span><h3>Sumber resmi</h3><p>Setiap info menautkan sumber aslinya dan diberi tanda bila sudah diverifikasi.</p><span class="fr-tag">FR-15 · FR-16 · FR-17</span></div>
+      </div>
+      <div class="planner-wrap">
+        <form class="planner glass" id="planner" role="search" aria-labelledby="planner-title">
+          <h3 id="planner-title">Kegiatan apa yang kamu cari?</h3>
+          <p class="sub">Pilih lebih dari satu bidang minat bila perlu.</p>
+          <div class="planner-row">
+            <label class="field"><span>Kata kunci</span><span class="input-ico">${ic("search")}<input class="input" id="planner-q" type="search" placeholder="Contoh: UI/UX, data, beasiswa prestasi" autocomplete="off"></span></label>
+            <label class="field"><span>Jenis kegiatan</span><select class="select input" id="planner-jenis"><option value="">Semua jenis</option>${JENIS.map(j=>`<option>${j}</option>`).join("")}</select></label>
+            <button class="btn btn-primary" type="submit" style="min-height:48px">${ic("search")} Cari kegiatan</button>
+          </div>
+          <div class="chips-row"><span class="field-label" id="pb-label">Bidang minat</span><div class="chips" role="group" aria-labelledby="pb-label">${BIDANG.map(b=>`<button class="chip-toggle" type="button" data-planner-bidang="${b}" aria-pressed="false">${b}</button>`).join("")}</div></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section after-band" aria-labelledby="end-title">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Pengingat deadline</p><h2 id="end-title">Segera ditutup, jangan sampai terlewat</h2><p>Pendaftaran yang berakhir dalam 7 hari. Tekan ikon lonceng untuk menyimpan pengingat.</p></div><a class="link-arrow" href="#jelajahi" data-sort="deadline">Urutkan semua berdasarkan deadline ${ic("arrow")}</a></div>
+      <div class="grid-cards">${ending.slice(0,4).map(i=>card(i,{badge:true})).join("") || `<p>Tidak ada pendaftaran yang tutup dalam 7 hari.</p>`}</div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0" aria-labelledby="feat-title">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Kegiatan pilihan</p><h2 id="feat-title">Masih buka, waktu masih cukup</h2></div><a class="link-arrow" href="#jelajahi">Lihat semua kegiatan ${ic("arrow")}</a></div>
+      <div class="grid-cards">${featured.map(i=>card(i)).join("")}</div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0" aria-labelledby="sch-title">
+    <div class="wrap">
+      <div class="section-head"><div><p class="eyebrow">Beasiswa</p><h2 id="sch-title">Beasiswa yang sedang dibuka</h2><p>Cek kriteria sebelum mendaftar supaya tahu beasiswa mana yang sesuai dengan kondisimu.</p></div><a class="link-arrow" href="#beasiswa">Semua beasiswa ${ic("arrow")}</a></div>
+      <div class="sch-layout">
+        <div class="sch-grid">${sch.map(i=>schCard(i, i===schFeatured)).join("")}</div>
+        <div class="faq">
+          <h3>Pertanyaan umum</h3>
+          <details><summary>Apakah pendaftaran dilakukan di PINTAR? ${ic("chev")}</summary><p>Tidak. PINTAR merangkum informasinya, lalu tombol “Buka sumber resmi” mengarahkanmu ke halaman penyelenggara untuk mendaftar.</p></details>
+          <details><summary>Apa arti tanda Terverifikasi? ${ic("chev")}</summary><p>Pengelola sudah mencocokkan informasi dengan sumber resmi penyelenggara. Kriteria verifikasi final masih ditetapkan pengelola.</p></details>
+          <details><summary>Bagaimana pengingat deadline bekerja? ${ic("chev")}</summary><p>Tekan ikon lonceng pada kegiatan. Daftarnya muncul di panel Pengingat beserta sisa harinya. Kanal notifikasi (email, WhatsApp, atau push) belum diputuskan.</p></details>
+          <details><summary>Siapa yang memperbarui informasi? ${ic("chev")}</summary><p>Admin/pengelola menambah, memperbarui, dan menghapus informasi supaya tidak ada info kedaluwarsa.</p></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-label="Ajakan">
+    <div class="cta-banner">
+      <div><h2>Kesempatan berikutnya sudah menunggu.</h2><p>Simpan pengingat untuk kegiatan incaranmu dan daftar sebelum pendaftarannya ditutup.</p></div>
+      <div class="hero-cta"><a class="btn btn-white" href="#jelajahi">Mulai jelajahi ${ic("arrow")}</a><button class="btn btn-glass" type="button" data-open-rem>${ic("bell")} Lihat pengingatku</button></div>
+    </div>
+  </section>`;
+}
+
+function filterItems(){
+  const q = explore.q.trim().toLowerCase();
+  let r = items.filter(it => {
+    if(q){ const hay = [it.nama,it.penyelenggara,it.kategori,it.deskripsi,(it.bidang||[]).join(" ")].join(" ").toLowerCase(); if(!q.split(/\s+/).every(w=>hay.includes(w))) return false; }
+    if(explore.jenis && it.jenis!==explore.jenis) return false;
+    if(explore.kategori.length && !explore.kategori.includes(it.kategori)) return false;
+    if(explore.bidang.length && !(it.bidang||[]).some(b=>explore.bidang.includes(b))) return false;
+    if(explore.status && status(it)!==explore.status) return false;
+    if(explore.verified && !it.verified) return false;
+    return true;
+  });
+  const rank = {ending:0, open:1, soon:2, closed:3};
+  if(explore.sort==="deadline") r.sort((a,b)=> (rank[status(a)]===3) - (rank[status(b)]===3) || byDeadline(a,b));
+  else if(explore.sort==="az") r.sort((a,b)=>a.nama.localeCompare(b.nama,"id"));
+  else r.sort((a,b)=> parse(b.buka)-parse(a.buka));
+  return r;
+}
+function viewExplore(){
+  const cnt = (k,v) => items.filter(i => k==="bidang" ? (i.bidang||[]).includes(v) : i[k]===v).length;
+  return `
+  <section class="page-hero"><div class="wrap">
+    ${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Jelajahi Kegiatan</span></nav>
+    <h1>Jelajahi Kegiatan</h1>
+    <p>Semua info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer. Gabungkan beberapa filter untuk mempersempit hasil.</p>
+    <div class="page-search input-ico" role="search">${ic("search")}<label class="sr" for="ex-q">Cari kegiatan</label><input class="input" id="ex-q" type="search" placeholder="Cari nama kegiatan, penyelenggara, atau topik" value="${esc(explore.q)}" autocomplete="off"></div>
+  </div></section>
+  <div class="wrap explore">
+    <aside class="filters" id="filters" aria-label="Filter kegiatan">
+      <h2>Filter <button class="btn btn-ghost btn-sm filters-toggle" type="button" id="filters-toggle" aria-expanded="false">${ic("filter")} Tampilkan</button></h2>
+      <div class="f-body">
+        <label class="field"><span>Jenis kegiatan</span><select class="select input" id="ex-jenis"><option value="">Semua jenis</option>${JENIS.map(j=>`<option ${explore.jenis===j?"selected":""}>${j}</option>`).join("")}</select></label>
+        <fieldset class="f-group"><legend>Kategori (boleh lebih dari satu)</legend>
+          ${CATS.map(k=>`<label class="check"><input type="checkbox" data-f="kategori" value="${k}" ${explore.kategori.includes(k)?"checked":""}> ${k}<span class="cnt num">${cnt("kategori",k)}</span></label>`).join("")}
+        </fieldset>
+        <fieldset class="f-group"><legend>Bidang minat (boleh lebih dari satu)</legend>
+          <div class="chips">${BIDANG.map(b=>`<button class="chip-toggle" type="button" data-f-bidang="${b}" aria-pressed="${explore.bidang.includes(b)}">${b}</button>`).join("")}</div>
+        </fieldset>
+        <label class="field"><span>Status pendaftaran</span><select class="select input" id="ex-status"><option value="">Semua status</option>${Object.entries(ST_LABEL).map(([k,v])=>`<option value="${k}" ${explore.status===k?"selected":""}>${v}</option>`).join("")}</select></label>
+        <label class="check"><input type="checkbox" id="ex-ver" ${explore.verified?"checked":""}> Hanya yang terverifikasi</label>
+        <button class="btn btn-ghost btn-sm" type="button" id="ex-reset">${ic("reset")} Atur ulang filter</button>
+      </div>
+    </aside>
+    <div id="results" aria-live="polite"></div>
+  </div>`;
+}
+function renderResults(){
+  const box = $("#results"); if(!box) return;
+  const r = filterItems();
+  const chips = [];
+  if(explore.q) chips.push(["q","",`“${explore.q}”`]);
+  if(explore.jenis) chips.push(["jenis","",explore.jenis]);
+  explore.kategori.forEach(k=>chips.push(["kategori",k,k]));
+  explore.bidang.forEach(b=>chips.push(["bidang",b,b]));
+  if(explore.status) chips.push(["status","",ST_LABEL[explore.status]]);
+  if(explore.verified) chips.push(["verified","","Terverifikasi"]);
+  box.innerHTML = `
+    <div class="toolbar"><p class="count num">${r.length} kegiatan <span>dari ${items.length}</span></p>
+      <label class="field" style="grid-auto-flow:column;align-items:center;gap:8px"><span>Urutkan</span><select class="select input" id="ex-sort">
+        <option value="deadline" ${explore.sort==="deadline"?"selected":""}>Deadline terdekat</option>
+        <option value="new" ${explore.sort==="new"?"selected":""}>Baru dibuka</option>
+        <option value="az" ${explore.sort==="az"?"selected":""}>Nama A–Z</option></select></label></div>
+    ${chips.length?`<div class="active-filters">${chips.map(([k,v,l])=>`<button type="button" data-clear="${k}" data-val="${esc(v)}" aria-label="Hapus filter ${esc(l)}">${esc(l)} ${ic("x")}</button>`).join("")}</div>`:""}
+    ${r.length ? `<div class="grid-cards">${r.map(i=>card(i,{badge:true})).join("")}</div>` :
+      `<div class="empty">${ic("search")}<h3>Belum ada kegiatan yang cocok</h3><p style="color:var(--ink-2)">Coba kurangi filter atau gunakan kata kunci lain.</p><button class="btn btn-primary btn-sm" type="button" id="ex-reset-2">Atur ulang filter</button></div>`}`;
+}
+
+function viewDetail(id){
+  const it = byId(id);
+  if(!it) return `<section class="wrap section"><div class="empty">${ic("alert")}<h2>Kegiatan tidak ditemukan</h2><p>Informasi ini mungkin sudah dihapus pengelola.</p><a class="btn btn-primary" href="#jelajahi">Kembali ke daftar kegiatan</a></div></section>`;
+  const s = status(it);
+  const total = Math.max(1, Math.round((parse(it.tutup)-parse(it.buka))/DAY));
+  const passed = Math.min(total, Math.max(0, Math.round((T0-parse(it.buka))/DAY)));
+  const pct = s==="soon"?0 : s==="closed"?100 : Math.round(passed/total*100);
+  const related = items.filter(i=>i.id!==it.id && i.kategori===it.kategori && isActive(i)).sort(byDeadline).slice(0,3);
+  const on = reminders.includes(it.id);
+  return `
+  <section class="detail-hero" style="${catStyle(it.kategori)}">
+    <span class="big" aria-hidden="true">${ic(catIcon(it.kategori))}</span>
+    <div class="wrap">
+      ${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <a href="${it.kategori==="Beasiswa"?"#beasiswa":"#jelajahi"}">${it.kategori==="Beasiswa"?"Beasiswa":"Jelajahi Kegiatan"}</a> / <span>${esc(it.kategori)}</span></nav>
+      <h1>${esc(it.nama)}</h1>
+      <div class="detail-tags"><span class="tag-w">${ic(catIcon(it.kategori))} ${esc(it.kategori)}</span><span class="tag-w">${esc(it.jenis)}</span>${(it.bidang||[]).map(b=>`<span class="tag-w">${esc(b)}</span>`).join("")}${it.verified?`<span class="tag-w ver">${ic("badge")} Terverifikasi</span>`:""}</div>
+    </div>
+  </section>
+  <div class="wrap detail-grid">
+    <div>
+      ${it.gambar?`<section class="panel poster"><img src="${esc(it.gambar)}" alt="Poster ${esc(it.nama)}"></section>`:""}
+      <section class="panel"><h2>${ic("layers")} Tentang kegiatan</h2><p>${esc(it.deskripsi)}</p>${it.manfaat?`<p style="margin-top:12px"><b style="color:var(--ink)">${ic("gift")} Manfaat:</b> ${esc(it.manfaat)}</p>`:""}</section>
+      <section class="panel"><h2>${ic("check")} Persyaratan &amp; kriteria</h2><ul class="ticks" style="font-size:15px">${(it.syarat||[]).map(x=>`<li>${ic("check")}<span>${esc(x)}</span></li>`).join("") || "<li>Belum ada persyaratan tercatat.</li>"}</ul></section>
+      <section class="panel"><h2>${ic("arrow")} Cara mendaftar</h2>
+        <ol class="steps">
+          <li><span><b>Cek persyaratan</b>Pastikan kamu memenuhi kriteria di atas.</span></li>
+          <li><span><b>Buka sumber resmi</b>Baca pengumuman asli dari ${esc(it.penyelenggara)} untuk memastikan keasliannya.</span></li>
+          <li><span><b>Daftar sebelum ${fmtLong(it.tutup)}</b>Pendaftaran dilakukan di tautan penyelenggara, bukan di PINTAR.</span></li>
+        </ol>
+      </section>
+      ${related.length?`<section style="margin-top:28px"><div class="section-head" style="margin-bottom:16px"><h2 style="font-size:20px">${esc(it.kategori)} lain yang masih buka</h2></div><div class="grid-cards">${related.map(i=>card(i)).join("")}</div></section>`:""}
+    </div>
+    <aside class="side">
+      <section class="panel">
+        <div class="countdown">
+          <div class="row"><span class="field-label">Periode pendaftaran</span>${pill(it)}</div>
+          <div class="row"><span class="big-num num" style="color:${s==="ending"?"var(--danger)":"var(--ink)"}">${s==="closed"?"Ditutup":s==="soon"?`H-${daysToOpen(it)}`:daysLeft(it)===0?"Hari ini":`${daysLeft(it)} hari`}</span><span class="num" style="color:var(--ink-2);font-size:14px">${s==="soon"?"menuju dibuka":s==="closed"?"":"tersisa"}</span></div>
+          <div class="progress ${s}" role="img" aria-label="${pct}% periode pendaftaran telah berlalu"><span style="width:${pct}%"></span></div>
+          <div class="row num" style="font-size:13px;color:var(--ink-2)"><span>Buka ${fmt(it.buka)}</span><span>Tutup ${fmt(it.tutup)}</span></div>
+        </div>
+        <div class="stack" style="margin-top:14px">
+          <a class="btn btn-primary" href="${esc(it.sumber.url)}" target="_blank" rel="noopener noreferrer">${ic("ext")} Buka sumber resmi</a>
+          <button class="btn btn-ghost" type="button" data-remind="${esc(it.id)}" aria-pressed="${on}">${ic("bell")} ${on?"Pengingat aktif":"Ingatkan saya"}</button>
+        </div>
+      </section>
+      <section class="panel">
+        <div class="kv">
+          ${it.acara?`<div><span class="k-ico">${ic("calendar")}</span><span><small>Pelaksanaan</small><b class="num">${fmtLong(it.acara)}</b></span></div>`:""}
+          <div><span class="k-ico">${ic("pin")}</span><span><small>Lokasi</small><b>${esc(it.lokasi||"Lokasi menyusul")}</b></span></div>
+          <div><span class="k-ico">${ic("building")}</span><span><small>Penyelenggara</small><b>${esc(it.penyelenggara)}</b></span></div>
+          <div><span class="k-ico">${ic("phone")}</span><span><small>Kontak pendaftaran</small><b>${esc(it.kontak.nama)}</b><span class="copy-row" style="margin-top:6px"><code>${esc(it.kontak.info)}</code><button class="mini-btn" type="button" data-copy="${esc(it.kontak.info)}">${ic("copy")} Salin</button></span></span></div>
+          <div><span class="k-ico">${ic("link")}</span><span><small>Sumber informasi</small><b>${esc(it.sumber.nama)}</b><a href="${esc(it.sumber.url)}" target="_blank" rel="noopener noreferrer" style="font-size:13px;overflow-wrap:anywhere">${esc(it.sumber.url)}</a></span></div>
+        </div>
+      </section>
+      ${it.verified
+        ? `<div class="verify-box yes">${ic("shield")}<div><b>Terverifikasi</b><span>Dicocokkan pengelola dengan sumber resmi pada ${fmt(it.cekTgl)}.</span></div></div>`
+        : `<div class="verify-box no">${ic("alert")}<div><b>Belum diverifikasi</b><span>Pengelola belum memeriksa sumber ini. Cek keasliannya lewat tautan sumber sebelum mendaftar.</span></div></div>`}
+    </aside>
+  </div>`;
+}
+
+const schFilter = {s:""};
+function viewBeasiswa(){
+  return `
+  <section class="page-hero"><div class="wrap">
+    ${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Beasiswa</span></nav>
+    <h1>Beasiswa</h1>
+    <p>Daftar beasiswa beserta persyaratan, kriteria, periode pendaftaran, dan sumber resmi penyedia. Bandingkan dulu, baru daftar.</p>
+  </div></section>
+  <div class="wrap" style="padding-top:28px">
+    <div class="chips" role="group" aria-label="Filter status beasiswa">
+      ${[["","Semua"],["open","Dibuka"],["ending","Segera berakhir"],["soon","Segera dibuka"],["closed","Ditutup"]].map(([k,l])=>`<button class="chip-toggle" type="button" data-sch="${k}" aria-pressed="${schFilter.s===k}">${l}</button>`).join("")}
+    </div>
+    <div class="sch-list" id="sch-list"></div>
+  </div>`;
+}
+function renderSch(){
+  const box = $("#sch-list"); if(!box) return;
+  const list = items.filter(i=>i.kategori==="Beasiswa" && (!schFilter.s || status(i)===schFilter.s)).sort((a,b)=>(status(a)==="closed")-(status(b)==="closed") || byDeadline(a,b));
+  box.innerHTML = list.length ? list.map(it=>`
+    <article class="sch-row">
+      <div>
+        <div class="detail-tags">${pill(it)} ${it.verified?`<span class="vbadge">${ic("badge")} Terverifikasi</span>`:`<span class="vbadge no">Belum diverifikasi</span>`}</div>
+        <h3>${esc(it.nama)}</h3>
+        <p class="org">${ic("building")}<span>${esc(it.penyelenggara)}</span></p>
+        <p class="sch benefit" style="all:unset;display:block;margin-top:10px;font:800 15px/1.4 var(--font-display);color:var(--primary-ink)">${esc(it.manfaat)}</p>
+      </div>
+      <div><p class="lbl">Persyaratan &amp; kriteria</p><ul class="ticks">${it.syarat.map(x=>`<li>${ic("check")}<span>${esc(x)}</span></li>`).join("")}</ul></div>
+      <div class="stack" style="align-content:start">
+        <p class="lbl">Periode pendaftaran</p>
+        <p class="num" style="font-weight:600">${fmt(it.buka)} – ${fmt(it.tutup)}</p>
+        <p class="remain ${status(it)} num" style="font:700 14px/1.2 var(--font-display)">${remainText(it)}</p>
+        <p class="lbl" style="margin-top:6px">Sumber resmi</p>
+        <p style="font-size:14px;color:var(--ink-2)">${esc(it.sumber.nama)}</p>
+        <div class="stack" style="margin-top:6px">
+          <a class="btn btn-primary btn-sm" href="#kegiatan-${esc(it.id)}">Lihat detail</a>
+          <a class="btn btn-ghost btn-sm" href="${esc(it.sumber.url)}" target="_blank" rel="noopener noreferrer">${ic("ext")} Buka sumber resmi</a>
+        </div>
+      </div>
+    </article>`).join("") : `<div class="empty">${ic("cap")}<h3>Tidak ada beasiswa dengan status ini</h3><button class="btn btn-ghost btn-sm" type="button" data-sch="">Tampilkan semua</button></div>`;
+}
+
+const FR = [
+ ["FR-01","Menampilkan daftar informasi beasiswa yang tersedia.","Halaman Beasiswa, bagian beasiswa di Beranda"],
+ ["FR-02","Menampilkan persyaratan dan kriteria setiap beasiswa.","Kartu beasiswa, Detail › Persyaratan & kriteria"],
+ ["FR-03","Menyediakan sumber resmi penyedia untuk setiap beasiswa.","Tombol “Buka sumber resmi” pada beasiswa"],
+ ["FR-04","Menampilkan periode pendaftaran setiap kegiatan.","Tanggal tutup di kartu, panel Periode pendaftaran di Detail"],
+ ["FR-05","Memberi informasi/pengingat saat pendaftaran akan berakhir.","Ikon lonceng, panel Pengingat, kartu Deadline terdekat, bagian Segera ditutup"],
+ ["FR-06","Menampilkan kontak pihak penyelenggara.","Detail › Kontak pendaftaran (dengan tombol Salin)"],
+ ["FR-07","Memuat informasi kegiatan secara terstruktur.","Setiap kegiatan punya kategori, jenis, bidang, periode, sumber"],
+ ["FR-08","Pencarian berdasarkan kata kunci.","Kolom pencarian di Beranda dan Jelajahi"],
+ ["FR-09","Pencarian berdasarkan jenis kegiatan.","Pilihan Jenis kegiatan (Akademik / Non-akademik)"],
+ ["FR-10","Informasi akademik dan non-akademik dalam satu platform.","Jelajahi Kegiatan memuat semua kategori"],
+ ["FR-11","Menampilkan detail kegiatan yang dipilih.","Halaman Detail Kegiatan"],
+ ["FR-12","Kategori beasiswa, lomba, seminar, workshop, kepanitiaan.","Kartu kategori di Beranda (+ Volunteer)"],
+ ["FR-13","Filter berdasarkan bidang atau kategori.","Panel Filter di Jelajahi"],
+ ["FR-14","Memilih lebih dari satu kategori/bidang minat.","Checkbox kategori & chip bidang minat (multi-pilih)"],
+ ["FR-15","Menampilkan sumber informasi resmi yang mempublikasikan.","Detail › Sumber informasi"],
+ ["FR-16","Tanda verifikasi untuk info dari sumber terpercaya.","Lencana Terverifikasi pada kartu dan Detail"],
+ ["FR-17","Tautan ke sumber asli untuk cek keaslian.","Tautan sumber di Detail dan Beasiswa"]
+];
+function viewTentang(){
+  return `
+  <section class="page-hero"><div class="wrap">
+    ${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Tentang</span></nav>
+    <h1>Tentang PINTAR</h1>
+    <p>Pusat Informasi dan Aktivitas Relevan Mahasiswa. Rancangan sistem informasi Kelompok 5, mata kuliah Analisis dan Perancangan Sistem Informasi.</p>
+  </div></section>
+  <div class="wrap" style="padding-block:32px;display:grid;grid-template-columns:minmax(0,1fr);gap:18px">
+    <div class="about-grid">
+      <section class="panel prose"><h2>${ic("alert")} Masalah yang diselesaikan</h2>
+        <p>Info lomba, seminar, workshop, dan beasiswa umumnya dibagikan di grup WhatsApp kelas, angkatan, dan prodi. Karena tersebar, mahasiswa harus mencari dan menyaring sendiri.</p>
+        <p>Pesan baru membuat info lama tertumpuk, sehingga sulit tahu apakah pendaftaran masih buka. Akibatnya banyak kesempatan terlewat, padahal kegiatan ini penting untuk pengalaman, prestasi, poin SKP, relasi, dan biaya kuliah.</p></section>
+      <section class="panel"><h2>${ic("check")} Tujuan sistem</h2>
+        <ul class="list"><li>Memusatkan info lomba, seminar, workshop, beasiswa, volunteer, dan kegiatan lain.</li><li>Memudahkan mahasiswa menemukan info sesuai minat dan kebutuhan.</li><li>Mengurangi risiko kesempatan terlewat karena info tertumpuk.</li><li>Membantu meningkatkan partisipasi mahasiswa.</li><li>Membuat info lebih terorganisir dan mudah diakses.</li></ul></section>
+      <section class="panel"><h2>${ic("user")} Mahasiswa</h2><p style="color:var(--ink-2)">Pengguna utama yang mencari, melihat, dan mengikuti informasi kegiatan atau kesempatan yang tersedia.</p></section>
+      <section class="panel"><h2>${ic("shield")} Admin / pengelola</h2><p style="color:var(--ink-2)">Memasukkan, memperbarui, dan menghapus informasi agar tetap relevan. Rincian hak akses dan proses persetujuan masih dianalisis.</p></section>
+    </div>
+    <section class="panel"><h2>${ic("arrow")} Alur penggunaan utama</h2>
+      <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));display:grid">
+        <li><span><b>Buka beranda</b>Mahasiswa membuka halaman beranda PINTAR.</span></li>
+        <li><span><b>Pilih kategori / kata kunci</b>Lewat kartu kategori atau kolom pencarian.</span></li>
+        <li><span><b>Lihat daftar</b>Sistem menampilkan kegiatan yang sesuai.</span></li>
+        <li><span><b>Saring</b>Gunakan filter kategori dan bidang minat.</span></li>
+        <li><span><b>Buka detail</b>Pilih salah satu kartu kegiatan.</span></li>
+        <li><span><b>Periksa</b>Persyaratan, periode, kontak, dan sumber resmi.</span></li>
+        <li><span><b>Ikuti sumber resmi</b>Untuk informasi lanjut atau pendaftaran.</span></li>
+        <li><span><b>Pantau deadline</b>Lewat pengingat yang tersedia.</span></li>
+      </ol></section>
+    <section class="panel" id="fr"><h2>${ic("layers")} Kebutuhan fungsional di mockup ini</h2>
+      <p style="margin-bottom:14px">ID mengikuti dokumen analisis kebutuhan (Tugas 2). Kolom kanan menunjukkan di mana kebutuhan diwujudkan.</p>
+      <div class="table-scroll"><table><thead><tr><th>ID</th><th>Kebutuhan fungsional</th><th>Diwujudkan di</th></tr></thead><tbody>
+        ${FR.map(r=>`<tr><td class="id">${r[0]}</td><td>${r[1]}</td><td style="color:var(--ink-2)">${r[2]}</td></tr>`).join("")}
+      </tbody></table></div></section>
+    <section class="panel"><h2>${ic("alert")} Batasan dan hal yang perlu divalidasi</h2>
+      <ul class="list"><li>Statistik, nama kegiatan, tanggal, dan tautan pada mockup adalah data ilustrasi (tautan memakai domain example.com).</li><li>Dashboard pendaftar dan pendapatan untuk admin belum punya dasar dari wawancara dan belum tercantum di FR-01 sampai FR-17.</li><li>Kriteria status verifikasi perlu ditetapkan pengelola.</li><li>Mekanisme dan kanal notifikasi pengingat belum diputuskan; mockup menampilkan pengingat di dalam situs.</li><li>Login, registrasi, profil, dan hak akses belum dirinci; tombol Masuk hanya simulasi peran.</li><li>Teknologi rencana: Laravel (PHP) atau React/Next.js, dengan MySQL. Pilihan final ditetapkan tim.</li></ul></section>
+  </div>`;
+}
+
+let adminQ = "", confirmDel = null;
+function viewKelola(){
+  if(role!=="admin") return `
+  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Kelola</span></nav><h1>Halaman Pengelola</h1><p>Khusus admin/pengelola untuk menambah, memperbarui, dan menghapus informasi kegiatan.</p></div></section>
+  <div class="wrap section"><div class="empty">${ic("shield")}<h2>Masuk sebagai pengelola untuk melanjutkan</h2><p style="color:var(--ink-2);max-width:52ch">Proses autentikasi belum ditetapkan di laporan. Di mockup ini kamu bisa mensimulasikan peran admin.</p><button class="btn btn-primary" type="button" data-role="admin">Masuk sebagai Admin (simulasi)</button></div></div>`;
+  return `
+  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Kelola</span></nav><h1>Kelola Informasi Kegiatan</h1><p style="margin-bottom:14px">Tambah, perbarui, dan hapus informasi agar tidak ada yang kedaluwarsa.</p><a class="btn btn-white btn-sm" href="#dashboard">${ic("layers")} Lihat dashboard pendaftar &amp; pendapatan</a></div></section>
+  <div class="wrap" style="padding-bottom:32px">
+    <div class="admin-stats" id="admin-stats"></div>
+    <div class="notice" style="margin-bottom:16px">${ic("alert")}<span>Simulasi: perubahan hanya tersimpan di browser ini. Rincian hak akses dan alur persetujuan masih perlu dianalisis.</span></div>
+    <div class="toolbar">
+      <div class="input-ico" style="flex:1;min-width:220px;max-width:420px">${ic("search")}<label class="sr" for="adm-q">Cari kegiatan</label><input class="input" id="adm-q" type="search" placeholder="Cari nama atau penyelenggara" value="${esc(adminQ)}"></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" type="button" id="adm-reset">${ic("reset")} Kembalikan data contoh</button><button class="btn btn-primary btn-sm" type="button" data-edit="">${ic("plus")} Tambah kegiatan</button></div>
+    </div>
+    <div class="table-scroll"><table class="admin-table"><thead><tr><th>Kegiatan</th><th>Kategori</th><th>Biaya</th><th>Periode</th><th>Status</th><th>Verifikasi</th><th>Aksi</th></tr></thead><tbody id="adm-body"></tbody></table></div>
+  </div>`;
+}
+function renderAdmin(){
+  const body = $("#adm-body"); if(!body) return;
+  const q = adminQ.trim().toLowerCase();
+  const list = items.filter(i => !q || (i.nama+" "+i.penyelenggara).toLowerCase().includes(q)).sort(byDeadline);
+  $("#admin-stats").innerHTML = [
+    [items.length,"Total informasi"],[items.filter(i=>["open","ending"].includes(status(i))).length,"Sedang dibuka"],
+    [items.filter(i=>!i.verified).length,"Belum diverifikasi"],[items.filter(i=>status(i)==="closed").length,"Sudah ditutup"]
+  ].map(([n,l])=>`<div class="astat"><b class="num">${n}</b><small>${l}</small></div>`).join("");
+  body.innerHTML = list.map(it=>`<tr>
+    <td><div class="t-cell">${it.gambar?`<img class="t-thumb" src="${esc(it.gambar)}" alt="">`:`<span class="t-thumb" style="display:grid;place-items:center;color:var(--ink-2)">${ic(catIcon(it.kategori))}</span>`}<div><a class="t-name" href="#kegiatan-${esc(it.id)}">${esc(it.nama)}</a><small>${esc(it.penyelenggara)}</small></div></div></td>
+    <td>${esc(it.kategori)}<br><small>${esc(it.jenis)}</small></td>
+    <td class="num" style="white-space:nowrap">${it.biaya?`${rupiah(it.biaya)}<br><small>/${esc(it.satuan)}</small>`:"Gratis"}<br><small>${fmtNum(it.pendaftar)} pendaftar</small></td>
+    <td class="num" style="white-space:nowrap">${fmt(it.buka)}<br><small>s.d. ${fmt(it.tutup)}</small></td>
+    <td>${pill(it)}</td>
+    <td>${it.verified?`<span class="vbadge">${ic("badge")} Ya</span>`:`<span class="vbadge no">Belum</span>`}</td>
+    <td>${confirmDel===it.id
+      ? `<div class="row-actions"><span style="font-size:13px;font-weight:600">Hapus?</span><button class="btn btn-danger btn-sm" type="button" data-del-yes="${esc(it.id)}">Ya, hapus</button><button class="btn btn-ghost btn-sm" type="button" data-del-no>Batal</button></div>`
+      : `<div class="row-actions"><button class="icon-btn" type="button" data-edit="${esc(it.id)}" aria-label="Ubah ${esc(it.nama)}">${ic("pencil")}</button><button class="icon-btn danger" type="button" data-del="${esc(it.id)}" aria-label="Hapus ${esc(it.nama)}">${ic("trash")}</button></div>`}</td>
+  </tr>`).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--ink-2)">Tidak ada kegiatan yang cocok.</td></tr>`;
+}
+
+/* ================= Dashboard ================= */
+const dash = {kat:"", paid:false, sort:"income"};
+const pendapatan = it => {
+  if(!it.biaya) return 0;
+  return it.pendaftar * it.biaya;
+};
+const fmtNum = n => Number(n).toLocaleString("id-ID");
+function rpShort(n){
+  if(n >= 1e6) return "Rp" + (n/1e6).toLocaleString("id-ID",{maximumFractionDigits:2}) + " jt";
+  if(n >= 1e3) return "Rp" + (n/1e3).toLocaleString("id-ID",{maximumFractionDigits:1}) + " rb";
+  return "Rp" + fmtNum(n);
+}
+function dashRows(){
+  return items.filter(i => (!dash.kat || i.kategori===dash.kat) && (!dash.paid || i.biaya > 0));
+}
+function viewDashboard(){
+  if(role!=="admin") return viewKelola();
+  return `
+  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <a href="#kelola">Kelola</a> / <span>Dashboard</span></nav><h1>Dashboard Pendaftar &amp; Pendapatan</h1><p>Jumlah pendaftar dan estimasi pendapatan setiap kegiatan, dihitung dari jumlah pendaftar dikali biaya pendaftaran.</p></div></section>
+  <div class="wrap" style="padding-bottom:32px">
+    <div class="dash-filters" role="group" aria-label="Filter dashboard">
+      <label class="field"><span>Kategori</span><select class="select input" id="dash-kat"><option value="">Semua kategori</option>${CATS.map(k=>`<option ${dash.kat===k?"selected":""}>${k}</option>`).join("")}</select></label>
+      <label class="field"><span>Tampilkan</span><select class="select input" id="dash-paid"><option value="">Semua kegiatan</option><option value="1" ${dash.paid?"selected":""}>Hanya yang berbayar</option></select></label>
+      <label class="field"><span>Urutkan tabel</span><select class="select input" id="dash-sort">${[["income","Pendapatan tertinggi"],["daftar","Pendaftar terbanyak"],["az","Nama A–Z"]].map(([k,l])=>`<option value="${k}" ${dash.sort===k?"selected":""}>${l}</option>`).join("")}</select></label>
+    </div>
+    <div id="dash-body"></div>
+    <div class="notice" style="margin-top:18px">${ic("alert")}<span>PINTAR tidak menerima pendaftaran maupun pembayaran. Jumlah pendaftar dilaporkan penyelenggara dan diisi admin, jadi pendapatan di sini adalah <b>estimasi</b> yang diterima penyelenggara. Semua angka adalah data ilustrasi.</span></div>
+  </div>
+  <div class="dash-tip" id="dash-tip" hidden></div>`;
+}
+function hbarList(rows, val, label, tip){
+  const max = Math.max(1, ...rows.map(val));
+  return `<ul class="hbar">${rows.map(it => {
+    const v = val(it), pct = v / max;
+    return `<li tabindex="0" data-tip="${esc(tip(it))}"><span class="lbl">${esc(it.nama)}</span><span class="track"><span class="bar" style="width:calc((100% - 92px) * ${pct.toFixed(4)})"></span><span class="val num${v?"":" zero"}">${label(v)}</span></span></li>`;
+  }).join("")}</ul>`;
+}
+function renderDash(){
+  const box = $("#dash-body"); if(!box) return;
+  const rows = dashRows();
+  const paid = rows.filter(i => i.biaya > 0);
+  const totDaftar = rows.reduce((a,i)=>a+i.pendaftar,0);
+  const totIncome = rows.reduce((a,i)=>a+pendapatan(i),0);
+  const paidDaftar = paid.reduce((a,i)=>a+i.pendaftar,0);
+  const tipOf = it => [it.nama, `Pendaftar|${fmtNum(it.pendaftar)} ${it.satuan==="tim"&&it.biaya?"tim":"orang"}`, `Biaya|${it.biaya?rupiah(it.biaya)+"/"+it.satuan:"Gratis"}`, `Pendapatan|${rupiah(pendapatan(it))}`].join("~");
+  const byIncome = [...paid].sort((a,b)=>pendapatan(b)-pendapatan(a));
+  const byDaftar = [...rows].sort((a,b)=>b.pendaftar-a.pendaftar);
+  const table = [...rows].sort(dash.sort==="az" ? (a,b)=>a.nama.localeCompare(b.nama,"id") : dash.sort==="daftar" ? (a,b)=>b.pendaftar-a.pendaftar : (a,b)=>pendapatan(b)-pendapatan(a) || b.pendaftar-a.pendaftar);
+  if(!rows.length){ box.innerHTML = `<div class="empty">${ic("search")}<h3>Tidak ada kegiatan untuk filter ini</h3></div>`; return; }
+  box.innerHTML = `
+    <div class="kpis">
+      <div class="kpi"><small>Total pendaftar</small><b class="num">${fmtNum(totDaftar)}</b><span>dari ${rows.length} kegiatan</span></div>
+      <div class="kpi"><small>Total pendapatan (estimasi)</small><b class="num">${rupiah(totIncome)}</b><span>dari ${paid.length} kegiatan berbayar</span></div>
+      <div class="kpi"><small>Rata-rata per kegiatan berbayar</small><b class="num">${paid.length?rupiah(Math.round(totIncome/paid.length)):"–"}</b><span>${fmtNum(paidDaftar)} pendaftar berbayar</span></div>
+      <div class="kpi"><small>Kegiatan gratis</small><b class="num">${fmtNum(rows.length - paid.length)}</b><span>${fmtNum(totDaftar - paidDaftar)} pendaftar</span></div>
+    </div>
+    <div class="charts">
+      <section class="panel chart" aria-labelledby="ch-income"><h2 id="ch-income">Pendapatan per kegiatan</h2><p class="sub">Estimasi dalam rupiah, hanya kegiatan berbayar.</p>
+        ${byIncome.length ? hbarList(byIncome, pendapatan, rpShort, tipOf) : `<p class="sub">Tidak ada kegiatan berbayar untuk filter ini.</p>`}</section>
+      <section class="panel chart" aria-labelledby="ch-daftar" style="margin-top:0"><h2 id="ch-daftar">Pendaftar per kegiatan</h2><p class="sub">Orang atau tim, sesuai satuan pendaftaran.</p>
+        ${hbarList(byDaftar, i=>i.pendaftar, fmtNum, tipOf)}</section>
+    </div>
+    <section class="panel" style="margin-top:0"><h2>${ic("layers")} Rincian per kegiatan</h2>
+      <div class="table-scroll"><table class="dash-table"><thead><tr><th>Kegiatan</th><th>Kategori</th><th>Status</th><th class="n">Biaya</th><th class="n">Pendaftar</th><th class="n">Pendapatan</th></tr></thead>
+      <tbody>${table.map(it=>`<tr><td><a href="#kegiatan-${esc(it.id)}">${esc(it.nama)}</a></td><td>${esc(it.kategori)}</td><td>${pill(it)}</td>
+        <td class="n num">${it.biaya?`${rupiah(it.biaya)}<br><small>/${esc(it.satuan)}</small>`:"Gratis"}</td>
+        <td class="n num">${fmtNum(it.pendaftar)}</td><td class="n num">${it.biaya?rupiah(pendapatan(it)):"–"}</td></tr>`).join("")}</tbody>
+      <tfoot><tr><td colspan="4">Total (${rows.length} kegiatan)</td><td class="n num">${fmtNum(totDaftar)}</td><td class="n num">${rupiah(totIncome)}</td></tr></tfoot></table></div>
+    </section>`;
+}
+function showTip(li, x, y){
+  const tip = $("#dash-tip"); if(!tip) return;
+  const [title, ...rows] = li.dataset.tip.split("~");
+  tip.innerHTML = `<b>${esc(title)}</b>` + rows.map(r => { const [k,v] = r.split("|"); return `<div><span>${esc(k)}</span><span>${esc(v)}</span></div>`; }).join("");
+  tip.hidden = false;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, x + 14)) + "px";
+  tip.style.top = Math.max(8, Math.min(innerHeight - h - 8, y + 14)) + "px";
+}
+document.addEventListener("mousemove", e => {
+  const li = e.target.closest?.(".hbar li");
+  const tip = $("#dash-tip"); if(!tip) return;
+  if(li) showTip(li, e.clientX, e.clientY); else tip.hidden = true;
+});
+document.addEventListener("focusin", e => { const li = e.target.closest?.(".hbar li"); if(li){ const r = li.getBoundingClientRect(); showTip(li, r.left + 140, r.bottom - 10); } });
+document.addEventListener("focusout", e => { if(e.target.closest?.(".hbar li")){ const tip = $("#dash-tip"); if(tip) tip.hidden = true; } });
+
+/* ================= Dialogs ================= */
+function openForm(id){
+  const it = id ? byId(id) : {nama:"",kategori:"Lomba",jenis:"Non-akademik",bidang:[],penyelenggara:"",buka:off(0),tutup:off(14),acara:"",lokasi:"",biaya:0,satuan:"orang",pendaftar:0,manfaat:"",deskripsi:"",syarat:[],kontak:{nama:"",info:""},sumber:{nama:"",url:""},verified:false};
+  const d = $("#form-dlg");
+  d.innerHTML = `<form method="dialog" id="item-form" novalidate>
+    <div class="dlg-head"><h2 id="form-title">${id?"Ubah informasi kegiatan":"Tambah kegiatan baru"}</h2><button class="icon-btn" type="button" data-close aria-label="Tutup">${ic("x")}</button></div>
+    <div class="dlg-body"><div class="form-grid">
+      <label class="field full" data-fld="nama"><span>Nama kegiatan *</span><input class="input" id="f-nama" value="${esc(it.nama)}"><small class="err" hidden></small></label>
+      <label class="field"><span>Kategori</span><select class="select input" id="f-kategori">${CATS.map(k=>`<option ${it.kategori===k?"selected":""}>${k}</option>`).join("")}</select></label>
+      <label class="field"><span>Jenis</span><select class="select input" id="f-jenis">${JENIS.map(k=>`<option ${it.jenis===k?"selected":""}>${k}</option>`).join("")}</select></label>
+      <fieldset class="f-group full"><legend>Bidang minat</legend><div class="chips">${BIDANG.map(b=>`<label class="check" style="min-height:32px"><input type="checkbox" name="f-bidang" value="${b}" ${(it.bidang||[]).includes(b)?"checked":""}> ${b}</label>`).join("")}</div></fieldset>
+      <label class="field full" data-fld="penyelenggara"><span>Penyelenggara *</span><input class="input" id="f-penyelenggara" value="${esc(it.penyelenggara)}"><small class="err" hidden></small></label>
+      <label class="field" data-fld="buka"><span>Pendaftaran dibuka *</span><input class="input" type="date" id="f-buka" value="${esc(it.buka)}"><small class="err" hidden></small></label>
+      <label class="field" data-fld="tutup"><span>Pendaftaran ditutup *</span><input class="input" type="date" id="f-tutup" value="${esc(it.tutup)}"><small class="err" hidden></small></label>
+      <label class="field"><span>Tanggal pelaksanaan</span><input class="input" type="date" id="f-acara" value="${esc(it.acara||"")}"></label>
+      <label class="field full"><span>Lokasi</span><input class="input" id="f-lokasi" value="${esc(it.lokasi)}" placeholder="Contoh: Aula Fakultas Ilmu Komputer, atau Zoom Meeting"></label>
+      <fieldset class="f-group full promo-fs"><legend>Biaya &amp; pendaftar (untuk dashboard)</legend>
+        <div class="form-grid">
+          <label class="field" data-fld="biaya"><span>Biaya pendaftaran (Rp, 0 = gratis)</span><input class="input" type="number" min="0" step="1000" id="f-biaya" value="${esc(it.biaya||0)}"><small class="err" hidden></small></label>
+          <label class="field"><span>Per</span><select class="select input" id="f-satuan">${["orang","tim"].map(x=>`<option ${it.satuan===x?"selected":""}>${x}</option>`).join("")}</select></label>
+          <label class="field full" data-fld="pendaftar"><span>Jumlah pendaftar (dilaporkan penyelenggara)</span><input class="input" type="number" min="0" step="1" id="f-pendaftar" value="${esc(it.pendaftar||0)}"><small class="err" hidden></small></label>
+        </div>
+      </fieldset>
+      <div class="field full"><span>Gambar / poster kegiatan (PNG, JPG, WebP · opsional)</span>
+        <div class="pic-picker">
+          <div class="pic-prev" id="f-pic-prev">${it.gambar?`<img src="${esc(it.gambar)}" alt="Pratinjau gambar">`:"Belum ada gambar"}</div>
+          <div class="stack" style="justify-items:start">
+            <button class="btn btn-ghost btn-sm" type="button" id="f-pic-btn">${ic("image")} ${it.gambar?"Ganti gambar":"Pilih gambar"}</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="f-pic-del" ${it.gambar?"":"hidden"}>${ic("trash")} Hapus gambar</button>
+            <small>Gambar diperkecil otomatis (maks. 1000 px) agar cepat dimuat.</small>
+          </div>
+          <input type="file" id="f-pic" accept="image/png,image/jpeg,image/webp" hidden>
+        </div>
+      </div>
+      <label class="field full"><span>Manfaat / hadiah</span><input class="input" id="f-manfaat" value="${esc(it.manfaat||"")}"></label>
+      <label class="field full"><span>Deskripsi</span><textarea class="input" id="f-deskripsi">${esc(it.deskripsi)}</textarea></label>
+      <label class="field full"><span>Persyaratan (satu per baris)</span><textarea class="input" id="f-syarat">${esc((it.syarat||[]).join("\n"))}</textarea></label>
+      <label class="field"><span>Nama kontak</span><input class="input" id="f-knama" value="${esc(it.kontak.nama)}"></label>
+      <label class="field"><span>Nomor / email kontak</span><input class="input" id="f-kinfo" value="${esc(it.kontak.info)}"></label>
+      <label class="field"><span>Nama sumber resmi</span><input class="input" id="f-snama" value="${esc(it.sumber.nama)}"></label>
+      <label class="field" data-fld="url"><span>Tautan sumber resmi *</span><input class="input" type="url" id="f-surl" value="${esc(it.sumber.url)}" placeholder="https://"><small class="err" hidden></small></label>
+      <label class="check full"><input type="checkbox" id="f-ver" ${it.verified?"checked":""}> Sudah dicocokkan dengan sumber resmi (tandai terverifikasi)</label>
+    </div></div>
+    <div class="dlg-foot"><button class="btn btn-ghost" type="button" data-close>Batal</button><button class="btn btn-primary" type="submit">${id?"Simpan perubahan":"Tambah kegiatan"}</button></div>
+  </form>`;
+  d.showModal();
+  let formPic = it.gambar || "";
+  const showPic = () => {
+    $("#f-pic-prev").innerHTML = formPic ? `<img src="${esc(formPic)}" alt="Pratinjau gambar">` : "Belum ada gambar";
+    $("#f-pic-del").hidden = !formPic;
+    $("#f-pic-btn").lastChild.textContent = formPic ? " Ganti gambar" : " Pilih gambar";
+  };
+  $("#f-pic-btn").addEventListener("click", () => $("#f-pic").click());
+  $("#f-pic-del").addEventListener("click", () => { formPic = ""; showPic(); });
+  $("#f-pic").addEventListener("change", e => { const f = e.target.files[0]; e.target.value = ""; shrinkImage(f, 1000, url => { formPic = url; showPic(); }); });
+  $("#item-form").addEventListener("submit", e => {
+    e.preventDefault();
+    const v = k => $("#f-"+k).value.trim();
+    const errs = {};
+    if(!v("nama")) errs.nama = "Isi nama kegiatan.";
+    if(!v("penyelenggara")) errs.penyelenggara = "Isi nama penyelenggara.";
+    if(!v("buka")) errs.buka = "Pilih tanggal dibuka.";
+    if(!v("tutup")) errs.tutup = "Pilih tanggal ditutup.";
+    else if(v("buka") && v("tutup") < v("buka")) errs.tutup = "Tanggal tutup harus sama atau setelah tanggal dibuka.";
+    if(!/^https?:\/\/\S+\.\S+/.test(v("surl"))) errs.url = "Masukkan tautan lengkap, diawali https://";
+    const biaya = Number(v("biaya")||0);
+    if(!(biaya >= 0)) errs.biaya = "Biaya tidak boleh negatif.";
+    if(!(Number(v("pendaftar")||0) >= 0)) errs.pendaftar = "Jumlah pendaftar tidak boleh negatif.";
+    d.querySelectorAll("[data-fld]").forEach(f => { const m = errs[f.dataset.fld]; f.classList.toggle("invalid", !!m); const s = f.querySelector(".err"); s.hidden = !m; s.textContent = m||""; });
+    const first = d.querySelector(".field.invalid .input"); if(first){ first.focus(); return; }
+    const data = {
+      id: id || ("x"+Date.now().toString(36)), nama:v("nama"), kategori:v("kategori"), jenis:v("jenis"),
+      bidang:[...d.querySelectorAll('input[name="f-bidang"]:checked')].map(x=>x.value),
+      penyelenggara:v("penyelenggara"), buka:v("buka"), tutup:v("tutup"), acara:v("acara"), lokasi:v("lokasi")||"Menyusul",
+      biaya, satuan:v("satuan"), pendaftar:Number(v("pendaftar")||0),
+      manfaat:v("manfaat"), deskripsi:v("deskripsi")||"Belum ada deskripsi.", syarat:v("syarat").split("\n").map(s=>s.trim()).filter(Boolean),
+      kontak:{nama:v("knama")||"Belum dicantumkan", info:v("kinfo")||"–"}, sumber:{nama:v("snama")||"Sumber resmi", url:v("surl")},
+      verified:$("#f-ver").checked, gambar: formPic
+    };
+    const prev = id ? byId(id) : null;
+    data.cekTgl = data.verified ? ((prev && prev.verified && prev.cekTgl) || off(0)) : "";
+    if(id) items = items.map(i => i.id===id ? data : i); else items.push(data);
+    const ok = saveItems(); d.close(); renderAdmin(); updateBell();
+    if(!ok){ toast("Penyimpanan browser penuh. Perubahan tampil sampai halaman dimuat ulang."); return; }
+    toast(id ? "Perubahan disimpan" : "Kegiatan ditambahkan");
+  });
+  setTimeout(()=>$("#f-nama").focus(), 30);
+}
+function openLogin(){
+  const d = $("#login-dlg");
+  d.innerHTML = `<div class="dlg-head"><h2 id="login-title">Masuk ke PINTAR</h2><button class="icon-btn" type="button" data-close aria-label="Tutup">${ic("x")}</button></div>
+  <div class="dlg-body">
+    <div class="notice">${ic("alert")}<span>Proses login dan registrasi belum dirinci dalam kebutuhan fungsional. Pilih peran untuk mensimulasikan tampilan.</span></div>
+    <p style="color:var(--ink-2)">Peran saat ini: <b style="color:var(--ink)">${role==="admin"?"Admin/pengelola":role==="mahasiswa"?"Mahasiswa":"Tamu"}</b></p>
+    <div class="stack">
+      <button class="btn btn-primary" type="button" data-role="mahasiswa">${ic("user")} Masuk sebagai Mahasiswa</button>
+      <button class="btn btn-ghost" type="button" data-role="admin">${ic("shield")} Masuk sebagai Admin/pengelola</button>
+      ${role!=="tamu"?`<button class="btn btn-ghost" type="button" data-role="tamu">Keluar</button>`:""}
+    </div>
+  </div>`;
+  d.showModal();
+}
+function openRem(){
+  const d = $("#rem-dlg");
+  const list = reminders.map(byId).filter(Boolean).sort((a,b)=>(status(a)==="closed")-(status(b)==="closed") || byDeadline(a,b));
+  d.innerHTML = `<div class="dlg-head"><h2 id="rem-title">${ic("bell")} Pengingat deadline</h2><button class="icon-btn" type="button" data-close aria-label="Tutup">${ic("x")}</button></div>
+  <div class="dlg-body">
+    ${list.length ? list.map(it=>`<div class="rem-item"><span class="r-ico" style="${catStyle(it.kategori)}">${ic(catIcon(it.kategori))}</span>
+      <div style="min-width:0"><a href="#kegiatan-${esc(it.id)}" data-close>${esc(it.nama)}</a><small class="remain ${status(it)} num" style="font:700 13px/1.2 var(--font-display)">${remainText(it)} · tutup ${fmt(it.tutup)}</small></div>
+      <button class="icon-btn" type="button" data-remind="${esc(it.id)}" aria-pressed="true" aria-label="Hapus pengingat ${esc(it.nama)}">${ic("x")}</button></div>`).join("")
+    : `<div class="empty">${ic("bell")}<h3>Belum ada pengingat</h3><p style="color:var(--ink-2)">Tekan ikon lonceng pada kartu kegiatan untuk menyimpannya di sini.</p></div>`}
+    <div class="notice">${ic("alert")}<span>Pengingat tampil di dalam situs. Kanal notifikasi (email, WhatsApp, atau push) belum diputuskan pada tahap analisis.</span></div>
+  </div>`;
+  if(!d.open) d.showModal();
+}
+
+/* ================= Router ================= */
+const VIEWS = {beranda:viewHome, jelajahi:viewExplore, beasiswa:viewBeasiswa, tentang:viewTentang, kelola:viewKelola, dashboard:viewDashboard};
+const histStack = []; let lastHash = null, goingBack = false;
+function parentHash(h){
+  if(h.startsWith("kegiatan-")) return byId(h.slice(9))?.kategori==="Beasiswa" ? "beasiswa" : "jelajahi";
+  if(h==="dashboard") return "kelola";
+  return "beranda";
+}
+function goBack(){
+  const cur = location.hash.slice(1) || "beranda";
+  if(histStack.length){ goingBack = true; location.hash = histStack.pop(); }
+  else location.hash = parentHash(cur);
+}
+function route(){
+  const curHash = location.hash || "#beranda";
+  if(lastHash && lastHash!==curHash && !goingBack) histStack.push(lastHash.slice(1));
+  if(histStack.length > 50) histStack.shift();
+  goingBack = false; lastHash = curHash;
+  let h = location.hash.slice(1) || "beranda";
+  let scrollTo = null;
+  if(h==="tentang-fr"){ h="tentang"; scrollTo="fr"; }
+  const app = $("#app");
+  if(h.startsWith("kegiatan-")) app.innerHTML = viewDetail(h.slice(9));
+  else app.innerHTML = (VIEWS[h] || viewHome)();
+  const key = h.startsWith("kegiatan-") ? (byId(h.slice(9))?.kategori==="Beasiswa" ? "beasiswa" : "jelajahi") : (VIEWS[h] ? h : "beranda");
+  document.querySelectorAll("[data-nav]").forEach(a => a.dataset.nav===key ? a.setAttribute("aria-current","page") : a.removeAttribute("aria-current"));
+  $("#nav").classList.remove("open"); $("#menu-btn").setAttribute("aria-expanded","false");
+  applyHeroImg();
+  if(h==="jelajahi") renderResults();
+  if(h==="beasiswa") renderSch();
+  if(h==="kelola") renderAdmin();
+  if(h==="dashboard") renderDash();
+  const titles = {beranda:"PINTAR · Temukan Peluang", jelajahi:"Jelajahi Kegiatan · PINTAR", beasiswa:"Beasiswa · PINTAR", tentang:"Tentang · PINTAR", kelola:"Kelola · PINTAR", dashboard:"Dashboard · PINTAR"};
+  document.title = h.startsWith("kegiatan-") ? ((byId(h.slice(9))?.nama || "Kegiatan") + " · PINTAR") : (titles[h] || "PINTAR Mahasiswa");
+  if(scrollTo){ setTimeout(()=>document.getElementById(scrollTo)?.scrollIntoView(), 30); } else window.scrollTo(0,0);
+}
+function refresh(){ const y = window.scrollY; route(); window.scrollTo(0,y); }
+function applyRole(){
+  $("#nav-kelola").hidden = role!=="admin";
+  $("#nav-dash").hidden = role!=="admin";
+  $("#login-label").textContent = role==="admin" ? "Admin" : role==="mahasiswa" ? "Mahasiswa" : "Masuk";
+}
+
+/* ================= Events ================= */
+document.addEventListener("click", e => {
+  const t = e.target.closest("button, a"); if(!t) return;
+  if(t.dataset.close !== undefined){ const d = t.closest("dialog"); if(d) d.close(); if(t.tagName==="BUTTON") return; }
+  if(t.dataset.remind){
+    e.preventDefault();
+    const id = t.dataset.remind, it = byId(id);
+    if(reminders.includes(id)){ reminders = reminders.filter(x=>x!==id); toast("Pengingat dihapus"); }
+    else { reminders.push(id); toast(status(it)==="closed" ? "Pendaftaran sudah ditutup, pengingat tetap disimpan" : `Pengingat disimpan: ${remainText(it).toLowerCase()}`); }
+    saveRem(); updateBell();
+    if($("#rem-dlg").open) openRem();
+    if($("#results")) renderResults(); else refresh();
+    return;
+  }
+  if(t.dataset.goCat){ e.preventDefault(); resetExplore(); explore.kategori=[t.dataset.goCat]; location.hash==="#jelajahi" ? route() : (location.hash="jelajahi"); return; }
+  if(t.dataset.sort){ resetExplore(); explore.sort=t.dataset.sort; return; }
+  if(t.dataset.back !== undefined){ goBack(); return; }
+  if(t.dataset.openRem !== undefined){ openRem(); return; }
+  if(t.dataset.heroPick !== undefined){ $("#hero-file").click(); return; }
+  if(t.dataset.heroReset !== undefined){ heroImg = HERO_IMG_DEFAULT; store.del("pintar.heroImg"); refresh(); toast("Latar bawaan dipakai lagi"); return; }
+  if(t.dataset.plannerBidang){ t.setAttribute("aria-pressed", t.getAttribute("aria-pressed")!=="true"); return; }
+  if(t.dataset.fBidang){ const b=t.dataset.fBidang; explore.bidang = explore.bidang.includes(b) ? explore.bidang.filter(x=>x!==b) : [...explore.bidang,b]; t.setAttribute("aria-pressed", explore.bidang.includes(b)); renderResults(); return; }
+  if(t.dataset.clear){
+    const k=t.dataset.clear, v=t.dataset.val;
+    if(Array.isArray(explore[k])) explore[k]=explore[k].filter(x=>x!==v); else if(typeof explore[k]==="boolean") explore[k]=false; else explore[k]="";
+    route(); return;
+  }
+  if(t.id==="ex-reset"||t.id==="ex-reset-2"){ resetExplore(); route(); return; }
+  if(t.id==="filters-toggle"){ const f=$("#filters"); const o=f.classList.toggle("open"); t.setAttribute("aria-expanded",o); t.lastChild.textContent = o?" Sembunyikan":" Tampilkan"; return; }
+  if(t.dataset.sch !== undefined){ schFilter.s=t.dataset.sch; document.querySelectorAll("[data-sch]").forEach(b=>b.closest(".chips") && b.setAttribute("aria-pressed", b.dataset.sch===schFilter.s)); renderSch(); return; }
+  if(t.dataset.copy){
+    const txt=t.dataset.copy;
+    const done=()=>toast((t.dataset.copyLabel||"Kontak")+" disalin");
+    const fallback=()=>{ const c=t.previousElementSibling; const r=document.createRange(); r.selectNodeContents(c); const s=getSelection(); s.removeAllRanges(); s.addRange(r); toast("Teks dipilih, tekan Ctrl+C untuk menyalin"); };
+    try{ navigator.clipboard.writeText(txt).then(done, fallback); }catch(err){ fallback(); }
+    return;
+  }
+  if(t.dataset.role){ role=t.dataset.role; store.set("pintar.role",role); applyRole(); $("#login-dlg").open && $("#login-dlg").close(); toast(role==="admin"?"Masuk sebagai Admin (simulasi)":role==="mahasiswa"?"Masuk sebagai Mahasiswa (simulasi)":"Kamu sudah keluar"); if(role==="admin" && location.hash!=="#kelola") location.hash="kelola"; else route(); return; }
+  if(t.dataset.edit !== undefined){ openForm(t.dataset.edit); return; }
+  if(t.dataset.del){ confirmDel=t.dataset.del; renderAdmin(); document.querySelector("[data-del-yes]")?.focus(); return; }
+  if(t.dataset.delNo !== undefined){ confirmDel=null; renderAdmin(); return; }
+  if(t.dataset.delYes){ const it=byId(t.dataset.delYes); items=items.filter(i=>i.id!==t.dataset.delYes); reminders=reminders.filter(x=>x!==t.dataset.delYes); confirmDel=null; saveItems(); saveRem(); updateBell(); renderAdmin(); toast(`“${it?.nama||"Kegiatan"}” dihapus`); return; }
+  if(t.id==="adm-reset"){ items=seedItems(); store.del("pintar.items.v5"); confirmDel=null; renderAdmin(); updateBell(); toast("Data contoh dikembalikan"); return; }
+  if(t.id==="bell-btn"){ openRem(); return; }
+  if(t.id==="login-btn"){ openLogin(); return; }
+  if(t.id==="menu-btn"){ const o=$("#nav").classList.toggle("open"); t.setAttribute("aria-expanded",o); return; }
+});
+document.addEventListener("submit", e => {
+  if(e.target.id!=="planner") return;
+  e.preventDefault();
+  resetExplore();
+  explore.q=$("#planner-q").value; explore.jenis=$("#planner-jenis").value;
+  explore.bidang=[...document.querySelectorAll('[data-planner-bidang][aria-pressed="true"]')].map(b=>b.dataset.plannerBidang);
+  location.hash="jelajahi";
+});
+document.addEventListener("input", e => {
+  const id=e.target.id;
+  if(id==="ex-q"){ explore.q=e.target.value; renderResults(); }
+  if(id==="adm-q"){ adminQ=e.target.value; renderAdmin(); }
+});
+document.addEventListener("change", e => {
+  const el=e.target, id=el.id;
+  if(id==="dash-kat"){ dash.kat=el.value; renderDash(); return; }
+  if(id==="dash-paid"){ dash.paid=!!el.value; renderDash(); return; }
+  if(id==="dash-sort"){ dash.sort=el.value; renderDash(); return; }
+  if(id==="hero-file"){ loadHeroImg(el.files[0]); el.value=""; return; }
+  if(id==="ex-jenis"){ explore.jenis=el.value; renderResults(); }
+  else if(id==="ex-status"){ explore.status=el.value; renderResults(); }
+  else if(id==="ex-ver"){ explore.verified=el.checked; renderResults(); }
+  else if(id==="ex-sort"){ explore.sort=el.value; renderResults(); }
+  else if(el.dataset.f){ const k=el.dataset.f; explore[k] = el.checked ? [...explore[k], el.value] : explore[k].filter(x=>x!==el.value); renderResults(); }
+});
+document.querySelectorAll("dialog").forEach(d => d.addEventListener("click", e => { if(e.target===d) d.close(); }));
+window.addEventListener("hashchange", route);
+["dragenter","dragover"].forEach(ev => document.addEventListener(ev, e => { const h = e.target.closest?.(".hero"); if(h){ e.preventDefault(); h.classList.add("drag"); } }));
+document.addEventListener("dragleave", e => { const h = e.target.closest?.(".hero"); if(h && !h.contains(e.relatedTarget)) h.classList.remove("drag"); });
+document.addEventListener("drop", e => { const h = e.target.closest?.(".hero"); if(!h) return; e.preventDefault(); h.classList.remove("drag"); loadHeroImg(e.dataTransfer.files[0]); });
+
+applyRole(); updateBell(); route();
+const urgent = reminders.map(byId).filter(i => i && status(i)==="ending" && daysLeft(i)<=3);
+if(urgent.length) setTimeout(()=>toast(`Pengingat: ${urgent[0].nama} ${daysLeft(urgent[0])===0?"berakhir hari ini":`berakhir ${daysLeft(urgent[0])} hari lagi`}`), 900);
+})();
+</script>
+
+</body>
+</html>
