@@ -1,0 +1,95 @@
+@startuml
+' Kelompok 5 - Sistem Informasi PINTAR | APSI 3B-SI
+title ERD - Sistem Informasi PINTAR (sesuai database aplikasi)
+footer Kelompok 5 (APSI 3B-SI) | PK = primary key, FK = foreign key, U = unik
+hide circle
+skinparam linetype ortho
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ArrowColor #2F4156
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2F4156
+  HeaderBackgroundColor #C8D9E6
+}
+
+entity "users\n(Pengguna)" as users {
+  * id : BIGINT <<PK>>
+  --
+  * name : VARCHAR(255)
+  * email : VARCHAR(255) <<U>>
+  * password : VARCHAR(255)
+  * role : VARCHAR(20)  [mahasiswa | admin]
+  nim : VARCHAR(20)
+  prodi : VARCHAR(255)
+  created_at, updated_at : TIMESTAMP
+}
+
+entity "kategoris\n(Kategori)" as kategoris {
+  * id : BIGINT <<PK>>
+  --
+  * nama : VARCHAR(50) <<U>>
+  * slug : VARCHAR(50) <<U>>
+  * ikon : VARCHAR(30)
+  * urutan : TINYINT
+}
+
+entity "bidang_minats\n(Bidang Minat)" as bidang {
+  * id : BIGINT <<PK>>
+  --
+  * nama : VARCHAR(50) <<U>>
+}
+
+entity "penyelenggaras\n(Penyelenggara)" as penyelenggaras {
+  * id : BIGINT <<PK>>
+  --
+  * nama : VARCHAR(255) <<U>>
+  kontak_nama : VARCHAR(255)
+  kontak_info : VARCHAR(255)
+}
+
+entity "kegiatans\n(Kegiatan)" as kegiatans {
+  * id : BIGINT <<PK>>
+  --
+  * nama : VARCHAR(255)
+  * kategori_id : BIGINT <<FK>>
+  * penyelenggara_id : BIGINT <<FK>>
+  * jenis : VARCHAR(20)  [Akademik | Non-akademik]
+  * deskripsi : TEXT
+  persyaratan : TEXT  (satu baris = satu syarat)
+  manfaat : VARCHAR(255)
+  * tgl_buka : DATE
+  * tgl_tutup : DATE
+  tgl_pelaksanaan : DATE
+  lokasi : VARCHAR(255)
+  * sumber_nama : VARCHAR(255)
+  * sumber_url : VARCHAR(500)
+  poster_path : VARCHAR(255)
+  * terverifikasi : BOOLEAN
+  tgl_verifikasi : DATE
+  dibuat_oleh : BIGINT <<FK>>
+  created_at, updated_at : TIMESTAMP
+}
+
+entity "bidang_minat_kegiatan\n(tabel penghubung)" as pivot {
+  * kegiatan_id : BIGINT <<PK, FK>>
+  * bidang_minat_id : BIGINT <<PK, FK>>
+}
+
+entity "pengingats\n(Pengingat)" as pengingats {
+  * id : BIGINT <<PK>>
+  --
+  * user_id : BIGINT <<FK>>
+  * kegiatan_id : BIGINT <<FK>>
+  created_at, updated_at : TIMESTAMP
+  (user_id + kegiatan_id unik)
+}
+
+kategoris ||--o{ kegiatans : mengelompokkan
+penyelenggaras ||--o{ kegiatans : menyelenggarakan
+kegiatans ||--o{ pivot : memiliki
+bidang ||--o{ pivot : mencakup
+users ||--o{ pengingats : membuat
+kegiatans ||--o{ pengingats : diingatkan
+users |o--o{ kegiatans : "menambahkan (admin)"
+@enduml

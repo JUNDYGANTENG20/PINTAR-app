@@ -1,0 +1,97 @@
+@startuml
+' Kelompok 5 - Sistem Informasi PINTAR | APSI 3B-SI
+title Class Diagram - Sistem Informasi PINTAR (sesuai kode aplikasi)
+footer Kelompok 5 (APSI 3B-SI) | nama atribut & operasi sama dengan app/Models
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #2F4156
+skinparam class {
+  BackgroundColor #FFFFFF
+  BorderColor #2F4156
+  HeaderBackgroundColor #C8D9E6
+}
+skinparam note {
+  BackgroundColor #F5EFEB
+  BorderColor #B08F7A
+}
+
+class User {
+  - id : int
+  - name : String
+  - email : String
+  - password : String
+  - role : String
+  - nim : String
+  - prodi : String
+  + isAdmin() : boolean
+  + pengingats() : List<Pengingat>
+  + kegiatanDiingatkan() : List<Kegiatan>
+}
+note right of User : role = "mahasiswa" atau "admin"
+
+class Kategori {
+  - id : int
+  - nama : String
+  - slug : String
+  - ikon : String
+  - urutan : int
+  + kegiatans() : List<Kegiatan>
+}
+
+class BidangMinat {
+  - id : int
+  - nama : String
+  + kegiatans() : List<Kegiatan>
+}
+
+class Penyelenggara {
+  - id : int
+  - nama : String
+  - kontak_nama : String
+  - kontak_info : String
+  + kegiatans() : List<Kegiatan>
+  + tampilkanKontak() : String
+}
+
+class Kegiatan {
+  - id : int
+  - nama : String
+  - jenis : String
+  - deskripsi : String
+  - persyaratan : String
+  - manfaat : String
+  - tgl_buka : Date
+  - tgl_tutup : Date
+  - tgl_pelaksanaan : Date
+  - lokasi : String
+  - sumber_nama : String
+  - sumber_url : String
+  - poster_path : String
+  - terverifikasi : boolean
+  - tgl_verifikasi : Date
+  + hitungStatus() : String
+  + hitungSisaHari() : int
+  + hariMenujuBuka() : int
+  + labelStatus() : String
+  + teksSisaWaktu() : String
+  + persenPeriode() : int
+  + daftarPersyaratan() : List<String>
+  + posterUrl() : String
+}
+note right of Kegiatan : status = dibuka | segera-berakhir\n| segera-dibuka | ditutup\n(segera berakhir = tutup <= 7 hari)
+
+class Pengingat {
+  - id : int
+  - created_at : DateTime
+  + user() : User
+  + kegiatan() : Kegiatan
+}
+
+Kategori "1" -- "0..*" Kegiatan : mengelompokkan
+Penyelenggara "1" -- "1..*" Kegiatan : menyelenggarakan
+Kegiatan "0..*" -- "0..*" BidangMinat : terkait
+User "1" -- "0..*" Pengingat : membuat
+Kegiatan "1" -- "0..*" Pengingat : diingatkan
+User "0..1" -- "0..*" Kegiatan : menambahkan (admin)
+@enduml
