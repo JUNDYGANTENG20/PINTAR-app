@@ -1,0 +1,470 @@
+[
+ {
+  "id": "b1",
+  "nama": "Beasiswa Prestasi Akademik Semester Genap",
+  "kategori": "Beasiswa",
+  "jenis": "Akademik",
+  "bidang": [
+   "Umum"
+  ],
+  "penyelenggara": "Biro Kemahasiswaan Kampus",
+  "buka": -12,
+  "tutup": 4,
+  "lokasi": "Portal beasiswa kampus",
+  "verified": true,
+  "cek": -3,
+  "manfaat": "Pembebasan UKT 1 semester + uang saku Rp750.000/bulan",
+  "deskripsi": "Beasiswa untuk mahasiswa aktif dengan capaian akademik baik. Seleksi berkas dan wawancara dilakukan oleh tim beasiswa fakultas.",
+  "syarat": [
+   "Mahasiswa aktif semester 3–6",
+   "IPK minimal 3,25",
+   "Tidak sedang menerima beasiswa lain",
+   "Surat rekomendasi dari koordinator prodi",
+   "Transkrip nilai terbaru"
+  ],
+  "kontak": {
+   "nama": "Bagian Beasiswa Biro Kemahasiswaan",
+   "info": "beasiswa@kampus.example"
+  },
+  "sumber": {
+   "nama": "Pengumuman resmi Biro Kemahasiswaan",
+   "url": "https://example.com/beasiswa-prestasi"
+  }
+ },
+ {
+  "id": "b2",
+  "nama": "Beasiswa Cendekia Nusantara",
+  "kategori": "Beasiswa",
+  "jenis": "Akademik",
+  "bidang": [
+   "Umum",
+   "Sosial"
+  ],
+  "penyelenggara": "Yayasan Cendekia Nusantara",
+  "buka": -25,
+  "tutup": 2,
+  "lokasi": "Formulir daring yayasan",
+  "verified": true,
+  "cek": -6,
+  "manfaat": "Biaya pendidikan penuh 2 semester + program mentoring",
+  "deskripsi": "Beasiswa dari yayasan swasta untuk mahasiswa berprestasi dengan keterbatasan ekonomi. Penerima mengikuti program mentoring kepemimpinan selama satu tahun.",
+  "syarat": [
+   "Mahasiswa S1 semester 2–5",
+   "IPK minimal 3,00",
+   "Penghasilan orang tua maksimal Rp4.000.000/bulan",
+   "Esai motivasi 500 kata",
+   "Aktif di minimal satu organisasi"
+  ],
+  "kontak": {
+   "nama": "Sekretariat Yayasan",
+   "info": "0812-0000-1122 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Situs resmi Yayasan Cendekia Nusantara",
+   "url": "https://example.com/cendekia-nusantara"
+  }
+ },
+ {
+  "id": "b3",
+  "nama": "Beasiswa Riset Mahasiswa Data & AI",
+  "kategori": "Beasiswa",
+  "jenis": "Akademik",
+  "bidang": [
+   "Teknologi",
+   "Sains"
+  ],
+  "penyelenggara": "Konsorsium Industri Digital",
+  "buka": -2,
+  "tutup": 26,
+  "lokasi": "Portal konsorsium",
+  "verified": false,
+  "manfaat": "Dana riset Rp5.000.000 + akses magang 3 bulan",
+  "deskripsi": "Pendanaan riset singkat untuk mahasiswa yang mengerjakan proyek analisis data atau kecerdasan buatan. Informasi ini sedang dicocokkan pengelola dengan sumber resminya.",
+  "syarat": [
+   "Mahasiswa Sistem Informasi, Informatika, atau Statistika",
+   "Proposal riset maksimal 5 halaman",
+   "Dosen pembimbing yang bersedia",
+   "IPK minimal 3,00"
+  ],
+  "kontak": {
+   "nama": "Tim Program Riset",
+   "info": "riset@konsorsium.example"
+  },
+  "sumber": {
+   "nama": "Unggahan Instagram konsorsium",
+   "url": "https://example.com/riset-data-ai"
+  }
+ },
+ {
+  "id": "b4",
+  "nama": "Beasiswa Bantuan Biaya Pendidikan",
+  "kategori": "Beasiswa",
+  "jenis": "Akademik",
+  "bidang": [
+   "Umum"
+  ],
+  "penyelenggara": "Pemerintah Daerah",
+  "buka": 6,
+  "tutup": 36,
+  "lokasi": "Portal beasiswa daerah",
+  "verified": true,
+  "cek": -1,
+  "manfaat": "Bantuan biaya kuliah Rp3.000.000 per semester",
+  "deskripsi": "Bantuan biaya pendidikan untuk mahasiswa yang berdomisili di daerah penyelenggara. Pendaftaran belum dibuka; pantau tanggal pembukaan.",
+  "syarat": [
+   "KTP domisili daerah penyelenggara",
+   "Mahasiswa aktif semua semester",
+   "Surat keterangan tidak mampu",
+   "IPK minimal 2,75"
+  ],
+  "kontak": {
+   "nama": "Dinas Pendidikan",
+   "info": "(0267) 000-111"
+  },
+  "sumber": {
+   "nama": "Situs resmi pemerintah daerah",
+   "url": "https://example.com/bantuan-pendidikan"
+  }
+ },
+ {
+  "id": "l1",
+  "nama": "Lomba UI/UX Design “Campus Solutions”",
+  "kategori": "Lomba",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Desain",
+   "Teknologi"
+  ],
+  "penyelenggara": "Himpunan Mahasiswa Sistem Informasi",
+  "buka": -14,
+  "tutup": 3,
+  "lokasi": "Aula Fakultas Ilmu Komputer (babak final); penyisihan lewat formulir daring",
+  "verified": true,
+  "cek": -4,
+  "manfaat": "Total hadiah Rp6.000.000 + sertifikat + poin SKP",
+  "deskripsi": "Kompetisi merancang solusi digital untuk masalah di lingkungan kampus. Peserta tim 2–3 orang mengirim prototipe Figma dan dokumen studi kasus.",
+  "syarat": [
+   "Tim 2–3 mahasiswa aktif",
+   "Satu tim boleh lintas prodi",
+   "Karya orisinal, belum pernah dilombakan",
+   "Mengirim prototipe Figma + PDF studi kasus"
+  ],
+  "kontak": {
+   "nama": "Narahubung HIMSI (Divisi Acara)",
+   "info": "0813-0000-3344 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Instagram resmi HIMSI",
+   "url": "https://example.com/lomba-uiux"
+  }
+ },
+ {
+  "id": "l2",
+  "nama": "Business Plan Competition Tingkat Nasional",
+  "kategori": "Lomba",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Bisnis"
+  ],
+  "penyelenggara": "UKM Kewirausahaan",
+  "buka": -20,
+  "tutup": 9,
+  "lokasi": "Pengumpulan proposal & penjurian lewat Zoom",
+  "verified": true,
+  "cek": -8,
+  "manfaat": "Hadiah Rp10.000.000 + inkubasi bisnis",
+  "deskripsi": "Kompetisi rencana bisnis untuk mahasiswa se-Indonesia. Finalis mempresentasikan model bisnis di depan juri praktisi.",
+  "syarat": [
+   "Tim 3 orang dari perguruan tinggi yang sama",
+   "Proposal bisnis maksimal 15 halaman",
+   "Video pitching 3 menit"
+  ],
+  "kontak": {
+   "nama": "Panitia BPC",
+   "info": "bpc@ukmwirausaha.example"
+  },
+  "sumber": {
+   "nama": "Situs resmi UKM Kewirausahaan",
+   "url": "https://example.com/bpc-nasional"
+  }
+ },
+ {
+  "id": "l3",
+  "nama": "Lomba Karya Tulis Ilmiah Lingkungan",
+  "kategori": "Lomba",
+  "jenis": "Akademik",
+  "bidang": [
+   "Sains",
+   "Sosial"
+  ],
+  "penyelenggara": "BEM Fakultas Teknik",
+  "buka": -30,
+  "tutup": -2,
+  "lokasi": "Ruang Seminar, Gedung Fakultas Teknik",
+  "verified": true,
+  "cek": -20,
+  "manfaat": "Hadiah Rp4.500.000 + publikasi prosiding",
+  "deskripsi": "Lomba karya tulis tentang solusi permasalahan lingkungan di daerah. Pendaftaran sudah ditutup; informasi tetap ditampilkan sebagai arsip.",
+  "syarat": [
+   "Individu atau tim maksimal 3 orang",
+   "Naskah 10–15 halaman",
+   "Format sesuai pedoman panitia"
+  ],
+  "kontak": {
+   "nama": "Sekretariat BEM FT",
+   "info": "bemft@kampus.example"
+  },
+  "sumber": {
+   "nama": "Pengumuman BEM FT",
+   "url": "https://example.com/lkti-lingkungan"
+  }
+ },
+ {
+  "id": "s1",
+  "nama": "Seminar Nasional “Karier di Era AI”",
+  "kategori": "Seminar",
+  "jenis": "Akademik",
+  "bidang": [
+   "Teknologi",
+   "Umum"
+  ],
+  "penyelenggara": "Program Studi Sistem Informasi",
+  "buka": -7,
+  "tutup": 6,
+  "acara": 10,
+  "lokasi": "Auditorium Utama Kampus + Zoom Meeting",
+  "verified": true,
+  "cek": -2,
+  "manfaat": "E-sertifikat + poin SKP + materi pembicara",
+  "deskripsi": "Seminar tentang peluang dan tantangan karier di bidang teknologi ketika kecerdasan buatan makin banyak dipakai di industri. Kuota luring terbatas 300 peserta.",
+  "syarat": [
+   "Terbuka untuk mahasiswa semua prodi",
+   "Mengisi formulir pendaftaran",
+   "Membawa KTM saat hadir luring"
+  ],
+  "kontak": {
+   "nama": "Panitia Seminar SI",
+   "info": "0857-0000-5566 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Akun resmi Prodi SI",
+   "url": "https://example.com/seminar-ai"
+  }
+ },
+ {
+  "id": "s2",
+  "nama": "Seminar Literasi Keuangan Mahasiswa",
+  "kategori": "Seminar",
+  "jenis": "Akademik",
+  "bidang": [
+   "Bisnis"
+  ],
+  "penyelenggara": "Kelompok Studi Pasar Modal",
+  "buka": -3,
+  "tutup": 14,
+  "acara": 16,
+  "lokasi": "Zoom Meeting",
+  "verified": false,
+  "manfaat": "E-sertifikat",
+  "deskripsi": "Seminar daring tentang pengelolaan uang saku, menabung, dan dasar investasi untuk mahasiswa.",
+  "syarat": [
+   "Terbuka untuk umum",
+   "Registrasi melalui formulir panitia"
+  ],
+  "kontak": {
+   "nama": "Humas KSPM",
+   "info": "kspm@kampus.example"
+  },
+  "sumber": {
+   "nama": "Poster yang dibagikan di grup angkatan",
+   "url": "https://example.com/literasi-keuangan"
+  }
+ },
+ {
+  "id": "w1",
+  "nama": "Workshop Figma untuk Pemula",
+  "kategori": "Workshop",
+  "jenis": "Akademik",
+  "bidang": [
+   "Desain",
+   "Teknologi"
+  ],
+  "penyelenggara": "Komunitas Desain Kampus",
+  "buka": -9,
+  "tutup": 1,
+  "acara": 5,
+  "lokasi": "Lab Komputer 2, Gedung Fakultas Ilmu Komputer",
+  "verified": true,
+  "cek": -1,
+  "manfaat": "Sertifikat + file latihan + poin SKP",
+  "deskripsi": "Workshop praktik dasar Figma: frame, komponen, auto layout, dan prototyping sederhana. Peserta membawa laptop sendiri.",
+  "syarat": [
+   "Kuota 40 peserta",
+   "Membawa laptop",
+   "Sudah membuat akun Figma"
+  ],
+  "kontak": {
+   "nama": "Koordinator Workshop",
+   "info": "0821-0000-7788 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Instagram Komunitas Desain",
+   "url": "https://example.com/workshop-figma"
+  }
+ },
+ {
+  "id": "w2",
+  "nama": "Workshop Analisis Data dengan Python",
+  "kategori": "Workshop",
+  "jenis": "Akademik",
+  "bidang": [
+   "Teknologi",
+   "Sains"
+  ],
+  "penyelenggara": "Laboratorium Sistem Informasi",
+  "buka": -1,
+  "tutup": 18,
+  "acara": 22,
+  "lokasi": "Lab Data Lt. 3, Gedung Fakultas Ilmu Komputer",
+  "verified": true,
+  "cek": 0,
+  "manfaat": "Sertifikat + akses modul",
+  "deskripsi": "Pengenalan pandas, visualisasi data, dan studi kasus data akademik mahasiswa. Dua sesi, masing-masing tiga jam.",
+  "syarat": [
+   "Mahasiswa semester 2 ke atas",
+   "Memahami dasar pemrograman",
+   "Membawa laptop dengan Python terpasang"
+  ],
+  "kontak": {
+   "nama": "Asisten Lab SI",
+   "info": "labsi@kampus.example"
+  },
+  "sumber": {
+   "nama": "Pengumuman Lab SI",
+   "url": "https://example.com/workshop-python"
+  }
+ },
+ {
+  "id": "k1",
+  "nama": "Open Recruitment Panitia Dies Natalis",
+  "kategori": "Kepanitiaan",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Sosial",
+   "Umum"
+  ],
+  "penyelenggara": "BEM Universitas",
+  "buka": -5,
+  "tutup": 4,
+  "lokasi": "Sekretariat BEM, Gedung Student Center",
+  "verified": true,
+  "cek": -2,
+  "manfaat": "Pengalaman organisasi + poin SKP",
+  "deskripsi": "Rekrutmen panitia untuk rangkaian acara Dies Natalis kampus. Tersedia divisi acara, humas, perlengkapan, dokumentasi, dan konsumsi.",
+  "syarat": [
+   "Mahasiswa aktif semester 1–5",
+   "Mengisi formulir dan memilih divisi",
+   "Bersedia mengikuti rapat rutin"
+  ],
+  "kontak": {
+   "nama": "Sekretaris Panitia",
+   "info": "0896-0000-9900 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Instagram resmi BEM",
+   "url": "https://example.com/oprec-dies"
+  }
+ },
+ {
+  "id": "k2",
+  "nama": "Panitia Pengenalan Kampus Fakultas",
+  "kategori": "Kepanitiaan",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Sosial"
+  ],
+  "penyelenggara": "Fakultas Ilmu Komputer",
+  "buka": -2,
+  "tutup": 21,
+  "lokasi": "Ruang Rapat Lt. 2, Fakultas Ilmu Komputer",
+  "verified": false,
+  "manfaat": "Sertifikat kepanitiaan",
+  "deskripsi": "Rekrutmen panitia pengenalan kampus untuk mahasiswa baru tingkat fakultas.",
+  "syarat": [
+   "Mahasiswa semester 3 atau 5",
+   "Lolos wawancara",
+   "Komitmen hingga acara selesai"
+  ],
+  "kontak": {
+   "nama": "Koordinator Kemahasiswaan Fakultas",
+   "info": "kemahasiswaan.fik@kampus.example"
+  },
+  "sumber": {
+   "nama": "Pesan berantai grup kelas",
+   "url": "https://example.com/panitia-pengenalan"
+  }
+ },
+ {
+  "id": "v1",
+  "nama": "Volunteer Mengajar Desa Binaan",
+  "kategori": "Volunteer",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Sosial",
+   "Bahasa"
+  ],
+  "penyelenggara": "Komunitas Kampus Mengajar",
+  "buka": -10,
+  "tutup": 8,
+  "lokasi": "Desa binaan (titik kumpul: Gerbang Utama Kampus)",
+  "verified": true,
+  "cek": -5,
+  "manfaat": "Sertifikat relawan + poin SKP",
+  "deskripsi": "Kegiatan mengajar anak SD setiap akhir pekan selama satu bulan. Transportasi disediakan dari kampus.",
+  "syarat": [
+   "Mahasiswa aktif semua prodi",
+   "Bersedia hadir 4 kali akhir pekan",
+   "Mengikuti pembekalan relawan"
+  ],
+  "kontak": {
+   "nama": "Koordinator Relawan",
+   "info": "0819-0000-2233 (WhatsApp)"
+  },
+  "sumber": {
+   "nama": "Situs Komunitas Kampus Mengajar",
+   "url": "https://example.com/volunteer-mengajar"
+  }
+ },
+ {
+  "id": "v2",
+  "nama": "Relawan Festival Literasi Kota",
+  "kategori": "Volunteer",
+  "jenis": "Non-akademik",
+  "bidang": [
+   "Bahasa",
+   "Sosial"
+  ],
+  "penyelenggara": "Perpustakaan Daerah",
+  "buka": -1,
+  "tutup": 30,
+  "acara": 40,
+  "lokasi": "Gedung Perpustakaan Daerah, Jl. Merdeka",
+  "verified": true,
+  "cek": -1,
+  "manfaat": "Sertifikat + merchandise festival",
+  "deskripsi": "Relawan untuk membantu sesi dongeng, lapak baca, dan registrasi pengunjung festival literasi.",
+  "syarat": [
+   "Usia minimal 18 tahun",
+   "Bersedia bertugas 2 hari",
+   "Komunikatif"
+  ],
+  "kontak": {
+   "nama": "Panitia Festival",
+   "info": "festival@perpusda.example"
+  },
+  "sumber": {
+   "nama": "Situs Perpustakaan Daerah",
+   "url": "https://example.com/festival-literasi"
+  }
+ }
+]
