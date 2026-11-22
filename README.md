@@ -110,15 +110,16 @@ Satu tempat untuk info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volu
 
 ## Diagram UML
 
+Diagram Use Case, ERD, Activity, dan Sequence di bawah ini sama dengan yang tercantum di laporan Kelompok 5 (dibuat dengan draw.io).
+
 ### Use Case Diagram
-<p align="center"><img src="assets/uml/use-case.png" alt="Use Case Diagram PINTAR" width="100%"></p>
+<p align="center"><img src="assets/uml/use-case.png" alt="Use Case Diagram PINTAR" width="60%"></p>
 
 ### Class Diagram
 Nama atribut dan operasi sama dengan model di `app/Models`.
 <p align="center"><img src="assets/uml/class-diagram.png" alt="Class Diagram PINTAR" width="90%"></p>
 
 ### Entity Relationship Diagram (ERD)
-Sesuai tabel di `database/migrations`.
 <p align="center"><img src="assets/uml/erd.png" alt="ERD PINTAR" width="80%"></p>
 
 ### Activity & Sequence Diagram
@@ -141,7 +142,7 @@ Sesuai tabel di `database/migrations`.
 <p align="center"><img src="assets/uml/activity/activity-uc03.png" alt="Activity Diagram UC03" width="48%"> <img src="assets/uml/sequence/sequence-uc03.png" alt="Sequence Diagram UC03" width="48%"></p>
 </details>
 
-Kode PlantUML untuk Use Case, Class, dan ERD ada di `assets/uml/*.puml`.
+Kode PlantUML untuk Class Diagram ada di `assets/uml/class-diagram.puml`.
 
 ---
 
