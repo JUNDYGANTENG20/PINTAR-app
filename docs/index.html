@@ -512,6 +512,18 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
 }
+.about-grid .panel + .panel{margin-top:0}
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.member{background:var(--surface-2);border-radius:var(--r-md);padding:18px;display:grid;gap:6px;justify-items:start;align-content:start}
+.member .avatar{width:52px;height:52px;border-radius:999px;display:grid;place-items:center;background:var(--teal);color:#fff;font:800 18px/1 var(--font-display)}
+.member:first-child .avatar{background:var(--navy)}
+.member h3{font-size:16px;margin-top:6px}
+.member .role{font:700 12px/1.2 var(--font-display);color:var(--teal);text-transform:uppercase;letter-spacing:.06em}
+.member p:last-child{font-size:14px;color:var(--ink-2)}
+.quote{margin-top:14px;font:800 18px/1.3 var(--font-display);color:var(--primary-ink)}
+.facts{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr);gap:8px 14px;margin:0;font-size:15px}
+.facts dt{font:700 13px/1.5 var(--font-display);color:var(--ink-2)}
+.facts dd{margin:0;color:var(--ink)}
 </style>
 
 <header class="site-head">
@@ -546,7 +558,7 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
         <p style="max-width:44ch">Satu tempat untuk info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer. Setiap informasi menautkan ke sumber resminya.</p>
       </div>
       <div><h4>Jelajahi</h4><ul><li><a href="#jelajahi">Semua kegiatan</a></li><li><a href="#beasiswa">Beasiswa</a></li><li><a href="#jelajahi" data-go-cat="Lomba">Lomba</a></li><li><a href="#jelajahi" data-go-cat="Kepanitiaan">Kepanitiaan</a></li></ul></div>
-      <div><h4>Informasi</h4><ul><li><a href="#tentang">Tentang PINTAR</a></li><li><a href="#tentang-fr" data-scroll="fr">Kebutuhan fungsional</a></li><li><a href="#kelola">Halaman pengelola</a></li></ul></div>
+      <div><h4>Informasi</h4><ul><li><a href="#tentang">Tentang PINTAR</a></li><li><a href="#tentang-tim">Tim Kelompok 5</a></li><li><a href="#kelola">Halaman pengelola</a></li></ul></div>
     </div>
     <div class="foot-note"><span>Sistem Informasi PINTAR · Kelompok 5 · APSI 3B-SI</span><span>Mockup: nama kegiatan, tanggal, dan angka adalah data ilustrasi.</span></div>
   </div>
@@ -1146,24 +1158,12 @@ function renderSch(){
     </article>`).join("") : `<div class="empty">${ic("cap")}<h3>Tidak ada beasiswa dengan status ini</h3><button class="btn btn-ghost btn-sm" type="button" data-sch="">Tampilkan semua</button></div>`;
 }
 
-const FR = [
- ["FR-01","Menampilkan daftar informasi beasiswa yang tersedia.","Halaman Beasiswa, bagian beasiswa di Beranda"],
- ["FR-02","Menampilkan persyaratan dan kriteria setiap beasiswa.","Kartu beasiswa, Detail › Persyaratan & kriteria"],
- ["FR-03","Menyediakan sumber resmi penyedia untuk setiap beasiswa.","Tombol “Buka sumber resmi” pada beasiswa"],
- ["FR-04","Menampilkan periode pendaftaran setiap kegiatan.","Tanggal tutup di kartu, panel Periode pendaftaran di Detail"],
- ["FR-05","Memberi informasi/pengingat saat pendaftaran akan berakhir.","Ikon lonceng, panel Pengingat, kartu Deadline terdekat, bagian Segera ditutup"],
- ["FR-06","Menampilkan kontak pihak penyelenggara.","Detail › Kontak pendaftaran (dengan tombol Salin)"],
- ["FR-07","Memuat informasi kegiatan secara terstruktur.","Setiap kegiatan punya kategori, jenis, bidang, periode, sumber"],
- ["FR-08","Pencarian berdasarkan kata kunci.","Kolom pencarian di Beranda dan Jelajahi"],
- ["FR-09","Pencarian berdasarkan jenis kegiatan.","Pilihan Jenis kegiatan (Akademik / Non-akademik)"],
- ["FR-10","Informasi akademik dan non-akademik dalam satu platform.","Jelajahi Kegiatan memuat semua kategori"],
- ["FR-11","Menampilkan detail kegiatan yang dipilih.","Halaman Detail Kegiatan"],
- ["FR-12","Kategori beasiswa, lomba, seminar, workshop, kepanitiaan.","Kartu kategori di Beranda (+ Volunteer)"],
- ["FR-13","Filter berdasarkan bidang atau kategori.","Panel Filter di Jelajahi"],
- ["FR-14","Memilih lebih dari satu kategori/bidang minat.","Checkbox kategori & chip bidang minat (multi-pilih)"],
- ["FR-15","Menampilkan sumber informasi resmi yang mempublikasikan.","Detail › Sumber informasi"],
- ["FR-16","Tanda verifikasi untuk info dari sumber terpercaya.","Lencana Terverifikasi pada kartu dan Detail"],
- ["FR-17","Tautan ke sumber asli untuk cek keaslian.","Tautan sumber di Detail dan Beasiswa"]
+const TIM = [
+ ["RM","Regina Martha Secunda","Ketua kelompok","Menyusun studi kelayakan, analisis kebutuhan, pemodelan, perancangan sistem, dan penutup laporan."],
+ ["AA","Aqila Al-Jundy","Pengembang sistem","Membangun prototype dan aplikasi PINTAR, menyusun bab implementasi, serta menguji sistem."],
+ ["BA","Bunga Aulia Raya","Analis kebutuhan","Menyusun studi kelayakan, analisis kebutuhan, dan bab implementasi, serta menguji sistem."],
+ ["RR","Radhin Ramadhan Hendestian","Pengembang sistem","Membangun sistem, menyusun bab implementasi dan pengujian, serta menguji sistem."],
+ ["TN","Talitha Nailal Husna","Analis & pemodelan","Menyusun pendahuluan, analisis kebutuhan, pemodelan sistem, dan lampiran laporan."]
 ];
 function viewTentang(){
   return `
@@ -1179,8 +1179,6 @@ function viewTentang(){
         <p>Pesan baru membuat info lama tertumpuk, sehingga sulit tahu apakah pendaftaran masih buka. Akibatnya banyak kesempatan terlewat, padahal kegiatan ini penting untuk pengalaman, prestasi, poin SKP, relasi, dan biaya kuliah.</p></section>
       <section class="panel"><h2>${ic("check")} Tujuan sistem</h2>
         <ul class="list"><li>Memusatkan info lomba, seminar, workshop, beasiswa, volunteer, dan kegiatan lain.</li><li>Memudahkan mahasiswa menemukan info sesuai minat dan kebutuhan.</li><li>Mengurangi risiko kesempatan terlewat karena info tertumpuk.</li><li>Membantu meningkatkan partisipasi mahasiswa.</li><li>Membuat info lebih terorganisir dan mudah diakses.</li></ul></section>
-      <section class="panel"><h2>${ic("user")} Mahasiswa</h2><p style="color:var(--ink-2)">Pengguna utama yang mencari, melihat, dan mengikuti informasi kegiatan atau kesempatan yang tersedia.</p></section>
-      <section class="panel"><h2>${ic("shield")} Admin / pengelola</h2><p style="color:var(--ink-2)">Memasukkan, memperbarui, dan menghapus informasi agar tetap relevan. Rincian hak akses dan proses persetujuan masih dianalisis.</p></section>
     </div>
     <section class="panel"><h2>${ic("arrow")} Alur penggunaan utama</h2>
       <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(240px,1fr));display:grid">
@@ -1193,13 +1191,32 @@ function viewTentang(){
         <li><span><b>Ikuti sumber resmi</b>Untuk informasi lanjut atau pendaftaran.</span></li>
         <li><span><b>Pantau deadline</b>Lewat pengingat yang tersedia.</span></li>
       </ol></section>
-    <section class="panel" id="fr"><h2>${ic("layers")} Kebutuhan fungsional di mockup ini</h2>
-      <p style="margin-bottom:14px">ID mengikuti dokumen analisis kebutuhan (Tugas 2). Kolom kanan menunjukkan di mana kebutuhan diwujudkan.</p>
-      <div class="table-scroll"><table><thead><tr><th>ID</th><th>Kebutuhan fungsional</th><th>Diwujudkan di</th></tr></thead><tbody>
-        ${FR.map(r=>`<tr><td class="id">${r[0]}</td><td>${r[1]}</td><td style="color:var(--ink-2)">${r[2]}</td></tr>`).join("")}
-      </tbody></table></div></section>
-    <section class="panel"><h2>${ic("alert")} Batasan dan hal yang perlu divalidasi</h2>
-      <ul class="list"><li>Statistik, nama kegiatan, tanggal, dan tautan pada mockup adalah data ilustrasi (tautan memakai domain example.com).</li><li>Dashboard pendaftar dan pendapatan untuk admin belum punya dasar dari wawancara dan belum tercantum di FR-01 sampai FR-17.</li><li>Kriteria status verifikasi perlu ditetapkan pengelola.</li><li>Mekanisme dan kanal notifikasi pengingat belum diputuskan; mockup menampilkan pengingat di dalam situs.</li><li>Login, registrasi, profil, dan hak akses belum dirinci; tombol Masuk hanya simulasi peran.</li><li>Teknologi rencana: Laravel (PHP) atau React/Next.js, dengan MySQL. Pilihan final ditetapkan tim.</li></ul></section>
+    <div class="about-grid">
+      <section class="panel"><h2>${ic("layers")} Arti nama PINTAR</h2>
+        <p style="color:var(--ink-2)"><b style="color:var(--ink)">PINTAR</b> adalah singkatan dari <b style="color:var(--ink)">Pusat Informasi dan Aktivitas Relevan Mahasiswa</b>: satu tempat bagi mahasiswa untuk menemukan kesempatan yang relevan dengan minat dan kebutuhannya.</p>
+        <p class="quote">“Temukan Peluang, Kembangkan Potensimu.”</p></section>
+      <section class="panel"><h2>${ic("building")} Tentang proyek</h2>
+        <dl class="facts">
+          <dt>Mata kuliah</dt><dd>Analisis dan Perancangan Sistem Informasi (APSI)</dd>
+          <dt>Kelas</dt><dd>3B Sistem Informasi</dd>
+          <dt>Dosen pengampu</dt><dd>Siska, M.Kom</dd>
+          <dt>Kampus</dt><dd>Fakultas Ilmu Komputer, Universitas Singaperbangsa Karawang</dd>
+          <dt>Tahun</dt><dd>2026</dd>
+        </dl></section>
+    </div>
+    <section class="panel"><h2>${ic("calendar")} Perjalanan proyek</h2>
+      <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(185px,1fr));display:grid">
+        <li><span><b>Studi kelayakan</b>31 Agustus 2026. Kelayakan teknis, organisasi, dan ekonomi (BCR 1,59, ROI 59%).</span></li>
+        <li><span><b>Wawancara</b>7 September 2026. Menggali kondisi dan kendala dua narasumber mahasiswa.</span></li>
+        <li><span><b>Analisis kebutuhan</b>14 September 2026. Merumuskan 6 user requirement dan 17 kebutuhan fungsional.</span></li>
+        <li><span><b>Pemodelan &amp; perancangan</b>Use case, activity, sequence, class diagram, dan ERD.</span></li>
+        <li><span><b>Implementasi</b>November 2026. Prototype UI dan aplikasi web Laravel + MySQL.</span></li>
+      </ol></section>
+    <section class="panel" id="tim"><h2>${ic("users")} Tim Kelompok 5</h2>
+      <p style="margin-bottom:16px">Lima mahasiswa Sistem Informasi UNSIKA yang sering melewatkan info lomba dan beasiswa karena tertumpuk di grup WhatsApp, lalu memutuskan membuat solusinya sendiri.</p>
+      <div class="team-grid">
+        ${TIM.map(([ini,nama,peran,isi])=>`<article class="member"><span class="avatar">${ini}</span><h3>${nama}</h3><p class="role">${peran}</p><p>${isi}</p></article>`).join("")}
+      </div></section>
   </div>`;
 }
 
@@ -1464,7 +1481,7 @@ function route(){
   goingBack = false; lastHash = curHash;
   let h = location.hash.slice(1) || "beranda";
   let scrollTo = null;
-  if(h==="tentang-fr"){ h="tentang"; scrollTo="fr"; }
+  if(h==="tentang-tim"){ h="tentang"; scrollTo="tim"; }
   const app = $("#app");
   if(h.startsWith("kegiatan-")) app.innerHTML = viewDetail(h.slice(9));
   else app.innerHTML = (VIEWS[h] || viewHome)();
