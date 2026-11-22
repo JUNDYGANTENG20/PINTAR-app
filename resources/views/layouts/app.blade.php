@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>{{ isset($judul) ? $judul.' · PINTAR' : 'PINTAR · Pusat Informasi dan Aktivitas Relevan Mahasiswa' }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/apple-touch-icon.png') }}">
     <meta name="description" content="PINTAR mengumpulkan info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer mahasiswa dalam satu platform.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,7 +17,7 @@
 <header class="site-head">
     <div class="wrap head-row">
         <a class="brand" href="{{ route('beranda') }}" aria-label="PINTAR, ke beranda">
-            <span class="brand-mark" aria-hidden="true">P</span>
+            <span class="brand-mark" aria-hidden="true"></span>
             <span class="brand-text"><b>PINTAR</b><small>Pusat Informasi &amp; Aktivitas Mahasiswa</small></span>
         </a>
         <nav class="nav" id="nav" aria-label="Navigasi utama">
@@ -61,7 +63,7 @@
     <div class="wrap">
         <div class="foot-grid">
             <div class="stack">
-                <a class="brand" href="{{ route('beranda') }}"><span class="brand-mark" aria-hidden="true">P</span><span class="brand-text"><b>PINTAR</b><small>Pusat Informasi dan Aktivitas Relevan Mahasiswa</small></span></a>
+                <a class="brand" href="{{ route('beranda') }}"><span class="brand-mark" aria-hidden="true"></span><span class="brand-text"><b>PINTAR</b><small>Pusat Informasi dan Aktivitas Relevan Mahasiswa</small></span></a>
                 <p style="max-width:44ch">Satu tempat untuk info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volunteer. Setiap informasi menautkan ke sumber resminya.</p>
             </div>
             <div><h4>Jelajahi</h4><ul>
