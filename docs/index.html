@@ -519,7 +519,13 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
 .member:first-child .avatar{background:var(--navy)}
 .member h3{font-size:16px;margin-top:6px}
 .member .role{font:700 12px/1.2 var(--font-display);color:var(--teal);text-transform:uppercase;letter-spacing:.06em}
-.member p:last-child{font-size:14px;color:var(--ink-2)}
+.member{min-width:0}
+.contacts{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px;width:100%}
+.contacts a{display:flex;align-items:center;gap:8px;min-height:36px;padding:0 12px;border-radius:999px;background:var(--surface);border:1px solid var(--line);color:var(--ink);text-decoration:none;font-size:13px;font-weight:600;min-width:0}
+.contacts a:hover{border-color:var(--teal)}
+.contacts a span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.contacts .ico{color:var(--teal);flex:none}
+.no-contact{font-size:13px;color:var(--ink-2);margin-top:6px}
 .quote{margin-top:14px;font:800 18px/1.3 var(--font-display);color:var(--primary-ink)}
 .facts{display:grid;grid-template-columns:minmax(0,130px) minmax(0,1fr);gap:8px 14px;margin:0;font-size:15px}
 .facts dt{font:700 13px/1.5 var(--font-display);color:var(--ink-2)}
@@ -608,6 +614,10 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></symbol>
     <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1"/></symbol>
     <symbol id="i-image" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.4 5.4 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></symbol>
+    <symbol id="i-email" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
     <symbol id="i-reset"viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></symbol>
   </defs>
 </svg>
@@ -1158,13 +1168,25 @@ function renderSch(){
     </article>`).join("") : `<div class="empty">${ic("cap")}<h3>Tidak ada beasiswa dengan status ini</h3><button class="btn btn-ghost btn-sm" type="button" data-sch="">Tampilkan semua</button></div>`;
 }
 
+/* Kontak anggota. Isi username/alamat; kontak yang kosong tidak ditampilkan. */
 const TIM = [
- ["RM","Regina Martha Secunda","Ketua kelompok","Menyusun studi kelayakan, analisis kebutuhan, pemodelan, perancangan sistem, dan penutup laporan."],
- ["AA","Aqila Al-Jundy","Pengembang sistem","Membangun prototype dan aplikasi PINTAR, menyusun bab implementasi, serta menguji sistem."],
- ["BA","Bunga Aulia Raya","Analis kebutuhan","Menyusun studi kelayakan, analisis kebutuhan, dan bab implementasi, serta menguji sistem."],
- ["RR","Radhin Ramadhan Hendestian","Pengembang sistem","Membangun sistem, menyusun bab implementasi dan pengujian, serta menguji sistem."],
- ["TN","Talitha Nailal Husna","Analis & pemodelan","Menyusun pendahuluan, analisis kebutuhan, pemodelan sistem, dan lampiran laporan."]
+ {ini:"RM", nama:"Regina Martha Secunda", peran:"Ketua kelompok", instagram:"reginamarthase", linkedin:"", github:"", email:""},
+ {ini:"AA", nama:"Aqila Al-Jundy", peran:"Pengembang sistem", instagram:"aqjwndy", linkedin:"", github:"JUNDYGANTENG20", email:""},
+ {ini:"BA", nama:"Bunga Aulia Raya", peran:"Analis kebutuhan", instagram:"lynnryy__", linkedin:"", github:"", email:""},
+ {ini:"RR", nama:"Radhin Ramadhan Hendestian", peran:"Pengembang sistem", instagram:"radhin.smh", linkedin:"", github:"", email:""},
+ {ini:"TN", nama:"Talitha Nailal Husna", peran:"Analis & pemodelan", instagram:"litha.docx", linkedin:"", github:"", email:""}
 ];
+const SOSMED = [
+ ["instagram","Instagram",u=>"https://instagram.com/"+u,u=>"@"+u],
+ ["linkedin","LinkedIn",u=>"https://www.linkedin.com/in/"+u,u=>u],
+ ["github","GitHub",u=>"https://github.com/"+u,u=>u],
+ ["email","Email",u=>"mailto:"+u,u=>u]
+];
+function kontakAnggota(t){
+  const ada = SOSMED.filter(([k])=>t[k]);
+  if(!ada.length) return `<p class="no-contact">Kontak segera ditambahkan</p>`;
+  return `<ul class="contacts">${ada.map(([k,label,url,teks])=>`<li><a href="${url(t[k])}" target="_blank" rel="noopener noreferrer" title="${label}">${ic(k)}<span>${teks(t[k])}</span></a></li>`).join("")}</ul>`;
+}
 function viewTentang(){
   return `
   <section class="page-hero"><div class="wrap">
@@ -1204,18 +1226,10 @@ function viewTentang(){
           <dt>Tahun</dt><dd>2026</dd>
         </dl></section>
     </div>
-    <section class="panel"><h2>${ic("calendar")} Perjalanan proyek</h2>
-      <ol class="steps" style="grid-template-columns:repeat(auto-fit,minmax(185px,1fr));display:grid">
-        <li><span><b>Studi kelayakan</b>31 Agustus 2026. Kelayakan teknis, organisasi, dan ekonomi (BCR 1,59, ROI 59%).</span></li>
-        <li><span><b>Wawancara</b>7 September 2026. Menggali kondisi dan kendala dua narasumber mahasiswa.</span></li>
-        <li><span><b>Analisis kebutuhan</b>14 September 2026. Merumuskan 6 user requirement dan 17 kebutuhan fungsional.</span></li>
-        <li><span><b>Pemodelan &amp; perancangan</b>Use case, activity, sequence, class diagram, dan ERD.</span></li>
-        <li><span><b>Implementasi</b>November 2026. Prototype UI dan aplikasi web Laravel + MySQL.</span></li>
-      </ol></section>
     <section class="panel" id="tim"><h2>${ic("users")} Tim Kelompok 5</h2>
       <p style="margin-bottom:16px">Lima mahasiswa Sistem Informasi UNSIKA yang sering melewatkan info lomba dan beasiswa karena tertumpuk di grup WhatsApp, lalu memutuskan membuat solusinya sendiri.</p>
       <div class="team-grid">
-        ${TIM.map(([ini,nama,peran,isi])=>`<article class="member"><span class="avatar">${ini}</span><h3>${nama}</h3><p class="role">${peran}</p><p>${isi}</p></article>`).join("")}
+        ${TIM.map(t=>`<article class="member"><span class="avatar">${t.ini}</span><h3>${t.nama}</h3><p class="role">${t.peran}</p>${kontakAnggota(t)}</article>`).join("")}
       </div></section>
   </div>`;
 }
