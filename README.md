@@ -33,7 +33,7 @@ Satu tempat untuk info lomba, seminar, workshop, beasiswa, kepanitiaan, dan volu
 - [Cara Menjalankan](#cara-menjalankan)
 - [Pengujian](#pengujian)
 - [Deploy](#deploy)
-- [Tim](#tim)
+- [Tim & Kontribusi](#tim--kontribusi)
 
 ---
 
@@ -238,17 +238,30 @@ Atur `.env`: `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL`, dan kredensial 
 
 ---
 
-## Tim
+## Tim & Kontribusi
 
-**Kelompok 5 · Analisis dan Perancangan Sistem Informasi · 3B-SI**
+**Kelompok 5 · Analisis dan Perancangan Sistem Informasi · 3B-SI · Universitas Singaperbangsa Karawang**
 
-| Nama | Peran |
-|---|---|
-| _isi nama_ | _isi peran_ |
-| _isi nama_ | _isi peran_ |
-| _isi nama_ | _isi peran_ |
-| _isi nama_ | _isi peran_ |
-| _isi nama_ | _isi peran_ |
+| Anggota | Peran | Kontribusi | Kontak |
+|---|---|---|---|
+| **Regina Martha Secunda** | Ketua kelompok | Mengoordinasi tim, menyusun studi kelayakan, analisis kebutuhan, pemodelan dan perancangan sistem, serta bab penutup laporan. | [@reginamarthase](https://instagram.com/reginamarthase) |
+| **Aqila Al-Jundy** | Pengembang sistem | Membangun prototype UI dan aplikasi web PINTAR (Laravel + MySQL), mengelola repositori dan GitHub Pages, menyusun bab implementasi, serta menguji sistem. | [@aqjwndy](https://instagram.com/aqjwndy) · [GitHub](https://github.com/JUNDYGANTENG20) |
+| **Bunga Aulia Raya** | Analis kebutuhan | Menyusun studi kelayakan, analisis kebutuhan, dan bab implementasi, serta menguji sistem. | [@lynnryy__](https://instagram.com/lynnryy__) |
+| **Radhin Ramadhan Hendestian** | Pengembang sistem | Membantu membangun sistem, menyusun bab implementasi dan pengujian, serta menguji sistem. | [@radhin.smh](https://instagram.com/radhin.smh) |
+| **Talitha Nailal Husna** | Analis & pemodelan | Menyusun pendahuluan, analisis kebutuhan, pemodelan sistem (diagram UML), dan lampiran laporan. | [@litha.docx](https://instagram.com/litha.docx) |
+
+### Ringkasan kontribusi per tahap
+
+| Tahap | Regina | Aqila | Bunga | Radhin | Talitha |
+|---|:-:|:-:|:-:|:-:|:-:|
+| Pendahuluan | | | | | ✓ |
+| Studi kelayakan | ✓ | | ✓ | | |
+| Analisis kebutuhan | ✓ | | ✓ | | ✓ |
+| Pemodelan & perancangan (UML, ERD) | ✓ | | | | ✓ |
+| Prototype UI & aplikasi web | | ✓ | | ✓ | |
+| Implementasi (laporan) | | ✓ | ✓ | ✓ | |
+| Pengujian sistem | | ✓ | ✓ | ✓ | |
+| Penutup & lampiran | ✓ | | | | ✓ |
 
 ---
 
