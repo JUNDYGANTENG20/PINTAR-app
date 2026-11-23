@@ -30,7 +30,7 @@
 :root{
   --bg:#F5EFEB; --surface:#FFFFFF; --surface-2:#EEF3F7; --ink:#2F4156; --ink-2:#4F6B7A; --line:#DCE5EC;
   --primary:#2F4156; --primary-hover:#23313F; --on-primary:#FFFFFF; --primary-soft:#C8D9E6; --primary-ink:#2F4156;
-  --teal:#4E7183; --chart:#2F79A8; --sky:#C8D9E6; --beige:#F5EFEB;
+  --teal:#4E7183; --sky:#C8D9E6; --beige:#F5EFEB;
   --navy:#2F4156; --on-navy:#F5EFEB; --on-navy-2:#C8D9E6;
   --hero-a:#2F4156; --hero-b:#567C8D; --hero-c:#8FB0C4;
   --glass:rgba(255,255,255,.80); --glass-line:rgba(255,255,255,.95); --glass-ink:#2F4156;
@@ -45,7 +45,7 @@
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
   --bg:#1B2633; --surface:#243345; --surface-2:#2C3E52; --ink:#F5EFEB; --ink-2:#B9CBD8; --line:#3A5066;
   --primary:#C8D9E6; --primary-hover:#DDE8F0; --on-primary:#2F4156; --primary-soft:#3A5468; --primary-ink:#C8D9E6;
-  --teal:#7FA3B5; --chart:#4A90C2; --sky:#C8D9E6; --beige:#F5EFEB;
+  --teal:#7FA3B5; --sky:#C8D9E6; --beige:#F5EFEB;
   --navy:#141D27; --on-navy:#F5EFEB; --on-navy-2:#B9CBD8;
   --hero-a:#1E2B3A; --hero-b:#2F4156; --hero-c:#567C8D;
   --glass:rgba(36,51,69,.80); --glass-line:rgba(200,217,230,.22); --glass-ink:#F5EFEB;
@@ -56,7 +56,7 @@
 :root[data-theme="dark"]{
   --bg:#1B2633; --surface:#243345; --surface-2:#2C3E52; --ink:#F5EFEB; --ink-2:#B9CBD8; --line:#3A5066;
   --primary:#C8D9E6; --primary-hover:#DDE8F0; --on-primary:#2F4156; --primary-soft:#3A5468; --primary-ink:#C8D9E6;
-  --teal:#7FA3B5; --chart:#4A90C2; --sky:#C8D9E6; --beige:#F5EFEB;
+  --teal:#7FA3B5; --sky:#C8D9E6; --beige:#F5EFEB;
   --navy:#141D27; --on-navy:#F5EFEB; --on-navy-2:#B9CBD8;
   --hero-a:#1E2B3A; --hero-b:#2F4156; --hero-c:#567C8D;
   --glass:rgba(36,51,69,.80); --glass-line:rgba(200,217,230,.22); --glass-ink:#F5EFEB;
@@ -479,34 +479,6 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
 .rem-item a:hover{text-decoration:underline}
 .rem-item small{display:block;margin-top:3px}
 
-/* Dashboard */
-.dash-filters{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-block:28px 18px}
-.dash-filters .field{min-width:180px}
-.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
-.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 18px;min-width:0}
-.kpi small{display:block;font:700 12px/1.3 var(--font-display);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
-.kpi b{display:block;font:800 26px/1.15 var(--font-display);margin-top:8px;overflow-wrap:anywhere}
-.kpi span{display:block;font-size:13px;color:var(--ink-2);margin-top:4px}
-.charts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-bottom:18px;align-items:start}
-.chart{min-width:0}
-.chart h2{font-size:17px;margin:0}
-.chart .sub{font-size:13px;color:var(--ink-2);margin:4px 0 14px}
-.hbar{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-.hbar li{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:12px;align-items:center;border-radius:8px;padding:5px 6px;outline-offset:0}
-.hbar li:hover,.hbar li:focus-visible{background:var(--surface-2)}
-.hbar .lbl{font-size:13px;line-height:1.3;color:var(--ink)}
-.hbar .track{display:flex;align-items:center;gap:8px;min-width:0;border-left:1px solid var(--line);min-height:26px}
-.hbar .bar{height:18px;background:var(--chart);border-radius:0 4px 4px 0;flex:none}
-.hbar .val{font:700 12.5px/1 var(--font-display);color:var(--ink);white-space:nowrap}
-.hbar .val.zero{color:var(--ink-2);font-weight:500}
-.dash-tip{position:fixed;z-index:90;pointer-events:none;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lg);padding:10px 12px;font-size:13px;min-width:200px;max-width:280px}
-.dash-tip b{display:block;font-family:var(--font-display);margin-bottom:6px}
-.dash-tip div{display:flex;justify-content:space-between;gap:12px;color:var(--ink-2)}
-.dash-tip div span:last-child{color:var(--ink);font-weight:600}
-.dash-table td.n,.dash-table th.n{text-align:right;white-space:nowrap}
-.dash-table tfoot td{font-weight:800;background:var(--surface-2);font-family:var(--font-display)}
-@media (max-width:960px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.charts{grid-template-columns:1fr}}
-@media (max-width:440px){.hbar li{grid-template-columns:minmax(0,110px) minmax(0,1fr)}.kpi b{font-size:22px}}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;background:var(--ink);color:var(--bg);padding:12px 18px;border-radius:999px;font:600 14px/1.3 var(--font-display);box-shadow:var(--shadow-lg);transition:opacity .2s,transform .2s;z-index:100;max-width:calc(100vw - 32px)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
@@ -545,7 +517,6 @@ dialog.drawer{margin:0 0 0 auto;height:100dvh;max-height:100dvh;width:min(420px,
       <a href="#beasiswa" data-nav="beasiswa">Beasiswa</a>
       <a href="#tentang" data-nav="tentang">Tentang</a>
       <a href="#kelola" data-nav="kelola" id="nav-kelola" hidden>Kelola</a>
-      <a href="#dashboard" data-nav="dashboard" id="nav-dash" hidden>Dashboard</a>
     </nav>
     <div class="head-actions">
       <button class="icon-btn" id="bell-btn" type="button" aria-label="Pengingat deadline"><svg class="ico" viewBox="0 0 24 24"><use href="#i-bell"/></svg><span class="badge num" id="bell-count" hidden>0</span></button>
@@ -722,7 +693,7 @@ const SEED = [
   syarat:["Usia minimal 18 tahun","Bersedia bertugas 2 hari","Komunikatif"],
   kontak:{nama:"Panitia Festival",info:"festival@perpusda.example"},sumber:{nama:"Situs Perpustakaan Daerah",url:"https://example.com/festival-literasi"}}
 ];
-/* Biaya pendaftaran per kegiatan (data ilustrasi), dipakai untuk dashboard pendapatan */
+/* Biaya pendaftaran per kegiatan (data ilustrasi) */
 const BIAYA = {
   l1:{biaya:100000, satuan:"tim"}, l2:{biaya:150000, satuan:"tim"}, l3:{biaya:50000, satuan:"orang"},
   s1:{biaya:25000, satuan:"orang"}, w1:{biaya:50000, satuan:"orang"}, w2:{biaya:75000, satuan:"orang"}
@@ -732,16 +703,14 @@ function normalize(it){
   it.lokasi = it.lokasi || ""; delete it.mode; delete it.platform; delete it.promo; delete it.pendaftarPromo;
   it.biaya = Math.max(0, Number(it.biaya)||0); it.satuan = it.satuan || "orang";
   it.gambar = it.gambar || "";
-  it.pendaftar = Math.max(0, Math.round(Number(it.pendaftar)||0));
+  delete it.pendaftar;
   return it;
 }
-/* Jumlah pendaftar yang dilaporkan penyelenggara (data ilustrasi) */
-const PENDAFTAR = {b1:120, b2:340, b3:28, b4:0, l1:38, l2:24, l3:41, s1:214, s2:156, w1:36, w2:18, k1:87, k2:45, v1:32, v2:60};
 const POSTER = {l1:"posters/l1.jpg", w1:"posters/w1.jpg", s1:"posters/s1.jpg", v1:"posters/v1.jpg"};
 function seedItems(){
   return SEED.map(s => {
     const b = BIAYA[s.id] || {};
-    return normalize(Object.assign({}, s, {buka:off(s.buka), tutup:off(s.tutup), acara: s.acara!=null?off(s.acara):"", cekTgl: s.verified?off(s.cek||0):"", gambar: POSTER[s.id]||"", pendaftar:PENDAFTAR[s.id]||0,
+    return normalize(Object.assign({}, s, {buka:off(s.buka), tutup:off(s.tutup), acara: s.acara!=null?off(s.acara):"", cekTgl: s.verified?off(s.cek||0):"", gambar: POSTER[s.id]||"",
       biaya:b.biaya||0, satuan:b.satuan||"orang"}));
   });
 }
@@ -1241,7 +1210,7 @@ function viewKelola(){
   <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Kelola</span></nav><h1>Halaman Pengelola</h1><p>Khusus admin/pengelola untuk menambah, memperbarui, dan menghapus informasi kegiatan.</p></div></section>
   <div class="wrap section"><div class="empty">${ic("shield")}<h2>Masuk sebagai pengelola untuk melanjutkan</h2><p style="color:var(--ink-2);max-width:52ch">Proses autentikasi belum ditetapkan di laporan. Di mockup ini kamu bisa mensimulasikan peran admin.</p><button class="btn btn-primary" type="button" data-role="admin">Masuk sebagai Admin (simulasi)</button></div></div>`;
   return `
-  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Kelola</span></nav><h1>Kelola Informasi Kegiatan</h1><p style="margin-bottom:14px">Tambah, perbarui, dan hapus informasi agar tidak ada yang kedaluwarsa.</p><a class="btn btn-white btn-sm" href="#dashboard">${ic("layers")} Lihat dashboard pendaftar &amp; pendapatan</a></div></section>
+  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <span>Kelola</span></nav><h1>Kelola Informasi Kegiatan</h1><p style="margin-bottom:14px">Tambah, perbarui, dan hapus informasi agar tidak ada yang kedaluwarsa.</p></div></section>
   <div class="wrap" style="padding-bottom:32px">
     <div class="admin-stats" id="admin-stats"></div>
     <div class="notice" style="margin-bottom:16px">${ic("alert")}<span>Simulasi: perubahan hanya tersimpan di browser ini. Rincian hak akses dan alur persetujuan masih perlu dianalisis.</span></div>
@@ -1263,7 +1232,7 @@ function renderAdmin(){
   body.innerHTML = list.map(it=>`<tr>
     <td><div class="t-cell">${it.gambar?`<img class="t-thumb" src="${esc(it.gambar)}" alt="">`:`<span class="t-thumb" style="display:grid;place-items:center;color:var(--ink-2)">${ic(catIcon(it.kategori))}</span>`}<div><a class="t-name" href="#kegiatan-${esc(it.id)}">${esc(it.nama)}</a><small>${esc(it.penyelenggara)}</small></div></div></td>
     <td>${esc(it.kategori)}<br><small>${esc(it.jenis)}</small></td>
-    <td class="num" style="white-space:nowrap">${it.biaya?`${rupiah(it.biaya)}<br><small>/${esc(it.satuan)}</small>`:"Gratis"}<br><small>${fmtNum(it.pendaftar)} pendaftar</small></td>
+    <td class="num" style="white-space:nowrap">${it.biaya?`${rupiah(it.biaya)}<br><small>/${esc(it.satuan)}</small>`:"Gratis"}</td>
     <td class="num" style="white-space:nowrap">${fmt(it.buka)}<br><small>s.d. ${fmt(it.tutup)}</small></td>
     <td>${pill(it)}</td>
     <td>${it.verified?`<span class="vbadge">${ic("badge")} Ya</span>`:`<span class="vbadge no">Belum</span>`}</td>
@@ -1273,96 +1242,11 @@ function renderAdmin(){
   </tr>`).join("") || `<tr><td colspan="7" style="text-align:center;color:var(--ink-2)">Tidak ada kegiatan yang cocok.</td></tr>`;
 }
 
-/* ================= Dashboard ================= */
-const dash = {kat:"", paid:false, sort:"income"};
-const pendapatan = it => {
-  if(!it.biaya) return 0;
-  return it.pendaftar * it.biaya;
-};
 const fmtNum = n => Number(n).toLocaleString("id-ID");
-function rpShort(n){
-  if(n >= 1e6) return "Rp" + (n/1e6).toLocaleString("id-ID",{maximumFractionDigits:2}) + " jt";
-  if(n >= 1e3) return "Rp" + (n/1e3).toLocaleString("id-ID",{maximumFractionDigits:1}) + " rb";
-  return "Rp" + fmtNum(n);
-}
-function dashRows(){
-  return items.filter(i => (!dash.kat || i.kategori===dash.kat) && (!dash.paid || i.biaya > 0));
-}
-function viewDashboard(){
-  if(role!=="admin") return viewKelola();
-  return `
-  <section class="page-hero"><div class="wrap">${backBtn()}<nav class="crumbs" aria-label="Jejak halaman"><a href="#beranda">Beranda</a> / <a href="#kelola">Kelola</a> / <span>Dashboard</span></nav><h1>Dashboard Pendaftar &amp; Pendapatan</h1><p>Jumlah pendaftar dan estimasi pendapatan setiap kegiatan, dihitung dari jumlah pendaftar dikali biaya pendaftaran.</p></div></section>
-  <div class="wrap" style="padding-bottom:32px">
-    <div class="dash-filters" role="group" aria-label="Filter dashboard">
-      <label class="field"><span>Kategori</span><select class="select input" id="dash-kat"><option value="">Semua kategori</option>${CATS.map(k=>`<option ${dash.kat===k?"selected":""}>${k}</option>`).join("")}</select></label>
-      <label class="field"><span>Tampilkan</span><select class="select input" id="dash-paid"><option value="">Semua kegiatan</option><option value="1" ${dash.paid?"selected":""}>Hanya yang berbayar</option></select></label>
-      <label class="field"><span>Urutkan tabel</span><select class="select input" id="dash-sort">${[["income","Pendapatan tertinggi"],["daftar","Pendaftar terbanyak"],["az","Nama A–Z"]].map(([k,l])=>`<option value="${k}" ${dash.sort===k?"selected":""}>${l}</option>`).join("")}</select></label>
-    </div>
-    <div id="dash-body"></div>
-    <div class="notice" style="margin-top:18px">${ic("alert")}<span>PINTAR tidak menerima pendaftaran maupun pembayaran. Jumlah pendaftar dilaporkan penyelenggara dan diisi admin, jadi pendapatan di sini adalah <b>estimasi</b> yang diterima penyelenggara. Semua angka adalah data ilustrasi.</span></div>
-  </div>
-  <div class="dash-tip" id="dash-tip" hidden></div>`;
-}
-function hbarList(rows, val, label, tip){
-  const max = Math.max(1, ...rows.map(val));
-  return `<ul class="hbar">${rows.map(it => {
-    const v = val(it), pct = v / max;
-    return `<li tabindex="0" data-tip="${esc(tip(it))}"><span class="lbl">${esc(it.nama)}</span><span class="track"><span class="bar" style="width:calc((100% - 92px) * ${pct.toFixed(4)})"></span><span class="val num${v?"":" zero"}">${label(v)}</span></span></li>`;
-  }).join("")}</ul>`;
-}
-function renderDash(){
-  const box = $("#dash-body"); if(!box) return;
-  const rows = dashRows();
-  const paid = rows.filter(i => i.biaya > 0);
-  const totDaftar = rows.reduce((a,i)=>a+i.pendaftar,0);
-  const totIncome = rows.reduce((a,i)=>a+pendapatan(i),0);
-  const paidDaftar = paid.reduce((a,i)=>a+i.pendaftar,0);
-  const tipOf = it => [it.nama, `Pendaftar|${fmtNum(it.pendaftar)} ${it.satuan==="tim"&&it.biaya?"tim":"orang"}`, `Biaya|${it.biaya?rupiah(it.biaya)+"/"+it.satuan:"Gratis"}`, `Pendapatan|${rupiah(pendapatan(it))}`].join("~");
-  const byIncome = [...paid].sort((a,b)=>pendapatan(b)-pendapatan(a));
-  const byDaftar = [...rows].sort((a,b)=>b.pendaftar-a.pendaftar);
-  const table = [...rows].sort(dash.sort==="az" ? (a,b)=>a.nama.localeCompare(b.nama,"id") : dash.sort==="daftar" ? (a,b)=>b.pendaftar-a.pendaftar : (a,b)=>pendapatan(b)-pendapatan(a) || b.pendaftar-a.pendaftar);
-  if(!rows.length){ box.innerHTML = `<div class="empty">${ic("search")}<h3>Tidak ada kegiatan untuk filter ini</h3></div>`; return; }
-  box.innerHTML = `
-    <div class="kpis">
-      <div class="kpi"><small>Total pendaftar</small><b class="num">${fmtNum(totDaftar)}</b><span>dari ${rows.length} kegiatan</span></div>
-      <div class="kpi"><small>Total pendapatan (estimasi)</small><b class="num">${rupiah(totIncome)}</b><span>dari ${paid.length} kegiatan berbayar</span></div>
-      <div class="kpi"><small>Rata-rata per kegiatan berbayar</small><b class="num">${paid.length?rupiah(Math.round(totIncome/paid.length)):"–"}</b><span>${fmtNum(paidDaftar)} pendaftar berbayar</span></div>
-      <div class="kpi"><small>Kegiatan gratis</small><b class="num">${fmtNum(rows.length - paid.length)}</b><span>${fmtNum(totDaftar - paidDaftar)} pendaftar</span></div>
-    </div>
-    <div class="charts">
-      <section class="panel chart" aria-labelledby="ch-income"><h2 id="ch-income">Pendapatan per kegiatan</h2><p class="sub">Estimasi dalam rupiah, hanya kegiatan berbayar.</p>
-        ${byIncome.length ? hbarList(byIncome, pendapatan, rpShort, tipOf) : `<p class="sub">Tidak ada kegiatan berbayar untuk filter ini.</p>`}</section>
-      <section class="panel chart" aria-labelledby="ch-daftar" style="margin-top:0"><h2 id="ch-daftar">Pendaftar per kegiatan</h2><p class="sub">Orang atau tim, sesuai satuan pendaftaran.</p>
-        ${hbarList(byDaftar, i=>i.pendaftar, fmtNum, tipOf)}</section>
-    </div>
-    <section class="panel" style="margin-top:0"><h2>${ic("layers")} Rincian per kegiatan</h2>
-      <div class="table-scroll"><table class="dash-table"><thead><tr><th>Kegiatan</th><th>Kategori</th><th>Status</th><th class="n">Biaya</th><th class="n">Pendaftar</th><th class="n">Pendapatan</th></tr></thead>
-      <tbody>${table.map(it=>`<tr><td><a href="#kegiatan-${esc(it.id)}">${esc(it.nama)}</a></td><td>${esc(it.kategori)}</td><td>${pill(it)}</td>
-        <td class="n num">${it.biaya?`${rupiah(it.biaya)}<br><small>/${esc(it.satuan)}</small>`:"Gratis"}</td>
-        <td class="n num">${fmtNum(it.pendaftar)}</td><td class="n num">${it.biaya?rupiah(pendapatan(it)):"–"}</td></tr>`).join("")}</tbody>
-      <tfoot><tr><td colspan="4">Total (${rows.length} kegiatan)</td><td class="n num">${fmtNum(totDaftar)}</td><td class="n num">${rupiah(totIncome)}</td></tr></tfoot></table></div>
-    </section>`;
-}
-function showTip(li, x, y){
-  const tip = $("#dash-tip"); if(!tip) return;
-  const [title, ...rows] = li.dataset.tip.split("~");
-  tip.innerHTML = `<b>${esc(title)}</b>` + rows.map(r => { const [k,v] = r.split("|"); return `<div><span>${esc(k)}</span><span>${esc(v)}</span></div>`; }).join("");
-  tip.hidden = false;
-  const w = tip.offsetWidth, h = tip.offsetHeight;
-  tip.style.left = Math.max(8, Math.min(innerWidth - w - 8, x + 14)) + "px";
-  tip.style.top = Math.max(8, Math.min(innerHeight - h - 8, y + 14)) + "px";
-}
-document.addEventListener("mousemove", e => {
-  const li = e.target.closest?.(".hbar li");
-  const tip = $("#dash-tip"); if(!tip) return;
-  if(li) showTip(li, e.clientX, e.clientY); else tip.hidden = true;
-});
-document.addEventListener("focusin", e => { const li = e.target.closest?.(".hbar li"); if(li){ const r = li.getBoundingClientRect(); showTip(li, r.left + 140, r.bottom - 10); } });
-document.addEventListener("focusout", e => { if(e.target.closest?.(".hbar li")){ const tip = $("#dash-tip"); if(tip) tip.hidden = true; } });
 
 /* ================= Dialogs ================= */
 function openForm(id){
-  const it = id ? byId(id) : {nama:"",kategori:"Lomba",jenis:"Non-akademik",bidang:[],penyelenggara:"",buka:off(0),tutup:off(14),acara:"",lokasi:"",biaya:0,satuan:"orang",pendaftar:0,manfaat:"",deskripsi:"",syarat:[],kontak:{nama:"",info:""},sumber:{nama:"",url:""},verified:false};
+  const it = id ? byId(id) : {nama:"",kategori:"Lomba",jenis:"Non-akademik",bidang:[],penyelenggara:"",buka:off(0),tutup:off(14),acara:"",lokasi:"",biaya:0,satuan:"orang",manfaat:"",deskripsi:"",syarat:[],kontak:{nama:"",info:""},sumber:{nama:"",url:""},verified:false};
   const d = $("#form-dlg");
   d.innerHTML = `<form method="dialog" id="item-form" novalidate>
     <div class="dlg-head"><h2 id="form-title">${id?"Ubah informasi kegiatan":"Tambah kegiatan baru"}</h2><button class="icon-btn" type="button" data-close aria-label="Tutup">${ic("x")}</button></div>
@@ -1376,11 +1260,10 @@ function openForm(id){
       <label class="field" data-fld="tutup"><span>Pendaftaran ditutup *</span><input class="input" type="date" id="f-tutup" value="${esc(it.tutup)}"><small class="err" hidden></small></label>
       <label class="field"><span>Tanggal pelaksanaan</span><input class="input" type="date" id="f-acara" value="${esc(it.acara||"")}"></label>
       <label class="field full"><span>Lokasi</span><input class="input" id="f-lokasi" value="${esc(it.lokasi)}" placeholder="Contoh: Aula Fakultas Ilmu Komputer, atau Zoom Meeting"></label>
-      <fieldset class="f-group full promo-fs"><legend>Biaya &amp; pendaftar (untuk dashboard)</legend>
+      <fieldset class="f-group full promo-fs"><legend>Biaya pendaftaran</legend>
         <div class="form-grid">
           <label class="field" data-fld="biaya"><span>Biaya pendaftaran (Rp, 0 = gratis)</span><input class="input" type="number" min="0" step="1000" id="f-biaya" value="${esc(it.biaya||0)}"><small class="err" hidden></small></label>
           <label class="field"><span>Per</span><select class="select input" id="f-satuan">${["orang","tim"].map(x=>`<option ${it.satuan===x?"selected":""}>${x}</option>`).join("")}</select></label>
-          <label class="field full" data-fld="pendaftar"><span>Jumlah pendaftar (dilaporkan penyelenggara)</span><input class="input" type="number" min="0" step="1" id="f-pendaftar" value="${esc(it.pendaftar||0)}"><small class="err" hidden></small></label>
         </div>
       </fieldset>
       <div class="field full"><span>Gambar / poster kegiatan (PNG, JPG, WebP · opsional)</span>
@@ -1427,14 +1310,13 @@ function openForm(id){
     if(!/^https?:\/\/\S+\.\S+/.test(v("surl"))) errs.url = "Masukkan tautan lengkap, diawali https://";
     const biaya = Number(v("biaya")||0);
     if(!(biaya >= 0)) errs.biaya = "Biaya tidak boleh negatif.";
-    if(!(Number(v("pendaftar")||0) >= 0)) errs.pendaftar = "Jumlah pendaftar tidak boleh negatif.";
     d.querySelectorAll("[data-fld]").forEach(f => { const m = errs[f.dataset.fld]; f.classList.toggle("invalid", !!m); const s = f.querySelector(".err"); s.hidden = !m; s.textContent = m||""; });
     const first = d.querySelector(".field.invalid .input"); if(first){ first.focus(); return; }
     const data = {
       id: id || ("x"+Date.now().toString(36)), nama:v("nama"), kategori:v("kategori"), jenis:v("jenis"),
       bidang:[...d.querySelectorAll('input[name="f-bidang"]:checked')].map(x=>x.value),
       penyelenggara:v("penyelenggara"), buka:v("buka"), tutup:v("tutup"), acara:v("acara"), lokasi:v("lokasi")||"Menyusul",
-      biaya, satuan:v("satuan"), pendaftar:Number(v("pendaftar")||0),
+      biaya, satuan:v("satuan"),
       manfaat:v("manfaat"), deskripsi:v("deskripsi")||"Belum ada deskripsi.", syarat:v("syarat").split("\n").map(s=>s.trim()).filter(Boolean),
       kontak:{nama:v("knama")||"Belum dicantumkan", info:v("kinfo")||"–"}, sumber:{nama:v("snama")||"Sumber resmi", url:v("surl")},
       verified:$("#f-ver").checked, gambar: formPic
@@ -1477,11 +1359,10 @@ function openRem(){
 }
 
 /* ================= Router ================= */
-const VIEWS = {beranda:viewHome, jelajahi:viewExplore, beasiswa:viewBeasiswa, tentang:viewTentang, kelola:viewKelola, dashboard:viewDashboard};
+const VIEWS = {beranda:viewHome, jelajahi:viewExplore, beasiswa:viewBeasiswa, tentang:viewTentang, kelola:viewKelola};
 const histStack = []; let lastHash = null, goingBack = false;
 function parentHash(h){
   if(h.startsWith("kegiatan-")) return byId(h.slice(9))?.kategori==="Beasiswa" ? "beasiswa" : "jelajahi";
-  if(h==="dashboard") return "kelola";
   return "beranda";
 }
 function goBack(){
@@ -1507,15 +1388,13 @@ function route(){
   if(h==="jelajahi") renderResults();
   if(h==="beasiswa") renderSch();
   if(h==="kelola") renderAdmin();
-  if(h==="dashboard") renderDash();
-  const titles = {beranda:"PINTAR · Temukan Peluang", jelajahi:"Jelajahi Kegiatan · PINTAR", beasiswa:"Beasiswa · PINTAR", tentang:"Tentang · PINTAR", kelola:"Kelola · PINTAR", dashboard:"Dashboard · PINTAR"};
+  const titles = {beranda:"PINTAR · Temukan Peluang", jelajahi:"Jelajahi Kegiatan · PINTAR", beasiswa:"Beasiswa · PINTAR", tentang:"Tentang · PINTAR", kelola:"Kelola · PINTAR"};
   document.title = h.startsWith("kegiatan-") ? ((byId(h.slice(9))?.nama || "Kegiatan") + " · PINTAR") : (titles[h] || "PINTAR Mahasiswa");
   if(scrollTo){ setTimeout(()=>document.getElementById(scrollTo)?.scrollIntoView(), 30); } else window.scrollTo(0,0);
 }
 function refresh(){ const y = window.scrollY; route(); window.scrollTo(0,y); }
 function applyRole(){
   $("#nav-kelola").hidden = role!=="admin";
-  $("#nav-dash").hidden = role!=="admin";
   $("#login-label").textContent = role==="admin" ? "Admin" : role==="mahasiswa" ? "Mahasiswa" : "Masuk";
 }
 
@@ -1581,9 +1460,6 @@ document.addEventListener("input", e => {
 });
 document.addEventListener("change", e => {
   const el=e.target, id=el.id;
-  if(id==="dash-kat"){ dash.kat=el.value; renderDash(); return; }
-  if(id==="dash-paid"){ dash.paid=!!el.value; renderDash(); return; }
-  if(id==="dash-sort"){ dash.sort=el.value; renderDash(); return; }
   if(id==="hero-file"){ loadHeroImg(el.files[0]); el.value=""; return; }
   if(id==="ex-jenis"){ explore.jenis=el.value; renderResults(); }
   else if(id==="ex-status"){ explore.status=el.value; renderResults(); }
